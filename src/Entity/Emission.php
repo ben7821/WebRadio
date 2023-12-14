@@ -33,9 +33,13 @@ class Emission
     #[ORM\OneToMany(mappedBy: 'IDEMISSION', targetEntity: Audio::class, orphanRemoval: true)]
     private Collection $audio;
 
+    #[ORM\OneToMany(mappedBy: 'IDEMISSION', targetEntity: Inscription::class)]
+    private Collection $inscriptions;
+
     public function __construct()
     {
         $this->audio = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +131,36 @@ class Emission
             // set the owning side to null (unless already changed)
             if ($audio->getIDEMISSION() === $this) {
                 $audio->setIDEMISSION(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): static
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->setIDEMISSION($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): static
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getIDEMISSION() === $this) {
+                $inscription->setIDEMISSION(null);
             }
         }
 
