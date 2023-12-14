@@ -20,6 +20,12 @@ class Inscription
     #[ORM\Column(length: 255)]
     private ?string $NOM = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $CONTACT = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $REPONSE = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,30 @@ class Inscription
     public function setNOM(string $NOM): static
     {
         $this->NOM = $NOM;
+
+        return $this;
+    }
+
+    public function getCONTACT(): ?string
+    {
+        return $this->CONTACT;
+    }
+
+    public function setCONTACT(string $CONTACT): static
+    {
+        $this->CONTACT = $CONTACT;
+
+        return $this;
+    }
+
+    public function getREPONSE(): ?string
+    {
+        return $this->REPONSE;
+    }
+
+    public function setREPONSE(string $REPONSE): static
+    {
+        $this->REPONSE = $REPONSE;
 
         return $this;
     }
