@@ -30,6 +30,12 @@ class Audio
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DATE = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $AUDIO = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $AUTEURS = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +97,30 @@ class Audio
     public function setDATE(\DateTimeInterface $DATE): static
     {
         $this->DATE = $DATE;
+
+        return $this;
+    }
+
+    public function getAUDIO(): ?string
+    {
+        return $this->AUDIO;
+    }
+
+    public function setAUDIO(string $AUDIO): static
+    {
+        $this->AUDIO = $AUDIO;
+
+        return $this;
+    }
+
+    public function getAUTEURS(): ?string
+    {
+        return $this->AUTEURS;
+    }
+
+    public function setAUTEURS(string $AUTEURS): static
+    {
+        $this->AUTEURS = $AUTEURS;
 
         return $this;
     }
