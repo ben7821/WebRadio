@@ -18,7 +18,7 @@ class PodcastController extends AbstractController
 
     #[Route('/podcast', name: 'app_audio')]
     public function podcast(): Response {
-        return $this->render('podcast/index.html.twig', [
+        return $this->render('podcast/show_audio.html.twig', [
             'podcasts' => 'podcasts',
         ]);
     }

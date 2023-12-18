@@ -18,7 +18,7 @@ class CreationController extends AbstractController
     {
 
 
-        $emission = $doctrine->getRepository(Emission::class)->findAll();
+        $emission = $container->get('doctrine')->getRepository(Emission::class)->findAll();
 
         $audio = $doctrine->getRepository(Audio::class)->findAll();
 
