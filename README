@@ -27,6 +27,7 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 - flysystem-bundle
 - webpack-encore-bundle
 - filesystem
+- vich/uploader-bundle
 ***
 
 ## **Important:**
