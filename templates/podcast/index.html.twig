@@ -5,9 +5,16 @@
 {% block body %}
 <h1>Podcast</h1>
 
+{% block audio %}
+
 {% for podcasts in LesPodcasts %}
     <audio>{{podcasts}}</audio>
 {% endfor %}
+
+
+{% endblock audio %}
+
+
 
 <a  href="{{ path('app_audio') }}"> podcasts</a>
 {% endblock %}

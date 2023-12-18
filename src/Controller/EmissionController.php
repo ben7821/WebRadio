@@ -42,7 +42,7 @@ class EmissionController extends AbstractController
         ]);
     }
 
-    #[Route('/{ID}', name: 'app_emission_show', methods: ['GET'])]
+    #[Route('/{NOM}', name: 'app_emission_show', methods: ['GET'])]
     public function show(Emission $emission): Response
     {
         return $this->render('emission/show.html.twig', [

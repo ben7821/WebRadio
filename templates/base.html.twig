@@ -17,58 +17,11 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body>
-		{% block nav %}
-			<header>
-				<!-- logo -->
-				<a href="{{ path('app_home') }}"><img src="Logo" alt="WebRadio" class="logo"/></a>
-				<!-- navbar header -->
-				<div
-					class="headright">
-					<!-- emission btn -->
-					<div class="dropdown">
-						<a href="{{ path('app_emission_index') }}">EMISSIONS</a>
-						<div
-							class="dropdown-content">{# {% for ems in emissions %}
-																	<a href="{{ path('app_emission_index/') }}"></a>
-															    {% endfor %} #}
-						</div>
-					</div>
-					<!-- journal btn -->
-					<a href="">JOURNAL</a>
-					<!-- equipe btn -->
-					<div class="dropdown">
-						<a href="">L'EQUIPE</a>
-						<div class="dropdown-content">
-							<a href="">Le Lycée</a>
-							<a href="">Les Membres</a>
-						</div>
-					</div>
-				</div>
-			</header>
-		{% endblock %}
 
+
+	<body>
+    {% include 'layout/nav.html.twig' %}
 		{% block body %}{% endblock %}
+    {% include 'layout/footer.html.twig' %}
 	</body>
-	<footer>
-		{% block footer %}
-			<a href="{{ path('app_home') }}">
-				<img src="Logo.png" alt="Logo" class="logo-footer"/></a>
-			<h4>A propos</h4>
-			<div class="footer-element">
-				<ul>
-					<!-- LISTE DE TOUTES LES PAGES DU FOOTER -->
-					<li>
-						<a href="contact">- Contact</a>
-					</li>
-					<li>
-						<a href="plan">- Plan du site</a>
-					</li>
-					<li>
-						<a href="mentions">- Mentions Legales</a>
-					</li>
-				</ul>
-			</div>
-		{% endblock %}
-	</footer>
 </html>

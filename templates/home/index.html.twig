@@ -27,7 +27,7 @@
         <div class="border- Memis">
 			<a href="Emission/view/{{ e.NOM }}" >
 				<h3>{{ e.NOMLONG }}</h3>
-				<img src="rubrique/{{ e.NOM }}.png" alt="image" />
+				<img src="{{ asset('data/rubrique/' ~ e.NOM ~ '.png')}}" alt="image" />
   			</a>
 		</div>
     {% endfor %}
@@ -39,13 +39,14 @@
 		<div class="border- Membres">
 			<a href="Equipe/lycee">
 				<h3>LE LYCEE</h3>
-				<img src="logo/lycee.png" alt="LYCEE"/>
+				<img src="{{ asset('data/general/lycee.PNG')}}" alt="LYCEE"/>
 			</a>
 		</div>
 		<div class="border- Membres">
 			<a href="Equipe/membres">
 				<h3>LA WEB RADIO</h3>
-				<img src="logo/webr.png" alt="WBR"/>
+				<img src="{{ asset('data/general/logo/typo.png')}}" alt="WBRADIO"/>
 			</a>
 		</div>
+    </div>
 	{% endblock %}
