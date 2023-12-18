@@ -18,19 +18,18 @@ class PodcastController extends AbstractController
     }
 
     #[Route('/podcast', name: 'app_audio')]
-    public function getDossierPodcast(KernelInterface $kernel): Response {
-        $file = $kernel->getProjectDir().'/data/audio';
-        
+    public function recuperationPodcast(): Response {
+        $path = '../../data/audio/';
+        $files = scandir($path);
+        $content = '';
+        foreach ($files as $file) {
+            if ($file !== '.' && $file !== '..') {
+                $content .= file_get_contents($path . $file);
+            }
+        }
         return $this->render('podcast/index.html.twig', [
-            'podcasts' => 'podcasts',
+            'podcasts' => 'LesPodcasts',
         ]);
     }
 
-    #[Route('/podcast', name: 'app_recup_audio')]
-    public function RecuperationPodcast(): Response {
-
-        return $this->render('podcast/show_audio.html.twig', [
-            'podcasts' => 'podcasts',
-        ]);
-    }
 }

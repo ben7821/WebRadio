@@ -25,9 +25,9 @@
                 <td>{{ emission.NOMLONG }}</td>
                 <td>{{ emission.DESCRIPTION }}</td>
                 <td>{{ emission.IMG }}</td>
-                <td>{{ emission.INSCRIPTION ? 'Yes' : 'No' }}</td>
+                <td>{{ emission.INSCRIPTION ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="{{ path('app_creation_get_audios', {'ID': emission.ID}) }}">select</a>
+                    <!-- <a href="{{ path('app_creation_get_audios', {'ID': emission.ID}) }}">select</a>-->
                     <a href="{{ path('app_emission_show', {'ID': emission.ID}) }}">show</a>
                     <a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">edit</a>
                 </td>
@@ -112,4 +112,5 @@
                 });
             });
         });
+    </script>
 {% endblock %}

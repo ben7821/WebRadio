@@ -1,7 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 
 {% block body %}
-{% endblock %}
+	<h1 class="title">LE JOURNAL</h1>
+	<hr size="5" width="100%" color="black"/>
+	<div class="Mart">
+		{% for d in article %}
+			<a class="border- arti" href="Article/view/{{ d.ID }}">
+				<img src="general/nosrc.png" alt="nosrc"/>
+				<article>
+					<h2> {{ d.NOM }}</h2>
+					<p>{{ d.DESCRIPTION }}</p>
+				</article>
+			</a>
+		{% endfor %}
+	</div>
+
+	<h1 class="title">LES EMISSIONS</h1>
+	<hr size="5" width="100%" color="black"/>
+	<div class="Memissions">
+
+	{% for e in emissions %}
+        <div class="border- Memis">
+			<a href="Emission/view/{{ e.NOM }}" >
+				<h3>{{ e.NOMLONG }}</h3>
+				<img src="rubrique/{{ e.NOM }}.png" alt="image" />
+  			</a>
+		</div>
+    {% endfor %}
+	</div>
+
+	<h1 class="title">L'ÉQUIPE</h1>
+	<hr size="5" width="100%" color="black"/>
+	<div class="Mequipe">
+		<div class="border- Membres">
+			<a href="Equipe/lycee">
+				<h3>LE LYCEE</h3>
+				<img src="logo/lycee.png" alt="LYCEE"/>
+			</a>
+		</div>
+		<div class="border- Membres">
+			<a href="Equipe/membres">
+				<h3>LA WEB RADIO</h3>
+				<img src="logo/webr.png" alt="WBR"/>
+			</a>
+		</div>
+	{% endblock %}

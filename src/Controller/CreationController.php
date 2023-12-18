@@ -36,9 +36,7 @@ class CreationController extends AbstractController
         $emission = $em->getRepository(Emission::class)->find($ID);
 
         if (!$emission) {
-            throw $this->createNotFoundException(
-                'No emission found for id ' . $ID
-            );
+            return new JsonResponse(array('message' => 'Emission not found'), Response::HTTP_NOT_FOUND);
         }
 
         $audios = $emission->getAudio();
@@ -49,8 +47,8 @@ class CreationController extends AbstractController
                 'ID' => $audio->getId(),
                 'NOM' => $audio->getNOM(),
                 'DESCRIPTION' => $audio->getDESCRIPTION(),
-                'HEURE' => $audio->getHEURE(),
-                'DATE' => $audio->getDATE(),
+                'HEURE' => $audio->getHEURE()->format('H:i:s'),
+                'DATE' => $audio->getDATE()->format('Y-m-d'),
                 'AUDIO' => $audio->getAUDIO(),
                 'AUTEURS' => $audio->getAUTEURS()
             );
