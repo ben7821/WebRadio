@@ -28,4 +28,24 @@ class CreationController extends AbstractController
             'audios' => $audio,
         ]);
     }
+
+    #[Route('/creation/{ID}', name: 'app_creation_show')]
+    public function showAudios(EntityManagerInterface $em, $ID): Response
+    {
+        $emission = $em->getRepository(Emission::class)->find($ID);
+        
+        if (!$emission) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$ID
+            );
+        }
+
+        $audio = $emission->getAudio();
+
+        return $this->render('creation/index.html.twig', [
+            'controller_name' => 'CreationController',
+            'emissions' => $emission,
+            'audios' => $audio,
+        ]);
+    }
 }

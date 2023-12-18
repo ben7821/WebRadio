@@ -27,6 +27,7 @@
                 <td>{{ emission.IMG }}</td>
                 <td>{{ emission.INSCRIPTION ? 'Yes' : 'No' }}</td>
                 <td>
+                <a href="{{ path('app_creation_show', {'ID': emission.ID}) }}">select</a>
                     <a href="{{ path('app_emission_show', {'ID': emission.ID}) }}">show</a>
                     <a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">edit</a>
                 </td>
