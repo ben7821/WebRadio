@@ -1,0 +1,59 @@
+# WebRadio-Guy-Chauvet
+
+## **Description du projet**
+
+Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du lycée
+
+***
+
+## **Environnement technique**
+**Serveur utilisé** :
+- Apache 2.4
+
+**SGBD** :
+- Postgres 13.11
+- Adminer 4.8.1
+- yran 1.22.21
+- nodejs 
+
+**COMPOSER PACKGE**
+- apache-pack
+- annotations
+- fakerphp/faker
+- security-bundle
+- symfony/flex
+- flysystem-bundle
+- webpack-encore-bundle
+- filesystem
+
+
+## **Important:**
+MCD dans /doc ou autre documents
+***
+
+## **Repositories**
+URL : https://github.com/ben7821/WebRadio.git
+***
+
+## **Trelo GitHub**
+URL : https://github.com/users/ben7821/projects/1
+***
+
+## **Contact :**
+Adresse mail : gr-sts1-slam@lycee-guychauvet.fr
+***
+
+## **Planing :**
+
+Semain du 18/12 - 22/12 :
+ - NB heure : 11h
+    WebRadio -> Symfony
+***
+
+## **Equipe Dev :**
+- Mathieu
+- Florent
+- Benjamin
+- Kassim
+ -Yoan
+ ***
