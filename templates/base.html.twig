@@ -18,40 +18,38 @@
 		{% endblock %}
 	</head>
 	<body>
-		{% block body %}
-			<!-- header -->
+		{% block nav %}
 			<header>
 				<!-- logo -->
-				<a href="<?php echo WEBROOT ?>"><img src="Logo.png"; ?>" alt="WebRadio" class="logo"/></a>
+				<a href=""><img src="Logo" alt="WebRadio" class="logo"/></a>
 				<!-- navbar header -->
 				<div
 					class="headright">
 					<!-- emission btn -->
 					<div class="dropdown">
-						<a href="emission">EMISSIONS</a>
+						<a href="{{ path('app_emission_index') }}">EMISSIONS</a>
 						<div class="dropdown-content">
-							<?php
-        $emission = array();
-        foreach ($header_emissions as $ems) {
-          echo '
-            <a href="$ems['NOM']">' . $ems['NOMLONG'] . '</a>
-          ';
-        }
-        ?>
+							{# {% for ems in emissions %}
+								<a href="emission"></a>
+							{% endfor %} #}
 						</div>
 					</div>
 					<!-- journal btn -->
-					<a href="<?php echo WEBROOT ?>journax" style="pointer-events: none;color: #ccc">JOURNAL</a>
+					<a href="journal">JOURNAL</a>
 					<!-- equipe btn -->
 					<div class="dropdown">
 						<a href="<?php echo WEBROOT ?>Equipe">L'EQUIPE</a>
 						<div class="dropdown-content">
-							<a href="<?php echo WEBROOT ?>Equipe/lycee">Le Lycée</a>
-							<a href="<?php echo WEBROOT ?>Equipe/membres">Les Membres</a>
+							<a href="equipe">Le Lycée</a>
+							<a href="equipe">Les Membres</a>
 						</div>
 					</div>
 				</div>
 			</header>
 		{% endblock %}
+        {% block body %}{% endblock %}
+        {% block footer %}
+        
+        {% endblock %}
 	</body>
 </html>

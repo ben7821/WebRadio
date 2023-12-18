@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         {% for emission in emissions %}
-            <tr>
+            <tr class="emission-row" data-id="{{ emission.ID }}">
                 <td>{{ emission.ID }}</td>
                 <td>{{ emission.NOM }}</td>
                 <td>{{ emission.NOMLONG }}</td>
@@ -27,7 +27,7 @@
                 <td>{{ emission.IMG }}</td>
                 <td>{{ emission.INSCRIPTION ? 'Yes' : 'No' }}</td>
                 <td>
-                <a href="{{ path('app_creation_show', {'ID': emission.ID}) }}">select</a>
+                    <a href="{{ path('app_creation_get_audios', {'ID': emission.ID}) }}">select</a>
                     <a href="{{ path('app_emission_show', {'ID': emission.ID}) }}">show</a>
                     <a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">edit</a>
                 </td>
@@ -57,28 +57,59 @@
                 <th>actions</th>
             </tr>
         </thead>
-        <tbody>
-        {% for audio in audios %}
-            <tr>
-                <td>{{ audio.id }}</td>
-                <td>{{ audio.NOM }}</td>
-                <td>{{ audio.DESCRIPTION }}</td>
-                <td>{{ audio.HEURE ? audio.HEURE|date('H:i:s') : '' }}</td>
-                <td>{{ audio.DATE ? audio.DATE|date('Y-m-d') : '' }}</td>
-                <td>{{ audio.AUDIO }}</td>
-                <td>{{ audio.AUTEURS }}</td>
-                <td>
-                    <a href="{{ path('app_audio_show', {'id': audio.id}) }}">show</a>
-                    <a href="{{ path('app_audio_edit', {'id': audio.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
+        <tbody class="audios">
         </tbody>
     </table>
 
     <a href="{{ path('app_audio_new') }}">Create new</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.emission-row').forEach(row => {
+                row.addEventListener('click', () => {
+                    var id = row.dataset.id;
+
+                    fetch(`/creation/${id}/audios`)
+                        .then(response => response.json())
+                        .then(data => {
+                            var audios = document.querySelector('.audios');
+
+                            audios.innerHTML = '';
+
+                            if (data.length > 0) {
+                                data.forEach(audio => {
+                                    var tr = document.createElement('tr');
+
+                                    tr.innerHTML = `
+                                        <td>${audio.ID}</td>
+                                        <td>${audio.NOM}</td>
+                                        <td>${audio.DESCRIPTION}</td>
+                                        <td>${audio.HEURE}</td>
+                                        <td>${audio.DATE}</td>
+                                        <td>${audio.AUDIO}</td>
+                                        <td>${audio.AUTEURS}</td>
+                                        <td>
+                                            <a href="/audio/${audio.ID}">show</a>
+                                            <a href="/audio/${audio.ID}/edit">edit</a>
+                                        </td>
+                                    `;
+
+                                    audios.appendChild(tr);
+                                });
+                            } else {
+                                var tr = document.createElement('tr');
+
+                                tr.innerHTML = `
+                                    <td colspan="7">no records found</td>
+                                `;
+
+                                audios.appendChild(tr);
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                });
+            });
+        });
 {% endblock %}
