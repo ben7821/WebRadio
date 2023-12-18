@@ -10,9 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Controller\LayoutController;
+
+
 
 #[Route('/emission')]
-class EmissionController extends AbstractController
+class EmissionController extends LayoutController
 {
     #[Route('/', name: 'app_emission_index', methods: ['GET'])]
     public function index(EmissionRepository $emissionRepository): Response

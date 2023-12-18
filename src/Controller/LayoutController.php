@@ -11,13 +11,13 @@ use App\Entity\Emission;
 class LayoutController extends AbstractController
 {
     #[Route('/layout', name: 'app_layout')]
-    public function index(EntityManagerInterface $em): Response
+    public function header(EntityManagerInterface $em): Response
     {
-        $emission = $em->getRepository(Emission::class)->findAll();
+        $emissions = $em->getRepository(Emission::class)->findAll();
 
         return $this->render('layout/nav.html.twig', [
             'controller_name' => 'LayoutController',
-            'emissions' => $emission,
+            'hemissions' => $emissions,
         ]);
     }
 }

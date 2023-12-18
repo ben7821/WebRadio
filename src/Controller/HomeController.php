@@ -10,7 +10,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Article;
 use App\Entity\Emission;
 
-class HomeController extends AbstractController
+use App\Controller\LayoutController;
+
+class HomeController extends LayoutController
 {
     #[Route('/home', name: 'app_home')]
     public function index(EntityManagerInterface $em): Response

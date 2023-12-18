@@ -11,7 +11,7 @@
 				<a href="{{ path('app_emission_index') }}">EMISSIONS</a>
 				<div
 					class="dropdown-content">
-                    {% for ems in emissions %}
+                    {% for ems in hemissions %}
                         <a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}">{{ ems.NOMLONG }}</a>
 					{% endfor %}
 				</div>
