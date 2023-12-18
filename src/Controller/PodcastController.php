@@ -12,26 +12,26 @@ class PodcastController extends AbstractController
     #[Route('/podcast', name: 'app_podcast')]
     public function index(): Response
     {
-        $podcast = $this->recuperationPodcast();
+        $podcast = $this->recuperationAudio();
         return $this->render('podcast/index.html.twig', [
-            'controller_name' => 'PodcastController',
-            'podcast' => 'lesPodcasts',
+            //'controller_name' => 'PodcastController',
+            'podcasts' => 'lesPodcasts',
         ]);
     }
 
     #[Route('/podcast', name: 'app_audio')]
-    public function recuperationPodcast(): Response {
+    public function recuperationAudio(): Response {
         $path = 'data/audio/';
         $files = scandir($path);
-        $content = '';
-        foreach ($files as $file) {
-            if ($file !== '.' && $file !== '..') {
-                $content .= file_get_contents($path . $file);
-            }
-        }
+        $audio_files = array_filter($files, function($file) {
+            return pathinfo($file, PATHINFO_EXTENSION) === 'wav';
+        });
         return $this->render('podcast/index.html.twig', [
             'podcasts' => 'LesPodcasts',
         ]);
     }
+
+    
+
 
 }
