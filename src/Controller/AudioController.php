@@ -35,7 +35,7 @@ class AudioController extends AbstractController
             $emission = $entityManager->getRepository(Emission::class)->find($emissionId);
             
             if ($emission) {
-                $form->get('emission')->setData($emission);
+                //$form->get('emission')->setData($emission);
             }
         }
 
