@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+	<h1 style="display: flex; justify-content: flex-start; font-size: 1.9em;">La Web radio</h1>
+	<div class="logomembres">
+		<img src="{{ asset('data/general/lycee.PNG')}}" alt='typo' class='typo'>
+	</div>
+
+	<div
+		class="desc-web-radio">
+		<!-- <h2>Description</h2> -->
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat voluptatum iste nostrum culpa molestiae,
+			        eveniet repellendus. Dolores, quas. Neque assumenda dolores dolor accusantium reiciendis laudantium debitis
+			        animi cumque, minima vitae?
+			        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur aliquam quae vel minus itaque culpa
+			        voluptate vero totam inventore, non aliquid nemo optio enim! Nostrum blanditiis error ad dolorum sunt!
+			        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium expedita sed ipsam doloremque, minus
+			        animi soluta debitis a nemo quisquam ab sit pariatur aliquid nostrum praesentium similique officiis.
+			        Adipisci, maiores.
+		</p>
+	</div>
+	<h2 style="font-size: 1.9em;margin: 60px 0 20px 0;">Présentation des membres</h2>
+
+	<div class="presentation-membres">
+		<div class="membres">
+			<!-- Récuperent les informations de membres dans la tables équipe -->
+			<table class="membre-container">
+            {% for meb in membres %}
+				<tr>
+					{% for meb in membres %}
+					<td class="membres">
+						<div class="membre-image"><img src=""{{ asset('data/rubrique/' ~ meb.NOM ~ '.png')}}"" alt="img-Membres"></div>
+						<div class="membre-info">
+							<h3>
+								meb.NOM
+							</h3>
+							<p>
+								meb.DESCRIPTION
+							</p>
+						</div>
+					</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+
+	</div>
+{% endblock %}
+
+
+{# entity membres
+funtion get all membres & render (membres.html.twig)
+formalisme du code avec css ... #}

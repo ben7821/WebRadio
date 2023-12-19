@@ -15,7 +15,9 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 - Adminer 4.8.1
 
 **OTHER**
-- yarn 1.22.21
+- yarn 1.22.21 :
+    - Pour lancer le serveur web(css/js...)
+    & yarn encore dev-server
 - nodejs 
 
 **COMPOSER PACKGE**

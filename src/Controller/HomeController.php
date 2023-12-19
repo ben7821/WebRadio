@@ -10,9 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Article;
 use App\Entity\Emission;
 
-use App\Controller\LayoutController;
-
-class HomeController extends LayoutController
+class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
     public function index(EntityManagerInterface $em): Response
@@ -24,6 +22,30 @@ class HomeController extends LayoutController
             'controller_name' => 'HomeController',
             'article' => $article,
             'emissions' => $emission,
+        ]);
+    }
+
+    #[Route('/plan_site', name: 'app_plan_site')]
+    public function renderplan(): Response
+    {
+        return $this->render('home/plan_site.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+    #[Route('/contact', name: 'app_contact')]
+    public function rendercontact(): Response
+    {
+        return $this->render('home/contact.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+    #[Route('/legal', name: 'app_legal')]
+    public function renderlegal(): Response
+    {
+        return $this->render('home/legal.html.twig', [
+            'controller_name' => 'HomeController',
         ]);
     }
 }

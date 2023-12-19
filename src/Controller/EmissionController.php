@@ -10,12 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\LayoutController;
 
 
 
 #[Route('/emission')]
-class EmissionController extends LayoutController
+class EmissionController extends AbstractController
 {
     #[Route('/', name: 'app_emission_index', methods: ['GET'])]
     public function index(EmissionRepository $emissionRepository): Response
@@ -50,6 +49,7 @@ class EmissionController extends LayoutController
     {
         return $this->render('emission/show.html.twig', [
             'emission' => $emission,
+            'audios' => $emission->getAudio(),
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Emission;
 use App\Entity\Audio;
 use App\Form\AudioType;
 use App\Repository\AudioRepository;
@@ -27,6 +28,17 @@ class AudioController extends AbstractController
     {
         $audio = new Audio();
         $form = $this->createForm(AudioType::class, $audio);
+        
+        $emissionId = $request->query->get('emission');
+        
+        if ($emissionId) {
+            $emission = $entityManager->getRepository(Emission::class)->find($emissionId);
+            
+            if ($emission) {
+                $form->get('emission')->setData($emission);
+            }
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

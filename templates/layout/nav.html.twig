@@ -2,7 +2,7 @@
 {% block nav %}
 	<header>
 		<!-- logo -->
-		<a href="{{ path('app_home') }}"><img src="" alt="WebRadio" class="logo"/></a>
+		<a href="{{ path('app_home') }}"><img src="{{ asset('data/general/Logo.png')}}" alt="WebRadio" class="logo"/></a>
 		<!-- navbar header -->
 		<div
 			class="headright">
@@ -11,7 +11,7 @@
 				<a href="{{ path('app_emission_index') }}">EMISSIONS</a>
 				<div
 					class="dropdown-content">
-                    {% for ems in hemissions %}
+                    {% for ems in app.request.attributes.get('hemissions', []) %}
                         <a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}">{{ ems.NOMLONG }}</a>
 					{% endfor %}
 				</div>
@@ -20,10 +20,10 @@
 			<a href="">JOURNAL</a>
 			<!-- equipe btn -->
 			<div class="dropdown">
-				<a href="">L'EQUIPE</a>
+				<a href="{{ path('app_equipes') }}">L'EQUIPE</a>
 				<div class="dropdown-content">
-					<a href="">Le Lycée</a>
-					<a href="">Les Membres</a>
+					<a href="{{ path('app_lycee') }}">Le Lycée</a>
+					<a href="{{ path('app_membres') }}">Les Membres</a>
 				</div>
 			</div>
 		</div>
