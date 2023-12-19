@@ -14,6 +14,7 @@ class PodcastController extends AbstractController
     {
         $podcast = $this->recuperationAudio();
         return $this->render('podcast/index.html.twig', [
+            'controller_name' => 'PodcastController',
             'podcast' => 'lesPodcasts',
         ]);
     }
@@ -29,8 +30,5 @@ class PodcastController extends AbstractController
             'podcast' => 'LesPodcasts',
         ]);
     }
-
-
-
 
 }
