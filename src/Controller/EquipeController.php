@@ -15,10 +15,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class EquipeController extends AbstractController
 {
     #[Route('/', name: 'app_equipe_index', methods: ['GET'])]
-    public function index(EquipeRepository $equipeRepository): Response
+    public function index(): Response
     {
         return $this->render('equipe/index.html.twig', [
-            'equipes' => $equipeRepository->findAll(),
+            'controller_name' => 'EquipeController',
+        ]);
+    }
+
+    #[Route('/membres', name: 'app_membres_index')]
+    public function getAllMembres(EntityManagerInterface $entityManager) : Response{
+        $membres = $entityManager->getRepository(Equipe::class)->findAll();
+        return $this->render('equipe/membres.html.twig', [
+            'membres' => $membres,
+        ]);
+    }
+
+    #[Route('/lycee', name: 'app_lycee_index')]
+    public function renderLycee(EntityManagerInterface $entityManager){
+        return $this->render('equipe/lycee.html.twig', [
+            'controller_name' => 'EquipeController',
         ]);
     }
 
@@ -78,22 +93,6 @@ class EquipeController extends AbstractController
 
         return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    #[Route('/membres', name: 'app_membres_index')]
-    public function getAllMembres(EntityManagerInterface $entityManager) : Response{
-        $membres = $entityManager->getRepository(Equipe::class)->findAll();
-        return $this->render('equipe/membres.html.twig', [
-            'membres' => $membres,
-        ]);
-    }
-
-    #[Route('/lycee', name: 'app_lycee_index')]
-    public function renderLycee(EntityManagerInterface $entityManager){
-        return $this->render('equipe/lycee.html.twig', [
-            'controller_name' => 'EquipesController',
-        ]);
-    }
-
 
 
 }

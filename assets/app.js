@@ -13,3 +13,5 @@ import './styles/app.css';
 import './bootstrap';
 import './border';
 import './lecteur';
+import './creation';
+import './pagination';

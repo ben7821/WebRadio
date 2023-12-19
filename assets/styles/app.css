@@ -279,6 +279,10 @@ header a:hover {
   border-radius: 9px;
 }
 
+.membre-image {
+  
+}
+
 /* PAGE REDACTEUR ----------------------------------*/
 
 .content {
@@ -1793,6 +1797,7 @@ img[alt="img-Membres"] {
   border: 1px solid #000;
   padding: 0.5rem;
   text-align: center;
+  
 }
 
 .table tbody a:hover, .table tbody button:hover {
@@ -1827,3 +1832,26 @@ img[alt="img-Membres"] {
   padding: 1rem;
   margin: 1rem;
 }
+
+[id^="table"] {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* dataTable */
+
+.dataTables_filter input {
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  padding: 0.5rem;
+}
+
+/* change pagination button */
+
+/* .dataTables_paginate .paginate_button {
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  padding: 0.5rem;
+  color: #fff !important;
+  background: #000 !important;
+} */

@@ -6,7 +6,7 @@
 {% block body %}
 	<h1 class="display-full">Emissions</h1>
 
-	<table class="table">
+	<table  id="tableEmission" class="table">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -34,7 +34,7 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="7">no records found</td>
+					<td colspan="7">Pas d'émission</td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -42,13 +42,13 @@
 
 	<a href="{{ path('app_emission_new') }}" class="new_emission">NOUVELLE EMISSION</a>
 
-    <div style="height: 5vh;"></div>
+	<div style="height: 5vh;"></div>
 
 	<h1 class="display-full">Audios</h1>
-	<table class="table">
+	<table id="tableAudio" class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
+				<th>ID</th>
 				<th>NOM</th>
 				<th>DESCRIPTION</th>
 				<th>HEURE</th>
@@ -61,81 +61,41 @@
 		<tbody class="audios"></tbody>
 	</table>
 
-	<a href="{{ path('app_audio_new') }}" class="new_audio">NOUVEAU AUDIO</a>
+	<a href="{{ path('app_audio_new') }}" class="new_audio">NOUVEL AUDIO</a>
 
-	<script>
-		const newAudio = document.querySelector('.new_audio');
-let selectedEmission = null;
-document.addEventListener('DOMContentLoaded', () => {
-document.querySelectorAll('.emission-row').forEach(row => {
-row.addEventListener('click', () => {
-var id = row.dataset.id;
-selectedEmission = id;
+	<div style="height: 5vh;"></div>
 
-fetch (`/creation/${id}/audios`).then(response => response.json()).then(data => {
-var audios = document.querySelector('.audios');
+	<h1 class="display-full">Equipe</h1>
+	<table id ="tableMembre" class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>PRENOM</th>
+				<th>NOM</th>
+				<th>DESCRIPTION</th>
+				<th>ACTIONS</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for membre in membres %}
+				<tr>
+					<td>{{ membre.ID }}</td>
+					<td>{{ membre.PRENOM }}</td>
+					<td>{{ membre.NOM }}</td>
+					<td>{{ membre.DESCRIPTION }}</td>
+					<td>
+						<a href="{{ path('app_membres_index') }}">show</a>
+						<a href="{{ path('app_equipe_edit', {'id': membre.ID}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas de membres...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_equipe_new') }}" class="new_membre">NOUVEAU MEMBRE</a>
 
-audios.innerHTML = '';
-
-if (data.length > 0) {
-data.forEach(audio => {
-var tr = document.createElement('tr');
-
-tr.innerHTML = `
-                                        <td>${
-audio.ID
-}</td>
-                                        <td>${
-audio.NOM
-}</td>
-                                        <td>${
-audio.DESCRIPTION
-}</td>
-                                        <td>${
-audio.HEURE
-}</td>
-                                        <td>${
-audio.DATE
-}</td>
-                                        <td>${
-audio.AUDIO
-}</td>
-                                        <td>${
-audio.AUTEURS
-}</td>
-                                        <td>
-                                            <a href="/audio/${
-audio.ID
-}">show</a>
-                                            <a href="/audio/${
-audio.ID
-}/edit">edit</a>
-                                        </td>
-                                    `;
-
-audios.appendChild(tr);
-});
-} else {
-var tr = document.createElement('tr');
-
-tr.innerHTML = `
-                                    <td colspan="7">no records found</td>
-                                `;
-
-audios.appendChild(tr);
-}
-}).catch(error => {
-console.log(error);
-});
-});
-});
-
-newAudio.addEventListener('click', (event) => {
-if (selectedEmission) {
-event.preventDefault();
-window.location.href = `{{ path('app_audio_new')}}?emission=${selectedEmission}`;
-}
-});
-});
-	</script>
+	<div style="height: 5vh;"></div>
 {% endblock %}

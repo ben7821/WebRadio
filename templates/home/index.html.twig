@@ -25,7 +25,7 @@
 
 	{% for e in emissions %}
         <div class="border- Memis">
-			<a href="Emission/view/{{ e.NOM }}" >
+			<a href="Emission/view/{{ e.NOM }}">
 				<h3>{{ e.NOMLONG }}</h3>
 				<img src="{{ asset('data/rubrique/' ~ e.NOM ~ '.png')}}" alt="image" />
   			</a>
@@ -37,13 +37,13 @@
 	<hr size="5" width="100%" color="black"/>
 	<div class="Mequipe">
 		<div class="border- Membres">
-			<a href="Equipe/lycee">
+			<a href="{{ path('app_lycee_index') }}">
 				<h3>LE LYCEE</h3>
 				<img src="{{ asset('data/general/lycee.PNG')}}" alt="LYCEE"/>
 			</a>
 		</div>
 		<div class="border- Membres">
-			<a href="Equipe/membres">
+			<a href="{{ path('app_membres_index') }}">
 				<h3>LA WEB RADIO</h3>
 				<img src="{{ asset('data/general/logo/typo.png')}}" alt="WBRADIO"/>
 			</a>
