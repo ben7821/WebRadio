@@ -28,13 +28,16 @@
 				<tr>
 					{% for meb in membres %}
 					<td class="membres">
-						<div class="membre-image"><img src=""{{ asset('data/rubrique/' ~ meb.NOM ~ '.png')}}"" alt="img-Membres"></div>
+						<div class="membre-image">
+							<img src="{{ asset('data/equipe/' ~ meb.NOM ~ '_' ~ meb.PRENOM ~ '.png') }}" alt="Photo de {{ meb.NOM }} {{ meb.PRENOM }}">
+						</div>
 						<div class="membre-info">
 							<h3>
-								meb.NOM
+								{{meb.PRENOM}}
+								{{meb.NOM}}
 							</h3>
 							<p>
-								meb.DESCRIPTION
+								{{meb.DESCRIPTION}}
 							</p>
 						</div>
 					</td>
@@ -45,8 +48,3 @@
 
 	</div>
 {% endblock %}
-
-
-{# entity membres
-funtion get all membres & render (membres.html.twig)
-formalisme du code avec css ... #}

@@ -20,9 +20,6 @@ class Equipe
     private ?string $PRENOM = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $IMG = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $DESCRIPTION = null;
 
     public function getId(): ?int
@@ -50,18 +47,6 @@ class Equipe
     public function setPRENOM(string $PRENOM): static
     {
         $this->PRENOM = $PRENOM;
-
-        return $this;
-    }
-
-    public function getIMG(): ?string
-    {
-        return $this->IMG;
-    }
-
-    public function setIMG(string $IMG): static
-    {
-        $this->IMG = $IMG;
 
         return $this;
     }
