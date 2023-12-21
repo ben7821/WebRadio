@@ -279,7 +279,7 @@ header a:hover {
   border-radius: 9px;
 }
 
-.membre-image {
+img {
 }
 
 /* PAGE REDACTEUR ----------------------------------*/
@@ -1871,4 +1871,29 @@ form #equipe div {
   justify-content: center;
   gap: 10px;
   width: 100%;
+}
+
+form #emission div label,
+form #audio div label,
+form #equipe div label {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+form #emission div input,
+form #audio div input,
+form #equipe div input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 0;
+}
+
+form #emission div textarea,
+form #audio div textarea,
+form #equipe div textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 0;
 }
