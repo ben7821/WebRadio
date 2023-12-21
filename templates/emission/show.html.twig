@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Emission{% endblock %}
+
+{% block body %}
+    <h1>Emission</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ emission.ID }}</td>
+            </tr>
+            <tr>
+                <th>NOM</th>
+                <td>{{ emission.NOM }}</td>
+            </tr>
+            <tr>
+                <th>NOMLONG</th>
+                <td>{{ emission.NOMLONG }}</td>
+            </tr>
+            <tr>
+                <th>DESCRIPTION</th>
+                <td>{{ emission.DESCRIPTION }}</td>
+            </tr>
+            <tr>
+                <th>IMG</th>
+                <td>{{ emission.IMG }}</td>
+            </tr>
+            <tr>
+                <th>INSCRIPTION</th>
+                <td>{{ emission.INSCRIPTION ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">edit</a>
+
+    {{ include('emission/_delete_form.html.twig') }}
+
+    {% for audio in audios %}
+        <p>{{ audio.NOM }}</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Emission index{% endblock %}
+
+{% block body %}
+    <h1>Emission index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOM</th>
+                <th>NOMLONG</th>
+                <th>DESCRIPTION</th>
+                <th>IMG</th>
+                <th>INSCRIPTION</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for emission in emissions %}
+            <tr>
+                <td>{{ emission.ID }}</td>
+                <td>{{ emission.NOM }}</td>
+                <td>{{ emission.NOMLONG }}</td>
+                <td>{{ emission.DESCRIPTION }}</td>
+                <td>{{ emission.IMG }}</td>
+                <td>{{ emission.INSCRIPTION ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_emission_show', {'NOM': emission.NOM }) }}">show</a>
+                    <a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_emission_new') }}">Create new</a>
+{% endblock %}

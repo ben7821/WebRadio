@@ -1,0 +1,31 @@
+
+{% block nav %}
+	<header>
+		<!-- logo -->
+		<a href="{{ path('app_home') }}"><img src="{{ asset('data/general/Logo.png')}}" alt="WebRadio" class="logo"/></a>
+		<!-- navbar header -->
+		<div
+			class="headright">
+			<!-- emission btn -->
+			<div class="dropdown">
+				<a href="{{ path('app_emission_index') }}">EMISSIONS</a>
+				<div
+					class="dropdown-content">
+                    {% for ems in app.request.attributes.get('hemissions', []) %}
+                        <a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}">{{ ems.NOMLONG }}</a>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- journal btn -->
+			<a href="">JOURNAL</a>
+			<!-- equipe btn -->
+			<div class="dropdown">
+				<a href="{{ path('app_equipe_index') }}">L'EQUIPE</a>
+				<div class="dropdown-content">
+					<a href="{{ path('app_lycee_index') }}">Le Lycée</a>
+					<a href="{{ path('app_membres_index') }}">Les Membres</a>
+				</div>
+			</div>
+		</div>
+	</header>
+{% endblock %}
