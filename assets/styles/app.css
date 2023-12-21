@@ -279,7 +279,9 @@ header a:hover {
   border-radius: 9px;
 }
 
-img {
+img[alt= "Photo de {{ meb.NOM }} {{ meb.PRENOM }}"] {
+  width: 75%;
+  height: 50%;
 }
 
 /* PAGE REDACTEUR ----------------------------------*/
@@ -1871,6 +1873,7 @@ form #equipe div {
   justify-content: center;
   gap: 10px;
   width: 100%;
+  background-color: #eee;
 }
 
 form #emission div label,
@@ -1896,4 +1899,47 @@ form #equipe div textarea {
   padding: 0.5rem;
   border: 1px solid #000;
   border-radius: 0;
+}
+
+form #emission div button,
+form #audio div button,
+form #equipe div button {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 0;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+form #emission div button:hover,
+form #audio div button:hover,
+form #equipe div button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+form #emission div select,
+form #audio div select,
+form #equipe div select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 0;
+}
+
+form[name="emission"] .btn,
+form[name="audio"] .btn,
+form[name="equipe"] .btn {
+  width: 60%;
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 0;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }

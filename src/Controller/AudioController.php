@@ -28,6 +28,8 @@ class AudioController extends AbstractController
     {
         $audio = new Audio();
         $form = $this->createForm(AudioType::class, $audio);
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         
         $emissionId = $request->query->get('emission');
         
@@ -68,6 +70,8 @@ class AudioController extends AbstractController
         $form = $this->createForm(AudioType::class, $audio);
         $form->handleRequest($request);
 
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
@@ -83,6 +87,8 @@ class AudioController extends AbstractController
     #[Route('/{id}', name: 'app_audio_delete', methods: ['POST'])]
     public function delete(Request $request, Audio $audio, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$audio->getId(), $request->request->get('_token'))) {
             $entityManager->remove($audio);
             $entityManager->flush();
