@@ -30,6 +30,7 @@ class EmissionController extends AbstractController
         $emission = new Emission();
         $form = $this->createForm(EmissionType::class, $emission);
         $form->handleRequest($request);
+
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -74,9 +75,12 @@ class EmissionController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/{ID}', name: 'app_emission_delete', methods: ['POST'])]
+    #[Route('/{ID}', name: 'app_emission_delete', methods: ['POST'])]
     public function delete(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$emission->getID(), $request->request->get('_token'))) {
             $entityManager->remove($emission);
             $entityManager->flush();
