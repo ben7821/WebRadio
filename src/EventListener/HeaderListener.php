@@ -25,7 +25,7 @@ class HeaderListener
 
         if ($cont instanceof \Symfony\Bundle\FrameworkBundle\Controller\AbstractController) {
             $emission = $this->em->getRepository(Emission::class)->findAll();
-            $e->getRequest()->attributes->set('hemissions', $emission);
+            $e->getRequest()->attributes->set('header_emissions', $emission);
         }
     }
 }

@@ -9,7 +9,7 @@
 			<div class="dropdown">
 				<a href="{{ path('app_emission_index') }}">EMISSIONS</a>
 				<div class="dropdown-content">
-					{% for ems in app.request.attributes.get('hemissions', []) %}
+					{% for ems in header_emissions %}
 						<a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}">{{ ems.NOMLONG }}</a>
 					{% endfor %}
 				</div>

@@ -38,7 +38,7 @@ class LecteurListener
                 $data[$emission->getNom()] = $lesAudios;
             }
 
-            $event->getRequest()->attributes->set('data', $data);
+            $event->getRequest()->attributes->set('lecteurdata', $data);
         }
     }
 }

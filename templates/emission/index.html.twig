@@ -8,6 +8,7 @@
 
 	{% set dispo = ['left','right'] %}
 	{% for emission in emissions %}
+	<a href="{{ path('app_emission_show', { 'NOM': emission.NOM } ) }}" class="link_ems">
 		<div class="lemission {{ dispo[loop.index0 % 2]}}" data-path="{{ path ('app_emission_show', {'NOM': emission.NOM})}}">
 			<img src="{{ asset('data/rubrique/' ~ emission.IMG) }}" alt="{{ emission.NOM }}" class="border-">
 			<div class="emission-content">
@@ -17,6 +18,7 @@
 			</div>
 		</div>
 	</div>
+	</a>
     {% if not loop.last %}
         <hr class="separator">
     {% endif %}

@@ -540,6 +540,12 @@ header a:hover {
   flex-direction: row;
   border-radius: 9px;
 }
+.link_ems{
+  text-decoration: none;
+  color: #000; 
+}
+
+
 
 .emission article {
   display: flex;
@@ -1371,12 +1377,23 @@ input[type="tel"] {
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   width: 50%;
+  max-width: 400px; 
+  margin: 20px auto;
+}
+
+.login-username,
+.login-mdp {
+  margin-bottom: 15px; 
+}
+
+.login label {
+  display: block;
+  margin-bottom: 5px;
 }
 
 .login input[type="text"],
 .login input[type="password"] {
   padding: 10px;
-  margin: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
   width: 100%;
@@ -1385,14 +1402,19 @@ input[type="tel"] {
 
 .login input[type="submit"] {
   padding: 10px;
-  margin: 10px;
   border-radius: 5px;
   border: none;
-  background-color: #007bff;
+  background-color: #28a745; 
   color: #fff;
   cursor: pointer;
   width: 100%;
   max-width: 300px;
+  transition: background-color 0.3s ease; 
+}
+
+.login input[type="submit"]:hover,
+.login input[type="submit"]:focus {
+  background-color: #218838; 
 }
 
 /* equipe ------------------- */

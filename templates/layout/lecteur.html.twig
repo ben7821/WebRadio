@@ -39,8 +39,11 @@
         </button>
     </div>
 </div>
-{# 
+
 {% for em in lecteurdata %}
-    <p>{{ em.NOM }}</p>
-{% endfor %} #}
+    {{ dump(em) }}
+    {% for audio in em %}
+        {{ dump(audio) }}
+    {% endfor %}
+{% endfor %}
 {% endblock %}
