@@ -1381,6 +1381,10 @@ input[type="tel"] {
   margin: 20px auto;
 }
 
+.login-error{
+  margin: auto;
+}
+
 .login-username,
 .login-mdp {
   margin-bottom: 15px; 

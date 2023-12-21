@@ -40,10 +40,10 @@
     </div>
 </div>
 
-{% for em in lecteurdata %}
-    {{ dump(em) }}
-    {% for audio in em %}
-        {{ dump(audio) }}
+{% for em, audios in lecteurdata %}
+    {{ em.getNOM() }}
+    {% for audio in audios %}
+        {{ audio.getNOM() }}
     {% endfor %}
 {% endfor %}
 {% endblock %}
