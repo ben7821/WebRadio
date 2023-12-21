@@ -62,8 +62,6 @@ class EquipeController extends AbstractController
     #[Route('/{id}', name: 'app_equipe_show', methods: ['GET'])]
     public function show(Equipe $equipe): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         return $this->render('equipe/show.html.twig', [
             'equipe' => $equipe,
         ]);
@@ -74,6 +72,8 @@ class EquipeController extends AbstractController
     {
         $form = $this->createForm(EquipeType::class, $equipe);
         $form->handleRequest($request);
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -90,6 +90,8 @@ class EquipeController extends AbstractController
     #[Route('/{id}', name: 'app_equipe_delete', methods: ['POST'])]
     public function delete(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$equipe->getId(), $request->request->get('_token'))) {
             $entityManager->remove($equipe);
             $entityManager->flush();

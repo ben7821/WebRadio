@@ -1,50 +1,33 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
-	<h1 style="display: flex; justify-content: flex-start; font-size: 1.9em; padding-top: 30px;">La Web radio</h1>
-	<div class="logomembres">
-		<img src="{{ asset('data/general/lycee.PNG')}}" alt='typo' class='typo'>
-	</div>
-
-	<div
-		class="desc-web-radio">
-		<!-- <h2>Description</h2> -->
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat voluptatum iste nostrum culpa molestiae,
-			        eveniet repellendus. Dolores, quas. Neque assumenda dolores dolor accusantium reiciendis laudantium debitis
-			        animi cumque, minima vitae?
-			        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur aliquam quae vel minus itaque culpa
-			        voluptate vero totam inventore, non aliquid nemo optio enim! Nostrum blanditiis error ad dolorum sunt!
-			        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium expedita sed ipsam doloremque, minus
-			        animi soluta debitis a nemo quisquam ab sit pariatur aliquid nostrum praesentium similique officiis.
-			        Adipisci, maiores.
+	<div class="web">
+		<h1 class="display-full">La Web radio</h1>
+		<img class="border- " src="{{ asset('data/general/lycee.PNG')}}" alt='typo' class='typo'>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisi ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
 		</p>
 	</div>
-	<h2 style="font-size: 1.9em;margin: 60px 0 20px 0;">Présentation des membres</h2>
 
-	<div class="presentation-membres">
-		<div class="membres">
-			<!-- Récuperent les informations de membres dans la tables équipe -->
-			<table class="membre-container">
-				<tr>
-					{% for meb in membres %}
-					<td class="membres">
-						<div class="membre-image">
-							<img src="{{ asset('data/equipe/' ~ meb.NOM ~ '_' ~ meb.PRENOM ~ '.png') }}" alt="Photo de {{ meb.NOM }} {{ meb.PRENOM }}">
-						</div>
+	<div class="pres-memb">
+		<h1 class="display-full">Présentation des membres</h1>
+		<table class="membre-container">
+			<tr>
+				{% for meb in membres %}
+					<td class="membre-cell">
+						<img src="{{ asset('data/equipe/' ~ meb.NOM ~ '_' ~ meb.PRENOM ~ '.png') }}" alt="Photo de {{ meb.NOM }} {{ meb.PRENOM }}">
 						<div class="membre-info">
-							<h3>
-								{{meb.PRENOM}}
-								{{meb.NOM}}
-							</h3>
-							<p>
-								{{meb.DESCRIPTION}}
-							</p>
+							<h3>{{ meb.PRENOM }}
+								{{ meb.NOM }}</h3>
+							<p>{{ meb.DESCRIPTION }}</p>
 						</div>
 					</td>
-					{% endfor %}
-				</tr>
-			</table>
-		</div>
+					{% if loop.index is even %}
+					</tr>
+					<tr>
+					{% endif %}
+				{% endfor %}
+			</tr>
+		</table>
 
 	</div>
 {% endblock %}

@@ -1,9 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EquipesController!{% endblock %}
+{% block title %}Hello EquipesController!
+{% endblock %}
 
 {% block body %}
 
-<h1>L'equipe</h1>
+<div class="eq_p1_index">
+	<h1 class="display-full">L'equipe</h1>
+	<img src="{{ asset('data/equipe/Equipe.png') }}" alt="image" class="emi-marg"/>
+	<p >
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisi ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+	</p>
+</div>
 
+
+<div class="eq_p2_index">
+	<div>
+		<h1 class="display-full">Le lycée guy Chauvet</h1>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisi ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+		</p>
+	</div>
+	<img class="border- " src="{{ asset('data/general/nosrc.png') }}" alt="image"/>
+</div>
 {% endblock %}

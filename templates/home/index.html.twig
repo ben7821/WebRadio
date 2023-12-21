@@ -5,48 +5,73 @@
 
 
 {% block body %}
-	<h1 class="title">LE JOURNAL</h1>
-	<hr size="5" width="100%" color="black"/>
-	<div class="Mart">
+
+	<h2 class="centered-text" style="font-style: italic;color: #555">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget condimentum ultricies, nunc
+		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
+		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
+		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
+		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
+	</h2>
+
+	<h1 class="display-full">A VENIR</h1>
+	<h2 class="centered-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
+		condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
+		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl.</h2>
+	{# <hr size="5" width="100%" color="black"/> #}
+
+
+
+	<h1 class="display-full">LES EMISSIONS</h1>
+	{# <hr size="5" width="100%" color="black"/> #}
+	<div class="Cards">
+
+		{% for e in emissions %}
+			<div class="border- Card">
+				<a href="emission/{{ e.NOM }}">
+					<h3>{{ e.NOMLONG }}</h3>
+					<img src="{{ asset('data/rubrique/' ~ e.NOM ~ '.png')}}" alt="image"/>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+
+	<h1 class="display-full">LE JOURNAL</h1>
+	{# <hr size="5" width="100%" color="black"/> #}
+	<div class="Cards column">
 		{% for d in article %}
-			<a class="border- arti" href="Article/view/{{ d.ID }}">
+			<a class="border- Card" href="Article/view/{{ d.ID }}">
 				<img src="general/nosrc.png" alt="nosrc"/>
-				<article>
-					<h2> {{ d.NOM }}</h2>
+				<a>
+					<h2>
+						{{ d.NOM }}</h2>
 					<p>{{ d.DESCRIPTION }}</p>
-				</article>
+				</a>
 			</a>
 		{% endfor %}
 	</div>
 
-	<h1 class="title">LES EMISSIONS</h1>
-	<hr size="5" width="100%" color="black"/>
-	<div class="Memissions">
-
-	{% for e in emissions %}
-        <div class="border- Memis">
-			<a href="Emission/view/{{ e.NOM }}">
-				<h3>{{ e.NOMLONG }}</h3>
-				<img src="{{ asset('data/rubrique/' ~ e.NOM ~ '.png')}}" alt="image" />
-  			</a>
-		</div>
-    {% endfor %}
-	</div>
-
-	<h1 class="title">L'ÉQUIPE</h1>
-	<hr size="5" width="100%" color="black"/>
-	<div class="Mequipe">
-		<div class="border- Membres">
+	<h1 class="display-full">L'ÉQUIPE</h1>
+	{# <hr size="5" width="100%" color="black"/> #}
+	<div class="Cards">
+		<div class="border- Card">
 			<a href="{{ path('app_lycee_index') }}">
 				<h3>LE LYCEE</h3>
 				<img src="{{ asset('data/general/lycee.PNG')}}" alt="LYCEE"/>
 			</a>
 		</div>
-		<div class="border- Membres">
+		<div class="border- Card">
 			<a href="{{ path('app_membres_index') }}">
 				<h3>LA WEB RADIO</h3>
 				<img src="{{ asset('data/general/logo/typo.png')}}" alt="WBRADIO"/>
 			</a>
 		</div>
-    </div>
-	{% endblock %}
+	</div>
+{% endblock %}
