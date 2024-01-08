@@ -6,7 +6,7 @@
 {% block body %}
 	<h1 class="display-full">Emissions</h1>
 
-	<table  id="tableEmission" class="table">
+	<table id="tableEmission" class="table">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -20,7 +20,7 @@
 		</thead>
 		<tbody>
 			{% for emission in emissions %}
-				<tr class="emission-row" data-id="{{ emission.ID }}">
+				<tr class="emission-row" data-id="{{ emission.NOM }}" onclick="show('emission')">
 					<td>{{ emission.ID }}</td>
 					<td>{{ emission.NOM }}</td>
 					<td>{{ emission.NOMLONG }}</td>
@@ -28,8 +28,8 @@
 					<td><img class="preview" src="{{asset('data/rubrique/' ~ emission.IMG)}}"/></td>
 					<td>{{ emission.INSCRIPTION ? 'Oui' : 'Non' }}</td>
 					<td>
-						<a href="{{ path('app_emission_show', {'NOM': emission.NOM}) }}">show</a>
-						<a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">edit</a>
+						<a href="{{ path('app_emission_edit', {'ID': emission.NOM}) }}">edit</a>
+						<a href="{{ path('app_emission_delete', {'ID': emission.ID}) }}">delete</a>
 					</td>
 				</tr>
 			{% else %}
@@ -58,7 +58,27 @@
 				<th>ACTIONS</th>
 			</tr>
 		</thead>
-		<tbody class="audios"></tbody>
+		<tbody class="audios">
+			{% for audio in audios %}
+				<tr class="audios-row" data-id="{{ audio.ID }}" >
+					<td>{{ audio.ID }}</td>
+					<td>{{ audio.NOM }}</td>
+					<td>{{ audio.DESCRIPTION }}</td>
+					<td>{{ audio.HEURE.format('H:i') }}</td>
+					<td>{{ audio.DATE.format('Y-m-d') }}</td>
+					<td><audio controls><source src="{{asset('data/audio/' ~ audio.AUDIO)}}"/></audio></td>
+					<td>{{ audio.AUTEURS }}</td>
+					<td>
+						<a href="{{ path('app_audio_edit', {'id': audio.ID}) }}">edit</a>
+						<a href="{{ path('app_audio_delete', {'id': audio.ID}) }}">delete</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas d'audios</td>
+				</tr>
+			{% endfor %}
+		</tbody>
 	</table>
 
 	<a href="{{ path('app_audio_new') }}" class="new_audio">NOUVEL AUDIO</a>
@@ -66,7 +86,7 @@
 	<div style="height: 5vh;"></div>
 
 	<h1 class="display-full">Equipe</h1>
-	<table id ="tableMembre" class="table">
+	<table id="tableMembre" class="table">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -78,14 +98,14 @@
 		</thead>
 		<tbody>
 			{% for membre in membres %}
-				<tr>
+				<tr onclick="show('equipe')">
 					<td>{{ membre.ID }}</td>
 					<td>{{ membre.PRENOM }}</td>
 					<td>{{ membre.NOM }}</td>
 					<td>{{ membre.DESCRIPTION }}</td>
 					<td>
-						<a href="{{ path('app_membres_index') }}">show</a>
-						<a href="{{ path('app_equipe_edit', {'id': membre.ID}) }}">edit</a>
+						<a href="{{ path('app_equipe_edit', {'id': membre.ID }) }}">edit</a>
+						<a href="{{ path('app_equipe_delete', {'id': membre.ID}) }}">delete</a>
 					</td>
 				</tr>
 			{% else %}
@@ -98,4 +118,23 @@
 	<a href="{{ path('app_equipe_new') }}" class="new_membre">NOUVEAU MEMBRE</a>
 
 	<div style="height: 5vh;"></div>
+
+	<script>
+	
+	function show( type ) {
+		var id = event.target.parentElement.dataset.id;
+		switch (type) {
+			case 'emission':
+				window.location.href = "{{ path('app_emission_show', {'NOM': 'ID'}) }}".replace('ID', id);
+				break;
+			case 'audio':
+				window.location.href = "{{ path('app_audio_show', {'id': 'ID'}) }}".replace('ID', id);
+				break;
+			case 'equipe':
+				window.location.href = "{{ path('app_membres_index') }}";
+				break;
+		}
+	}
+
+	</script>
 {% endblock %}
