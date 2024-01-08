@@ -31,31 +31,4 @@ class CreationController extends AbstractController
             'membres' => $membres
         ]);
     }
-
-    #[Route('/admin/creation/{ID}/audios', name: 'app_creation_get_audios')]
-    public function getAudiosFromEmission(EntityManagerInterface $em, $ID): JsonResponse
-    {
-        $emission = $em->getRepository(Emission::class)->find($ID);
-
-        if (!$emission) {
-            return new JsonResponse(array('message' => 'Emission not found'), Response::HTTP_NOT_FOUND);
-        }
-
-        $audios = $emission->getAudio();
-
-        $data = array();
-        foreach ($audios as $audio) {
-            $data[] = array(
-                'ID' => $audio->getId(),
-                'NOM' => $audio->getNOM(),
-                'DESCRIPTION' => $audio->getDESCRIPTION(),
-                'HEURE' => $audio->getHEURE()->format('H:i:s'),
-                'DATE' => $audio->getDATE()->format('Y-m-d'),
-                'AUDIO' => $audio->getAUDIO(),
-                'AUTEURS' => $audio->getAUTEURS()
-            );
-        }
-
-        return new JsonResponse($data);
-    }
 }

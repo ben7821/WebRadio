@@ -75,6 +75,7 @@ header {
 .dropdown {
   position: relative;
   display: inline-block;
+
 }
 
 /* dropdown links content */
@@ -116,6 +117,9 @@ header a:hover {
 }
 
 .loginbtn {
+  display: block;
+  margin-bottom: 2vh;
+  margin-top: 1vh;
   position: absolute;
   top: 10vh;
   right: 0;
@@ -145,7 +149,7 @@ header a:hover {
   text-align: justify;
   text-justify: inter-word;
   line-height: 1.2;
-  margin: 5vh auto;
+  margin: 5vh auto ;
 }
 
 .tracer {
@@ -163,6 +167,7 @@ header a:hover {
   display: flex;
   flex-direction: column;
   gap: 2vh;
+  
 }
 
 .Mart .arti {
@@ -214,6 +219,7 @@ header a:hover {
   display: -webkit-box;
   -webkit-line-clamp: var(--lines-count);
   -webkit-box-orient: vertical;
+
 }
 
 .Cards {
@@ -234,6 +240,8 @@ header a:hover {
   break-inside: avoid;
   width: 20vw;
   transition: opacity 0.2s ease-in-out;
+  margin-bottom: 2vh;
+
 }
 
 .Cards .Card:hover {
