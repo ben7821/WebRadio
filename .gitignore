@@ -28,5 +28,5 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ###> data file ###
-/public/data
+/public/data/audio
 ###< data file ###
