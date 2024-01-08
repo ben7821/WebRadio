@@ -1629,32 +1629,30 @@ h1 {
   margin: 20px;
   gap: 20px;
 }
-/* Style pour le conteneur du tableau */
+
 .membre-container {
   border-collapse: collapse;
   width: 100%;
 }
 
-/* Style pour chaque cellule du membre */
+
 .membre-cell {
+  width: 50%;
   padding: 10px;
   text-align: center;
-  border-left: 5px solid #494949; /* Bordure à gauche de chaque cellule */
+  border-left: 5px solid #494949; 
 }
 
-/* Supprimer la bordure sur la première colonne */
 .membre-cell:first-child {
   border-left: none;
 }
 
-/* Style pour les images des membres */
 .membre-cell img {
-  max-width: 50%; /* Ajustez la taille maximale de l'image */
+  max-width: 30vw; 
   height: auto;
-  border-radius: 50%; /* Pour des images rondes, si nécessaire */
+  border-radius: 50%; 
 }
 
-/* Style pour les informations du membre */
 .membre-info h3 {
   margin-bottom: 5px;
 }
