@@ -29,5 +29,3 @@ function setLecteurAudio(url, time, volume = 100, play = true, data = null) {
       audio[0].play();
     }
 }
-
-// setLecteurAudio('{{ asset('data/audio/H2P/H2P Ep 1.wav') }}', 100, 100);

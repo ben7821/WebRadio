@@ -33,14 +33,9 @@ class Emission
     #[ORM\OneToMany(mappedBy: 'IDEMISSION', targetEntity: Audio::class, orphanRemoval: true)]
     private Collection $audio;
 
-    /*
-    #[ORM\OneToMany(mappedBy: 'IDEMISSION', targetEntity: Inscription::class)]
-    private Collection $inscriptions;*/
-
     public function __construct()
     {
         $this->audio = new ArrayCollection();
-        //$this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
