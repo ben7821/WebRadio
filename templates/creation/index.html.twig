@@ -119,6 +119,45 @@
 
 	<div style="height: 5vh;"></div>
 
+	<h1 class="display-full">Inscriptions</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>NOM</th>
+					<th>PRENOM</th>
+					<th>TEL</th>
+					<th>MAIL</th>
+					<th>DATE</th>
+					<th>Emission</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for inscription in inscriptions %}
+				<tr>
+					<td>{{ inscription.id }}</td>
+					<td>{{ inscription.NOM }}</td>
+					<td>{{ inscription.PRENOM }}</td>
+					<td>{{ inscription.TEL }}</td>
+					<td>{{ inscription.MAIL }}</td>
+					<td>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</td>
+					<td>{{ inscription.EMS }} </td>
+					<td>
+						<a href="{{ path('app_inscription_show', {'id': inscription.id}) }}">show</a>
+						<a href="{{ path('app_inscription_edit', {'id': inscription.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">no records found</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
 	<script>
 	
 	function show( type ) {

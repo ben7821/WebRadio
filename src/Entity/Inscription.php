@@ -29,6 +29,9 @@ class Inscription
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $DATE = null;
 
+    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    private ?Emission $EMS = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Inscription
     public function setDATE(\DateTimeInterface $DATE): static
     {
         $this->DATE = $DATE;
+
+        return $this;
+    }
+
+    public function getEMS(): ?Emission
+    {
+        return $this->EMS;
+    }
+
+    public function setEMS(?Emission $EMS): static
+    {
+        $this->EMS = $EMS;
 
         return $this;
     }

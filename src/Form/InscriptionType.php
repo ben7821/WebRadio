@@ -17,6 +17,7 @@ class InscriptionType extends AbstractType
             ->add('TEL')
             ->add('MAIL')
             ->add('DATE')
+            ->add('EMS')
         ;
     }
 

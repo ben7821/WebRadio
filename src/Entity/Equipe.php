@@ -19,7 +19,7 @@ class Equipe
     #[ORM\Column(length: 255)]
     private ?string $PRENOM = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500)]
     private ?string $DESCRIPTION = null;
 
     public function getId(): ?int

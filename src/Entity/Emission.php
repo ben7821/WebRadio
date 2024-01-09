@@ -21,7 +21,7 @@ class Emission
     #[ORM\Column(length: 255)]
     private ?string $NOMLONG = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500)]
     private ?string $DESCRIPTION = null;
 
     #[ORM\Column(length: 255)]
@@ -33,9 +33,13 @@ class Emission
     #[ORM\OneToMany(mappedBy: 'IDEMISSION', targetEntity: Audio::class, orphanRemoval: true)]
     private Collection $audio;
 
+    #[ORM\OneToMany(mappedBy: 'EMS', targetEntity: Inscription::class)]
+    private Collection $inscriptions;
+
     public function __construct()
     {
         $this->audio = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,5 +140,35 @@ class Emission
     public function __toString(): string
     {
         return $this->NOM;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): static
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->setEMS($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): static
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getEMS() === $this) {
+                $inscription->setEMS(null);
+            }
+        }
+
+        return $this;
     }
 }
