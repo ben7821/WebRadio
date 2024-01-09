@@ -38,16 +38,13 @@
 		</div>
 	</div>
 
-{% block javascripts %}
-{{ encore_entry_link_tags('lecteur') }}
     <script>
-            setLecteurAudio('{{ asset('data/audio/H2P/H2P Ep 1.wav') }}', 100, 100);
+            //setLecteurAudio('{{ asset('data/audio/H2P/H2P Ep 1.wav') }}', 100, 100);
+	</script>
     {% for em, audios in lecteurdata %}
 		{{ em }}
 		{% for audio in audios %}
 			{{ audio.getNOM() }}
 	{% endfor %}
 	{% endfor %}
-	</script>
-{% endblock %}
 {% endblock %}

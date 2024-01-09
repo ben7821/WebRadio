@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Inscription;
+use App\Entity\Inscr;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Inscription>
+ * @extends ServiceEntityRepository<Inscr>
  *
- * @method Inscription|null find($id, $lockMode = null, $lockVersion = null)
- * @method Inscription|null findOneBy(array $criteria, array $orderBy = null)
- * @method Inscription[]    findAll()
- * @method Inscription[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Inscr|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Inscr|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Inscr[]    findAll()
+ * @method Inscr[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InscriptionRepository extends ServiceEntityRepository
+class InscrRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Inscription::class);
+        parent::__construct($registry, Inscr::class);
     }
 
 //    /**
-//     * @return Inscription[] Returns an array of Inscription objects
+//     * @return Inscr[] Returns an array of Inscr objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class InscriptionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Inscription
+//    public function findOneBySomeField($value): ?Inscr
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')
