@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // si on veut jouer la musique
     if (play) {
-      audio[0].play();
+      audio.play();
     }
   }
   setLecteurAudio(
