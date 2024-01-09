@@ -3,8 +3,21 @@
 {% block title %}{{emission.nomlong}}{% endblock %}
 
 {% block body %}
+    
+    <div class="emission">
+        <img src="{{ asset('data/rubrique/' ~ emission.NOM ~ '.png')}}" alt="imgEmission"/>
+        <article>
+            <h5> 
+                {{emission.nomlong}}
+            </h5>
+            <P> 
+                {{emission.description}}
+            </p>
+        </article>
+    </div>
 
-    <h1 style="margin-top: 10px; margin-bottom: 10px;">{{ emission.nomlong }}</h1>
+    <h1 id="podcasts" class="header-page title">LES PODCASTS</h1>
+    <hr size="5" width="100%" color="black" />
 
     {% for audio in audios %}
         <div class="podcast">

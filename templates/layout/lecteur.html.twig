@@ -41,16 +41,13 @@
 {% block javascripts %}
 {{ encore_entry_link_tags('lecteur') }}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
             setLecteurAudio('{{ asset('data/audio/H2P/H2P Ep 1.wav') }}', 100, 100);
-        });
-    </script>
-{% endblock %}
-
-	{% for em, audios in lecteurdata %}
+    {% for em, audios in lecteurdata %}
 		{{ em }}
 		{% for audio in audios %}
 			{{ audio.getNOM() }}
-		{% endfor %}
 	{% endfor %}
+	{% endfor %}
+	</script>
+{% endblock %}
 {% endblock %}

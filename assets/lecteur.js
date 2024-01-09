@@ -6,6 +6,7 @@
  * @param {int} volume Le volume de la musique
  * @param {boolean} play Si on veut jouer la musique
  */
+document.addEventListener("DOMContentLoaded", function() {
 function setLecteurAudio(url, time, volume = 100, play = true, data = null) {
     const audioplayer = $(document).find('.audioplayer');
     const audio = audioplayer.find('audio');
@@ -28,4 +29,4 @@ function setLecteurAudio(url, time, volume = 100, play = true, data = null) {
     if (play) {
       audio[0].play();
     }
-}
+}});

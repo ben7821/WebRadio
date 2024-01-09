@@ -16,10 +16,9 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 
 **OTHER**
 - yarn 1.22.21 :
-    - Pour lancer le serveur web(css/js...)
-    & yarn encore dev-server
+- Pour lancer le serveur web(css/js...)
+  & yarn encore dev-server
 - nodejs 
--
 
 **COMPOSER PACKGE**
 - apache-pack

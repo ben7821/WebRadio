@@ -7,28 +7,13 @@
 {% block body %}
 
 	<h2 class="centered-text" style="font-style: italic;color: #555">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget condimentum ultricies, nunc
-		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
-		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
-		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
-		nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum ultricies, nunc
-	</h2>
+		Bienvenue, cher internaute, dans l'univers fascinant d'Internet, un réseau reliant des milliards d'individus à travers le monde. Avec environ 1,8 milliard de sites disponibles, vous avez choisi de visiter le nôtre, et toute l'équipe de Radio Guy Chauvet est extrêmement honorée de vous accueillir. Si vous vous demandez quel est le but de ce site, ne vous inquiétez pas, nous allons vous l'expliquer immédiatement. Ici, vous avez la possibilité d'écouter les émissions de la Webradio du lycée Guy Chauvet, situé à Loudun, en Nouvelle-Aquitaine. Notre programmation offre une diversité de contenus pour tous les goûts : des émissions portant sur l'Histoire, la musique, le cinéma, l'actualité, des jeux, et bien plus encore. Ce projet est soutenu financièrement par la Maison des lycéens de notre établissement, une association qui organise des animations pour les élèves. Nous espérons que vous passerez d'agréables moments en notre compagnie. Bonne navigation ! L'équipe de Radio Guy Chauvet
+		</h2>
 
 	<h1 class="display-full">A VENIR</h1>
-	<h2 class="centered-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
-		condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl. Donec euismod, nisl eget condimentum
-		ultricies, nunc nisl aliquam nunc, nec aliquet nisl nunc sit amet nisl.</h2>
+	<h2 class="centered-text">
+	- Le Journal  🚧 🚧 🚧
 	{# <hr size="5" width="100%" color="black"/> #}
-
-
-
 	<h1 class="display-full">LES EMISSIONS</h1>
 	{# <hr size="5" width="100%" color="black"/> #}
 	<div class="Cards">
@@ -44,6 +29,9 @@
 	</div>
 
 	<h1 class="display-full">LE JOURNAL</h1>
+	<h1>
+	🚧
+	</h1>
 	{# <hr size="5" width="100%" color="black"/> #}
 	<div class="Cards column">
 		{% for d in article %}
@@ -64,13 +52,13 @@
 		<div class="border- Card">
 			<a href="{{ path('app_lycee_index') }}">
 				<h3>LE LYCEE</h3>
-				<img src="{{ asset('data/general/lycee.png')}}" alt="LYCEE"/>
+				<img src="{{ asset('data/general/lycee_Guy-Chauvet.PNG')}}" alt="LYCEE"/>
 			</a>
 		</div>
 		<div class="border- Card">
 			<a href="{{ path('app_membres_index') }}">
 				<h3>LA WEB RADIO</h3>
-				<img src="{{ asset('data/general/logo/typo.png')}}" alt="WBRADIO"/>
+				<img src="{{ asset('data/general/rd.png')}}" alt="WBRADIO"/>
 			</a>
 		</div>
 	</div>

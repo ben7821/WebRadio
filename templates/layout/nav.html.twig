@@ -3,9 +3,6 @@
 	<header>
 
 
-
-
-
 		<!-- logo -->
 		<a href="{{ path('app_home') }}"><img src="{{ asset('data/general/Logo.png')}}" alt="WebRadio" class="logo"/></a>
 		<!-- navbar header -->
@@ -16,14 +13,12 @@
 				<a href="{{ path('app_emission_index') }}">EMISSIONS</a>
 
 
-
 				<div class="dropdown-content">
 					{% for ems in header_emissions %}
 						<a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}">{{ ems.NOMLONG }}</a>
 					{% endfor %}
 				</div>
 			</div>
-
 
 
 			<!-- journal btn -->
@@ -34,7 +29,6 @@
 				<a href="{{ path('app_equipe_index') }}">L'EQUIPE</a>
 
 
-				
 				<div class="dropdown-content">
 					<a href="{{ path('app_lycee_index') }}">Le Lycée</a>
 					<a href="{{ path('app_membres_index') }}">Les Membres</a>
@@ -42,7 +36,10 @@
 			</div>
 		</div>
 		{% if app.user %}
-			<a href="{{ path('app_logout') }}" class="loginbtn logout">LOGOUT</a>
+			<div class="adminarea">
+				<a href="{{ path('app_logout') }}" class="loginbtn logout"><span>LOGOUT</span></a>
+				<a href="{{ path('app_creation') }}" class="loginbtn"><span>CREATION</span></a>
+			</div>
 		{% else %}
 			<a href="{{ path('app_login') }}" class="loginbtn">LOGIN</a>
 		{% endif %}

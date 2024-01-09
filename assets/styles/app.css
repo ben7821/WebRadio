@@ -133,6 +133,35 @@ header a:hover {
   background: #e15d5d !important;
 }
 
+.adminarea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 5vh;
+  right: -7.5vw;
+  gap: 0;
+  width: 8vw;
+  z-index: 999;
+}
+
+.adminarea .loginbtn {
+  display: block;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  margin: 0;
+  transition: margin-left 0.2s ease-in-out;
+}
+
+.adminarea .loginbtn:hover {
+  margin-left: -15vw;
+}
+
+
+
 /* HEADER + FOOTER LOGO TRANSFORM----------------------------------*/
 
 .logo:hover,
@@ -238,10 +267,9 @@ header a:hover {
   text-align: center;
   align-items: center;
   break-inside: avoid;
-  width: 20vw;
+  width: 23vw;
   transition: opacity 0.2s ease-in-out;
-  margin-bottom: 2vh;
-
+  margin:  2vh;
 }
 
 .Cards .Card:hover {
@@ -251,6 +279,7 @@ header a:hover {
 .Cards .Card a {
   display: block;
   text-decoration: none;
+  padding: 0%;
 }
 
 .Cards .Card h3 {
@@ -262,6 +291,7 @@ header a:hover {
 
 .Cards .Card a img {
   width: 100%;
+ 
 }
 
 
@@ -541,24 +571,25 @@ header a:hover {
 
 /* Emission */
 
-.emission {
+.emission{
   display: flex;
   padding: 30px;
   background-color: black;
   flex-direction: row;
-  border-radius: 9px;
+ 
 }
+
 .link_ems{
   text-decoration: none;
   color: #000; 
 }
 
-
-
 .emission article {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  color: white;  
+  max-width: 70%;  
 }
 
 .container {
@@ -573,8 +604,7 @@ header a:hover {
 }
 
 .podcast {
-  margin: 9px;
-  border-radius: 9px;
+  margin: 10px;
 }
 
 .podcast audio {
@@ -588,7 +618,7 @@ header a:hover {
 img[alt="imgEmission"] {
   margin: 0px 25px 0px 50px;
   width: 20%;
-  height: 20%;
+  height: auto;
   border-radius: 9px;
 }
 
@@ -860,8 +890,7 @@ input[type="tel"] {
   /* width: 100%; */
   --size: 55px;
   color: white;
-  background-image: linear-gradient(to bottom, #000000aa 0%, #000000aa 100%);
-  border-radius: 6px;
+  background-image: linear-gradient(to right, #000000aa 0%, rgba(17, 17, 17, 0.667) 100%);
   position: sticky;
   bottom: 0;
   padding: 10px;
@@ -1383,50 +1412,65 @@ input[type="tel"] {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  width: 50%;
-  max-width: 400px; 
+  width: 60vw;
   margin: 20px auto;
+}
+
+.login h1 {
+  width: 100%;
+}
+
+.login form {
+  width: 30vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
 .login-error{
   margin: auto;
+  color: red;
+  font-weight: bold;
+  font-style: italic;
 }
 
 .login-username,
 .login-mdp {
   margin-bottom: 15px; 
+  width: 100%;
 }
 
 .login label {
   display: block;
   margin-bottom: 5px;
+  text-align: left;
 }
 
 .login input[type="text"],
 .login input[type="password"] {
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #000;
   width: 100%;
-  max-width: 300px;
+  box-sizing: border-box;
 }
 
 .login input[type="submit"] {
   padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #28a745; 
+  border: 1px solid #000;
+  background-color: #000; 
   color: #fff;
   cursor: pointer;
   width: 100%;
-  max-width: 300px;
-  transition: background-color 0.3s ease; 
+  margin: 2vh 0;
+  transition: background-color 0.2s ease; 
 }
 
 .login input[type="submit"]:hover,
 .login input[type="submit"]:focus {
-  background-color: #218838; 
+  background-color: #fff; 
+  color: #000;
 }
 
 /* equipe ------------------- */
@@ -1646,7 +1690,7 @@ h1 {
 
 .membre-cell {
   width: 50%;
-  padding: 10px;
+  padding: 30px;
   text-align: center;
   border-left: 5px solid #494949; 
 }
@@ -1656,9 +1700,7 @@ h1 {
 }
 
 .membre-cell img {
-  max-width: 30vw; 
-  height: auto;
-  border-radius: 50%; 
+  height: 30vh;
 }
 
 .membre-info h3 {
@@ -1669,6 +1711,7 @@ h1 {
 .membre-info p {
   font-style: italic;
   color: #666;
+  text-align: justify;
 }
 
 
