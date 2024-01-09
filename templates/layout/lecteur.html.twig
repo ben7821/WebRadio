@@ -40,17 +40,11 @@
 
 	<script>
 		//setLecteurAudio("{{ asset('data/audio/H2P/H2P Ep 1.wav') }}", 100, 100);
-		const paths = {
-		play: "{{ asset('data/general/pause.png') }}",
-		pause: "{{ asset('data/general/play.png') }}",
-		mute: "{{ asset('data/general/mute.png') }}",
-		unmute: "{{ asset('data/general/unmute.png') }}"
-		};
 	</script>
-	{% for em, audios in lecteurdata %}
+	{# {% for em, audios in lecteurdata %}
 		{{ em }}
 		{% for audio in audios %}
 			{{ audio.getNOM() }}
 		{% endfor %}
-	{% endfor %}
+	{% endfor %} #}
 {% endblock %}

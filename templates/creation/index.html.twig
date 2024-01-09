@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CreationController!
+{% block title %}Création
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,6 @@
 	<table id="tableEmission" class="table">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>NOM</th>
 				<th>NOMLONG</th>
 				<th>DESCRIPTION</th>
@@ -21,7 +20,6 @@
 		<tbody>
 			{% for emission in emissions %}
 				<tr class="emission-row" data-id="{{ emission.NOM }}" onclick="show('emission')">
-					<td>{{ emission.ID }}</td>
 					<td>{{ emission.NOM }}</td>
 					<td>{{ emission.NOMLONG }}</td>
 					<td>{{ emission.DESCRIPTION }}</td>
@@ -48,7 +46,6 @@
 	<table id="tableAudio" class="table">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>NOM</th>
 				<th>DESCRIPTION</th>
 				<th>HEURE</th>
@@ -61,7 +58,6 @@
 		<tbody class="audios">
 			{% for audio in audios %}
 				<tr class="audios-row" data-id="{{ audio.ID }}" >
-					<td>{{ audio.ID }}</td>
 					<td>{{ audio.NOM }}</td>
 					<td>{{ audio.DESCRIPTION }}</td>
 					<td>{{ audio.HEURE.format('H:i') }}</td>
@@ -89,7 +85,6 @@
 	<table id="tableMembre" class="table">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>PRENOM</th>
 				<th>NOM</th>
 				<th>DESCRIPTION</th>
@@ -99,7 +94,6 @@
 		<tbody>
 			{% for membre in membres %}
 				<tr onclick="show('equipe')">
-					<td>{{ membre.ID }}</td>
 					<td>{{ membre.PRENOM }}</td>
 					<td>{{ membre.NOM }}</td>
 					<td>{{ membre.DESCRIPTION }}</td>
@@ -120,11 +114,9 @@
 	<div style="height: 5vh;"></div>
 
 	<h1 class="display-full">Inscriptions</h1>
-
-		<table class="table">
+		<table id="tableInscription" class="table">
 			<thead>
 				<tr>
-					<th>Id</th>
 					<th>NOM</th>
 					<th>PRENOM</th>
 					<th>TEL</th>
@@ -137,7 +129,6 @@
 			<tbody>
 			{% for inscription in inscriptions %}
 				<tr>
-					<td>{{ inscription.id }}</td>
 					<td>{{ inscription.NOM }}</td>
 					<td>{{ inscription.PRENOM }}</td>
 					<td>{{ inscription.TEL }}</td>
@@ -146,7 +137,7 @@
 					<td>{{ inscription.EMS }} </td>
 					<td>
 						<a href="{{ path('app_inscription_show', {'id': inscription.id}) }}">show</a>
-						<a href="{{ path('app_inscription_edit', {'id': inscription.id}) }}">edit</a>
+						<a href="{{ path('app_creation', {'id': inscription.id}) }}">edit</a>
 					</td>
 				</tr>
 			{% else %}
@@ -157,6 +148,8 @@
 			</tbody>
 		</table>
 	</div>
+
+	<div style="height: 5vh;"></div>
 
 	<script>
 	
