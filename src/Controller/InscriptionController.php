@@ -46,6 +46,7 @@ class InscriptionController extends AbstractController
     #[Route('/{id}', name: 'app_inscription_show', methods: ['GET'])]
     public function show(Inscription $inscription): Response
     {
+        
         return $this->render('inscription/show.html.twig', [
             'inscription' => $inscription,
         ]);

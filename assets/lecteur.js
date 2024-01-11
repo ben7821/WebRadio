@@ -5,6 +5,8 @@ const paths = {
   unmute: "/data/general/unmute.png",
 };
 
+const lecteur = $('.audio-container.lecteur');
+
 /**
  * Fonction pour convertir des secondes en minutes:secondes.
  *
@@ -56,19 +58,38 @@ export function setLecteurAudio(
   root.find(".topbar i").text(data.data_date);
 }
 
+function setAudio(el,containertype = false) {
+  el = $(el);
+  let data = {
+    data_date: el.data("date"),
+    data_title: el.data("title"),
+    data_info: el.data("info"),
+    data_ctime: el.data("ctime"),
+    data_src: el.data("src"),
+  };
+
+  // lecteur bas de page
+  if (containertype) {
+    setLecteurAudio(lecteur, 100, true, data);
+  } else {
+    // lecteur dans la page
+    setLecteurAudio(el, 100, true, data);
+  }
+}
+
 $(document).ready(function () {
   let container = $(".audio-container");
   
   container.each((index, el) => {
-    el = $(el);
-    let data = {
-      data_date: el.data("date"),
-      data_title: el.data("title"),
-      data_info: el.data("info"),
-      data_ctime: el.data("ctime"),
-      data_src: el.data("src"),
-    };
-    setLecteurAudio(el, 100, false, data);
+    setAudio(el);
+  });
+
+  let bibliobtns = $(".Lbiblio #bibliobtn");
+
+  bibliobtns.each((index, el) => {
+    $(el).on("click", function () {
+      setAudio($(this), true);
+    });
   });
   
   // Quand le son est en cours

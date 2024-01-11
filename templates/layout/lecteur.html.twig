@@ -1,7 +1,6 @@
-
 {% block lecteur %}
 
-	<div class="audio-container lecteur" data-date="{{ "now"|date('Y/m/d')}}" data-title="H2P Ep 1" data-info="Michel et jean luc" data-ctime="0" data-src="{{ asset('data/audio/H2P/H2P Ep 1.wav')}}">
+	<div class="audio-container lecteur" data-date="{{ "now"|date('Y/m/d')}}" data-title="Aucun Podcast" data-info="..." data-ctime="0" data-src="">
 		<div class="controls">
 			<button class="like"><img src="{{asset('data/general/like.png')}}" alt=""></button>
 			<button class="next"><img src="{{asset('data/general/next.png')}}" style="transform: rotate(180deg)" alt=""></button>
@@ -37,17 +36,24 @@
 				<span>Bibliothèque</span>
 			</button>
 		</div>
+		
 	</div>
 
 	<div class="Lbiblio">
-	{% for em, audios in lecteurdata %}
-	<ul>
-		<h2> -- {{ em }} -- </h2>
-		{% for audio in audios %}
-			<li><button oonclick="setaudio()" >{{ audio.getNOM() }}</button></li>
+		{% for em, audios in lecteurdata %}
+			<ul>
+				<h2>
+					--
+					{{ em }}
+					--
+				</h2>
+				{% for audio in audios %}
+					<li>
+						<button id="bibliobtn" data-date="{{audio.date|date('d-m-Y')}}" data-title="{{ audio.nom }}" data-info="{{audio.description}}" data-ctime="0" data-src="{{ asset('data/audio/'~audio.audio)}}">{{ audio.getNOM() }}</button>
+					</li>
+				{% endfor %}
+			</ul>
 		{% endfor %}
-	</ul>
-	{% endfor %}
 	</div>
 
 {% endblock %}
