@@ -3,14 +3,11 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
+    <h1>Emission {{ inscription.EMS }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ inscription.id }}</td>
-            </tr>
+        
             <tr>
                 <th>NOM</th>
                 <td>{{ inscription.NOM }}</td>
@@ -31,6 +28,7 @@
                 <th>DATE</th>
                 <td>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</td>
             </tr>
+      
         </tbody>
     </table>
 

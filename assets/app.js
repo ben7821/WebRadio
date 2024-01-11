@@ -12,6 +12,7 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 import './border';
-//import './lecteur';
+import './lecteur';
 import './creation';
 import './pagination';
+import './biblio';

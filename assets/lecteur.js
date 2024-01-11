@@ -1,8 +1,8 @@
 const paths = {
-  play: "data/general/pause.png",
-  pause: "data/general/play.png",
-  mute: "data/general/mute.png",
-  unmute: "data/general/unmute.png",
+  play: "/data/general/pause.png",
+  pause: "/data/general/play.png",
+  mute: "/data/general/mute.png",
+  unmute: "/data/general/unmute.png",
 };
 
 /**
@@ -28,8 +28,6 @@ const calculateTime = (sec) => {
  */
 export function setLecteurAudio(
   root,
-  url,
-  time,
   volume = 100,
   play = true,
   data = null
@@ -41,42 +39,36 @@ export function setLecteurAudio(
   const tracker = root.find(".tracker .progress input");
   const duration = root.find(".tracker .duration");
 
-  audio.attr("src", url);
+  audio.attr("src", data.data_src);
 
   audio[0].onloadedmetadata = function () {
     duration.text(calculateTime(audio[0].duration));
     audio[0].volume = volume / 100;
   }
 
-  timetracker.text(calculateTime(time));
-  tracker.val(time);
+  timetracker.text(calculateTime(data.data_ctime));
+  tracker.val(data.data_ctime);
 
   if (!data) return;
 
   root.find(".audiotitre").text(data.data_title);
   root.find(".info-topbar").text(data.data_info);
   root.find(".topbar i").text(data.data_date);
-
-  // si on veut jouer la musique
-  if (play) {
-    audio[0].play();
-  }
 }
 
 $(document).ready(function () {
   let container = $(".audio-container");
-
-  container.each(function () {
+  
+  container.each((index, el) => {
+    el = $(el);
     let data = {
-      data_date: container.data("date"),
-      data_title: container.data("title"),
-      data_info: container.data("info"),
-      data_ctime: container.data("ctime"),
-      data_dtime: container.data("dtime"),
-      data_src: container.data("src"),
+      data_date: el.data("date"),
+      data_title: el.data("title"),
+      data_info: el.data("info"),
+      data_ctime: el.data("ctime"),
+      data_src: el.data("src"),
     };
-
-    setLecteurAudio(container, data.data_src, data.data_ctime, 100, false, data);
+    setLecteurAudio(el, 100, false, data);
   });
   
   // Quand le son est en cours
@@ -167,17 +159,17 @@ function setButtonSrc(el, type) {
   }
 }
 
-// ----------------------
-// audio est pas reconnu
-// Uncaught TypeError: Cannot read properties of undefined (reading 'paused')
-// at PlayEvent (H2P:522:21)
-// at HTMLButtonElement.<anonymous> (H2P:511:9)
-// at HTMLButtonElement.dispatch (jquery.min.js:2:43184)
-// at y.handle (jquery.min.js:2:41168)
-// ----------------------
-
 $(".controls .play").on("click", function () {
   var audio = $(this).parent().parent().find(".audio-src")[0];
+
+  $(".audio-container").each(function () {
+    if ($(this).find(".audio-src")[0] == audio) return;
+    
+    $(this).find(".audio-src")[0].pause();
+    setButtonSrc($(this).parent().parent().find(".controls .play"), "pause");
+  });
+
+
   PlayEvent(audio, $(this));
 });
 
@@ -187,7 +179,7 @@ $("#button-mute").on("click", function () {
 });
 
 // Quand on appui sur le bouton play
-function PlayEvent(element, btn) {
+function PlayEvent(element, btn, play=true) {
   // check si le son est en pause
   if (element.paused) {
     // check si le son est deja chargé
