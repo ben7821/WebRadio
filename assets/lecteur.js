@@ -26,7 +26,7 @@ const calculateTime = (sec) => {
  * @param {int} volume Le volume de la musique
  * @param {boolean} play Si on veut jouer la musique
  */
-function setLecteurAudio(
+export function setLecteurAudio(
   root,
   url,
   time,
@@ -34,41 +34,73 @@ function setLecteurAudio(
   play = true,
   data = null
 ) {
-  const audioplayer = root;
-  const audio = audioplayer.find("audio");
-  console.log(audio);
+  const audioplayer = root.find(".audioplayer");
+  const audio = audioplayer.find(".audio-src");
+  
   const timetracker = audioplayer.find(".tracker #current-time");
-  const tracker = audioplayer.find(".tracker input");
-  const duration = audioplayer.find(".tracker #duration");
+  const tracker = root.find(".tracker .progress input");
+  const duration = root.find(".tracker .duration");
+
   audio.attr("src", url);
-  audio[0].currentTime = time;
-  audio[0].volume = volume / 100;
+
+  audio[0].onloadedmetadata = function () {
+    duration.text(calculateTime(audio[0].duration));
+    audio[0].volume = volume / 100;
+  }
+
   timetracker.text(calculateTime(time));
   tracker.val(time);
 
   if (!data) return;
 
-  audioplayer.find(".audiotitre").text(data.NOM);
-  audioplayer.find(".info-topbar").text(data.AUTEURS);
-  audioplayer.find(".topbar i").text(data.DATE);
+  root.find(".audiotitre").text(data.data_title);
+  root.find(".info-topbar").text(data.data_info);
+  root.find(".topbar i").text(data.data_date);
 
   // si on veut jouer la musique
   if (play) {
     audio[0].play();
   }
 }
-setLecteurAudio(
-  $(document).find(".audioplayer"),
-  "data/audio/H2P/H2P Ep 1.wav",
-  0,
-  100,
-  false,
-  {
-    NOM: "H2P Ep 1",
-    AUTEURS: "H2P",
-    DATE: "2019",
-  }
-);
+
+$(document).ready(function () {
+  let container = $(".audio-container");
+
+  container.each(function () {
+    let data = {
+      data_date: container.data("date"),
+      data_title: container.data("title"),
+      data_info: container.data("info"),
+      data_ctime: container.data("ctime"),
+      data_dtime: container.data("dtime"),
+      data_src: container.data("src"),
+    };
+
+    setLecteurAudio(container, data.data_src, data.data_ctime, 100, false, data);
+  });
+  
+  // Quand le son est en cours
+  $(".audio-src").on("timeupdate", (el) => {
+    const element = $(el.target);
+    const progressRatio = element[0].currentTime / element[0].duration;
+    const progressPercent = Math.round(progressRatio * 100);
+
+    // mettre a jour le slider en fonction du temps du son
+    element.parent().find(".progress-track").val(progressPercent);
+    // display le temps en cours du son
+    element.parent().find(".tracker .current-time").text(calculateTime(element[0].currentTime));
+  });
+
+  // Quand on change le temps avec le slider
+  $(".progress-track").on("input", (e) => {
+    const element = $(e.target);
+    const progressRatio = e.target.value / 100;
+    // set le temps sur le son en cours
+    element.closest(".audioplayer").find(".audio-src")[0].currentTime =
+      progressRatio *
+      element.closest(".audioplayer").find(".audio-src")[0].duration;
+  });
+});
 
 //    const audioPlayer = $(".audioplayer")[0];
 
@@ -96,43 +128,10 @@ setLecteurAudio(
 // }
 
 // // function en cas de click sur un bouton
-function setAudio(data) {
-  setLecteurAudio(data.AUDIO, 0, 100, true, data);
-  setButtonSrc("play");
-  setButtonSrc("mute");
-}
 
-// Pour display le temps en cours
-const displayDuration = (el, duration) => {
-  $(el).closest(".topbar").find(".duration").text(calculateTime(duration));
-};
 
-$("audio").on("loadedmetadata", function () {
-  // display la durée du son
-  displayDuration(this, this.duration);
-});
 
-// Quand le son est en cours
-$("audio").on("timeupdate", () => {
-  const progressRatio = this.currentTime / this.duration;
-  const progressPercent = Math.round(progressRatio * 100);
-  // mettre a jour le slider en fonction du temps du son
-  $(this).closest(".tracker").find(".progress-track").val(progressPercent);
-  // display le temps en cours du son
-  $(this)
-    .closest(".tracker")
-    .find(".current-time")
-    .text(calculateTime(this.currentTime));
-});
 
-// Quand on change le temps avec le slider
-$(".progress-track").on("input", (e) => {
-  const progressRatio = e.target.value / 100;
-  // set le temps sur le son en cours
-  $(this).closest(".audioplayer").find(".audio-src")[0].currentTime =
-    progressRatio *
-    $(this).closest(".audioplayer").find(".audio-src")[0].duration;
-});
 
 // Quand on change le volume avec le slider
 $(".volume-track").on("input", (e) => {
@@ -212,7 +211,6 @@ function MuteEvent(element, btn) {
   var audio = $(element).parent().parent().find(".audio-src")[0];
   var volumeInput = $(element).parent().find(".volume-track");
 
-  
   if (audio.volume === 0) {
     audio.volume = volumeInput.val() / 100;
     // changer l'image du bouton

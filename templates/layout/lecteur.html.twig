@@ -1,6 +1,6 @@
 {% block lecteur %}
 
-	<div class="audio-container lecteur">
+	<div class="audio-container lecteur" data-date="{{ "now"|date('Y/m/d')}}" data-title="H2P Ep 1" data-info="Michel et jean luc" data-ctime="0" data-dtime="300" data-src="{{ asset('data/audio/H2P/H2P Ep 1.wav')}}">
 		<div class="controls">
 			<button class="like"><img src="{{asset('data/general/like.png')}}" alt=""></button>
 			<button class="next"><img src="{{asset('data/general/next.png')}}" style="transform: rotate(180deg)" alt=""></button>
@@ -9,20 +9,20 @@
 		</div>
 		<div class="audiobar">
 			<div class="topbar">
-				<h3 class="audiotitre">Aucun Podcast</h3>
-				<p class="info-topbar">Auteurs</p>
-				<i style="font-size: 12px">
+				<h3 class="audiotitre" >Aucun Podcast</h3>
+				<p class="info-topbar" >Auteurs</p>
+				<i style="font-size: 12px" >
 					{{ "now"|date("d/m/Y") }}
 				</i>
 			</div>
 			<div class="audioplayer">
-				<audio class="audio-src" src="" preload="metadata" loop></audio>
+				<audio class="audio-src" src="" preload="metadata"></audio>
 				<div class="tracker">
-					<span class="current-time">00:00</span>
+					<span class="current-time" >00:00</span>
 					<div class="progress">
 						<input type="range" class="progress-track" name="progress-track" max="100" value="0">
 					</div>
-					<span class="duration">00:00</span>
+					<span class="duration" >00:00</span>
 				</div>
 				<div class="volume">
 					<button type="button" id="button-mute"><img src="{{ asset('data/general/unmute.png')}}" alt=""></button>
@@ -38,9 +38,6 @@
 		</div>
 	</div>
 
-	<script>
-		//setLecteurAudio("{{ asset('data/audio/H2P/H2P Ep 1.wav') }}", 100, 100);
-	</script>
 	{# {% for em, audios in lecteurdata %}
 		{{ em }}
 		{% for audio in audios %}
@@ -48,3 +45,4 @@
 		{% endfor %}
 	{% endfor %} #}
 {% endblock %}
+
