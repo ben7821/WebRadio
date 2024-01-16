@@ -16,3 +16,4 @@ import './lecteur';
 import './creation';
 import './pagination';
 import './biblio';
+import './link';

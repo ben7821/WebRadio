@@ -1,4 +1,7 @@
+import { setAudio } from '../assets/lecteur';
+
 document.addEventListener("DOMContentLoaded", function () {
+
     var biblioContainer = document.querySelector('.Lbiblio');
     var biblioBtn = document.querySelector('.biblio');
 
@@ -12,5 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             biblioContainer.style.transform = 'translateY(0)';
         }
+    });
+
+    $('.audio-container .ajouter').on('click', function () {
+        const audiocontainer = $(this).closest('.audio-container');
+        setAudio(audiocontainer, true);
     });
 });

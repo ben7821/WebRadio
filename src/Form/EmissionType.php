@@ -6,6 +6,7 @@ use App\Entity\Emission;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class EmissionType extends AbstractType
 {
@@ -15,9 +16,12 @@ class EmissionType extends AbstractType
             ->add('NOM')
             ->add('NOMLONG')
             ->add('DESCRIPTION')
-            ->add('IMG')
-            ->add('INSCRIPTION')
-        ;
+            ->add('IMG', FileType::class, [
+                'label' => 'Image (JPEG, PNG, GIF)',
+                'required' => false, // Définissez à true si vous souhaitez rendre le champ obligatoire
+                'mapped' => true, // Cela signifie que ce champ n'est pas mappé sur l'entité directement
+            ])
+            ->add('INSCRIPTION');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

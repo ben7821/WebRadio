@@ -2,13 +2,13 @@
 
 
 
-	<div class="audio-container lecteur" data-date="{{ "now"|date('Y/m/d')}}" data-title="Aucun Podcast" data-info="..." data-ctime="0" data-src="{{ asset('data/audio/H2P/H2P Ep 1.wav') }}">
+<div class="audio-container lecteur" data-date="{{ "now"|date('Y/m/d')}}" data-title="Aucun Podcast" data-info="..." data-ctime="0" data-src="{{ asset('data/audio/H2P/H2P Ep 1.wav') }}">
 	<div class="Lbiblio hidden">
 		{% for em, audios in lecteurdata %}
-			<ul>
-				<h4>
-					{{ em }}
-				</h4>
+			<ul class="border-">
+				<h2>
+					-- {{ em }} --
+				</h2>
 				{% for audio in audios %}
 					<li>
 						<button id="bibliobtn" data-date="{{audio.date|date('d-m-Y')}}" data-title="{{ audio.nom }}" data-info="{{audio.description}}" data-ctime="0" data-src="{{ asset('data/audio/'~audio.audio)}}">{{ audio.getNOM() }}</button>
@@ -54,12 +54,5 @@
 			</button>
 		</div>
 	</div>
-	
-
-{% block javascripts %}
-    <script src="{{ asset('link.js') }}"></script>
-{% endblock %}
-
-<script>
-</script>
+</div>
 {% endblock %}

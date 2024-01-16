@@ -5,7 +5,7 @@ const paths = {
   unmute: "/data/general/unmute.png",
 };
 
-const lecteur = $('.audio-container.lecteur');
+const lecteur = $(".audio-container.lecteur");
 
 /**
  * Fonction pour convertir des secondes en minutes:secondes.
@@ -28,15 +28,10 @@ const calculateTime = (sec) => {
  * @param {int} volume Le volume de la musique
  * @param {boolean} play Si on veut jouer la musique
  */
-export function setLecteurAudio(
-  root,
-  volume = 100,
-  play = true,
-  data = null
-) {
+export function setLecteurAudio(root, volume = 100, play = true, data = null) {
   const audioplayer = root.find(".audioplayer");
   const audio = audioplayer.find(".audio-src");
-  
+
   const timetracker = audioplayer.find(".tracker #current-time");
   const tracker = root.find(".tracker .progress input");
   const duration = root.find(".tracker .duration");
@@ -46,10 +41,11 @@ export function setLecteurAudio(
   audio[0].onloadedmetadata = function () {
     duration.text(calculateTime(audio[0].duration));
     audio[0].volume = volume / 100;
-  }
+  };
 
   timetracker.text(calculateTime(data.data_ctime));
   tracker.val(data.data_ctime);
+  audio[0].currentTime = data.data_ctime;
 
   if (!data) return;
 
@@ -58,7 +54,7 @@ export function setLecteurAudio(
   root.find(".topbar i").text(data.data_date);
 }
 
-function setAudio(el,containertype = false) {
+export function setAudio(el, containertype = false) {
   el = $(el);
   let data = {
     data_date: el.data("date"),
@@ -79,10 +75,9 @@ function setAudio(el,containertype = false) {
 
 $(document).ready(function () {
   let container = $(".audio-container");
-  
+
   container.each((index, el) => {
     if ($(el).hasClass("lecteur")) {
-      setAudio($(el), true);
       return;
     }
     setAudio(el);
@@ -96,64 +91,75 @@ $(document).ready(function () {
     });
   });
 });
-  
-  // Quand le son est en cours
-  $(".audio-src").on("timeupdate", (el) => {
-    const element = $(el.target);
-    const progressRatio = element[0].currentTime / element[0].duration;
-    const progressPercent = Math.round(progressRatio * 100);
 
-    // mettre a jour le slider en fonction du temps du son
-    element.parent().find(".progress-track").val(progressPercent);
-    // display le temps en cours du son
-    element.parent().find(".tracker .current-time").text(calculateTime(element[0].currentTime));
-  });
+// Quand le son est en cours
+$(".audio-src").on("timeupdate", (el) => {
+  const element = $(el.target);
+  const progressRatio = element[0].currentTime / element[0].duration;
+  const progressPercent = Math.round(progressRatio * 100);
 
-  // Quand on change le temps avec le slider
-  $(".progress-track").on("input", (e) => {
-    const progressRatio = e.target.value / 100;
+  // mettre a jour le slider en fonction du temps du son
+  element.parent().find(".progress-track").val(progressPercent);
+  // display le temps en cours du son
+  element
+    .parent()
+    .find(".tracker .current-time")
+    .text(calculateTime(element[0].currentTime));
+});
 
-    const audioplayer = $(e.target).closest(".audioplayer");
-    const audio = audioplayer.find(".audio-src")[0];
+// Quand on change le temps avec le slider
+$(".progress-track").on("input", (e) => {
+  const progressRatio = e.target.value / 100;
 
-    if (!isNaN(audio.duration) && isFinite(audio.duration)) {
-        audio.currentTime = progressRatio * audio.duration;
-    } else {
-        console.error("La durée du fichier audio n'est pas valide.");
+  const audioplayer = $(e.target).closest(".audioplayer");
+  const audio = audioplayer.find(".audio-src")[0];
+
+  if (!isNaN(audio.duration) && isFinite(audio.duration)) {
+    audio.currentTime = progressRatio * audio.duration;
+  } else {
+    console.error("La durée du fichier audio n'est pas valide.");
+  }
+});
+
+// function pour set le lecteur audio avec les infos du localstorage
+window.onload = function () {
+  const WRGCLecteurResponse = JSON.parse(
+    localStorage.getItem("WRGCLecteurInfo")
+  );
+  const lecteur = $(".audio-container.lecteur");
+  // check si le localstorage existe
+  if (WRGCLecteurResponse && WRGCLecteurResponse !== null) {
+    // set le lecteur audio avec les infos du localstorage
+    setLecteurAudio(
+      lecteur,
+      100,
+      WRGCLecteurResponse.data_playing,
+      WRGCLecteurResponse
+    );
+
+    if (WRGCLecteurResponse.data_playing) {
+      lecteur.find(".controls .play").click();
     }
-  });
 
+    //localStorage.removeItem("WRGCLecteurInfo");
+  }
+};
 
-//    const audioPlayer = $(".audioplayer")[0];
-
-//   // function pour set le lecteur audio avec les infos du localstorage
-//   window.onload = function () {
-//     const WRGCLecteurResponse = JSON.parse(localStorage.getItem("WRGCLecteurInfo"));
-
-//     // check si le localstorage existe
-//     if (WRGCLecteurResponse && WRGCLecteurResponse.audioName != null && WRGCLecteurResponse.audioTime != null && WRGCLecteurResponse.audioPlaying != null) {
-//         // set le lecteur audio avec les infos du localstorage
-//         setLecteurAudio(WRGCLecteurResponse.audioName, WRGCLecteurResponse.audioTime, WRGCLecteurResponse.audioPlaying);
-
-//         localStorage.removeItem("WRGCLecteurInfo");
-//     }
-// }
-
-// // function pour get les infos du lecteur audio et les set dans le localstorage
-// window.onbeforeunload = function () {
-//     // var WRGCLecteurInfo = {
-//     //     audioName: audioPlayer.src,
-//     //     audioTime: audioPlayer.currentTime,
-//     //     audioPlaying: !audioPlayer.paused
-//     // }
-//     // localStorage.setItem("WRGCLecteurInfo", JSON.stringify(WRGCLecteurInfo));
-// }
+// function pour get les infos du lecteur audio et les set dans le localstorage
+window.onbeforeunload = function () {
+  const lecteur = $(".audio-container.lecteur");
+  var data_audio = {
+    data_title: lecteur.find(".audiotitre").text(),
+    data_info: lecteur.find(".info-topbar").text(),
+    data_date: lecteur.find(".topbar i").text(),
+    data_src: lecteur.find(".audio-src").attr("src"),
+    data_ctime: lecteur.find(".audio-src")[0].currentTime,
+    data_playing: !lecteur.find(".audio-src")[0].paused,
+  };
+  localStorage.setItem("WRGCLecteurInfo", JSON.stringify(data_audio));
+};
 
 // // function en cas de click sur un bouton
-
-
-
-
 
 // Quand on change le volume avec le slider
 $(".volume-track").on("input", (e) => {
@@ -194,11 +200,10 @@ $(".controls .play").on("click", function () {
 
   $(".audio-container").each(function () {
     if ($(this).find(".audio-src")[0] == audio) return;
-    
+
     $(this).find(".audio-src")[0].pause();
     setButtonSrc($(this).parent().parent().find(".controls .play"), "pause");
   });
-
 
   PlayEvent(audio, $(this));
 });
@@ -209,7 +214,7 @@ $("#button-mute").on("click", function () {
 });
 
 // Quand on appui sur le bouton play
-function PlayEvent(element, btn, play=true) {
+function PlayEvent(element, btn, play = true) {
   // check si le son est en pause
   if (element.paused) {
     // check si le son est deja chargé
