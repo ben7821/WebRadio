@@ -653,6 +653,12 @@ article {
   flex-direction: column;
 }
 
+article h5 {
+  margin: 0;
+  font-size: 25px;
+  font-family: 'Curprum', sans-serif;
+}
+
 article:nth-child(1) {
   padding-bottom: 25px;
 }
