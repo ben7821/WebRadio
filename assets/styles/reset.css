@@ -1,0 +1,93 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*Css border for all web-page */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1;
+	background-color: rgb(255, 255, 255);
+	font-size: 150%;
+}
+@import url('https://fonts.googleapis.com/css2?family=Cuprum&display=swap');
+*{
+	font-family:Arial, Helvetica, sans-serif;
+}
+h1{
+	font-size: 4vh;
+}
+
+
+hr {
+	border: 0;
+	height: 1px;
+	background: #333;
+	width: 99%;
+}
+
+
+.border-red {
+    /* border-radius: 16px; */
+	background-color: #E15D5D88 !important;
+    border: 5px solid #E15D5D;}
+.border-blue {
+    /* border-radius: 16px; */
+	background-color: #00A29E88 !important;
+    border: 5px solid #00A29E;}
+.border-green {
+    /* border-radius: 16px; */
+	background-color: #FFB44288 !important;
+    border: 5px solid #FFB442;}
+
+.bg-red {
+	background-color: #E15D5D88 !important;
+}
+
+.bg-blue {
+	background-color: #00A29E88 !important;
+}
+
+.bg-green {
+	background-color: #FFB44288 !important;
+}

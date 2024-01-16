@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="web">
+		<h1 class="display-full">La Web radio</h1>
+		<img src="{{ asset('data/general/rd.png')}}" alt='typo' class='typo'>
+		<p>
+			L'équipe de la Webradio du lycée Guy Chauvet est composée de passionnés d'audiovisuel et de communication. Parmi eux, on retrouve des étudiants talentueux aux compétences diverses : des animateurs enthousiastes qui apportent dynamisme et expertise à chaque émission, des techniciens son et lumière assurant une qualité technique impeccable, des rédacteurs et journalistes attentifs à vous offrir des contenus pertinents et captivants, et enfin, des responsables et coordinateurs veillant au bon déroulement de chaque projet et à la cohésion de l'équipe.
+		</p>
+		<p>
+			Chaque membre de cette équipe dévouée contribue à l'élaboration d'émissions variées, couvrant des sujets allant de l'Histoire à la musique, du cinéma à l'actualité, avec passion et engagement. Leur collaboration au sein de la Webradio du lycée Guy Chauvet permet de créer un environnement d'apprentissage stimulant et créatif, offrant aux auditeurs une expérience radiophonique enrichissante et divertissante.
+		</p>
+	</div>
+
+	<div class="pres-memb">
+		<h1 class="display-full">Présentation des membres</h1>
+		<table class="membre-container">
+			<tr>
+				{% for meb in membres %}
+					<td class="membre-cell">
+						<img src="{{ asset('data/equipe/' ~ meb.NOM ~ '_' ~ meb.PRENOM ~ '.png') }}" alt="Photo de {{ meb.NOM }} {{ meb.PRENOM }}">
+						<div class="membre-info">
+							<h3>{{ meb.PRENOM }}
+								{{ meb.NOM }}</h3>
+							<p>{{ meb.DESCRIPTION }}</p>
+						</div>
+					</td>
+					{% if loop.index is even %}
+					</tr>
+					<tr>
+					{% endif %}
+				{% endfor %}
+			</tr>
+		</table>
+
+	</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+liip_imagine:
+    loaders:
+        profile_photos:
+            flysystem:
+                filesystem_service: oneup_flysystem.profile_photos_filesystem
+    data_loader: profile_photos
+
+
+# /config/oneup_flysystem.yaml
+
+oneup_flysystem:
+    adapters:
+        profile_photos:
+            local:
+                location:  "assets/podcasts/"
+
+    filesystems:
+        profile_photos:
+            adapter: profile_photos

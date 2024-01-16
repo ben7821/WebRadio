@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Equipe{% endblock %}
+
+{% block body %}
+    <h1 class="display-full">Create new Equipe</h1>
+
+    {{ include('equipe/_form.html.twig') }}
+
+    <a href="{{ path('app_creation') }}" class="backlink">back to list</a>
+{% endblock %}

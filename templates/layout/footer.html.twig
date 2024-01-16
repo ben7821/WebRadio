@@ -1,0 +1,21 @@
+{% block footer %}
+	<footer>
+		<a href="{{ path('app_home') }}">
+			<img src="{{ asset('data/general/Logo.png') }}" alt="Logo" class="logo-footer"/></a>
+		<h4>A propos</h4>
+		<div class="footer-element">
+			<ul>
+				<!-- LISTE DE TOUTES LES PAGES DU FOOTER -->
+				<li>
+					<a href="{{ path('app_contact') }}">- Contact</a>
+				</li>
+				<li>
+					<a href="{{ path('app_plan_site') }}">- Plan du site</a>
+				</li>
+				<li>
+					<a href="{{ path('app_legal') }}">- Mentions Legales</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+{% endblock %}
