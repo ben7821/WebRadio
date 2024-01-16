@@ -1,6 +1,23 @@
 {% block lecteur %}
 
-	<div class="audio-container lecteur" data-date="{{ "now"|date('Y/m/d')}}" data-title="Aucun Podcast" data-info="..." data-ctime="0" data-src="">
+
+
+	<div class="audio-container lecteur" data-date="{{ "now"|date('Y/m/d')}}" data-title="Aucun Podcast" data-info="..." data-ctime="0" data-src="{{ asset('data/audio/H2P/H2P Ep 1.wav') }}">
+	<div class="Lbiblio hidden">
+		{% for em, audios in lecteurdata %}
+			<ul>
+				<h4>
+					{{ em }}
+				</h4>
+				{% for audio in audios %}
+					<li>
+						<button id="bibliobtn" data-date="{{audio.date|date('d-m-Y')}}" data-title="{{ audio.nom }}" data-info="{{audio.description}}" data-ctime="0" data-src="{{ asset('data/audio/'~audio.audio)}}">{{ audio.getNOM() }}</button>
+					</li>
+				{% endfor %}
+			</ul>
+		{% endfor %}
+	</div>
+	<div class="lecteur-container">
 		<div class="controls">
 			<button class="like"><img src="{{asset('data/general/like.png')}}" alt=""></button>
 			<button class="next"><img src="{{asset('data/general/next.png')}}" style="transform: rotate(180deg)" alt=""></button>
@@ -30,30 +47,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="extra">
+		<div class="extra ">
 			<button class="biblio">
 				<img src="{{ asset('data/general/biblio.png')}}" alt="">
 				<span>Bibliothèque</span>
 			</button>
 		</div>
-		
 	</div>
+	
 
-	<div class="Lbiblio">
-		{% for em, audios in lecteurdata %}
-			<ul>
-				<h2>
-					--
-					{{ em }}
-					--
-				</h2>
-				{% for audio in audios %}
-					<li>
-						<button id="bibliobtn" data-date="{{audio.date|date('d-m-Y')}}" data-title="{{ audio.nom }}" data-info="{{audio.description}}" data-ctime="0" data-src="{{ asset('data/audio/'~audio.audio)}}">{{ audio.getNOM() }}</button>
-					</li>
-				{% endfor %}
-			</ul>
-		{% endfor %}
-	</div>
+{% block javascripts %}
+    <script src="{{ asset('link.js') }}"></script>
+{% endblock %}
 
+<script>
+</script>
 {% endblock %}

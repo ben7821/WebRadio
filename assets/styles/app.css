@@ -647,19 +647,20 @@ img[alt="imgEmission"] {
   background-color: rgb(0, 47, 255);
 }
 
-article {
+.emission article {
   color: white;
   display: flex;
   flex-direction: column;
 }
 
-article h5 {
+.emission article h5 {
   margin: 0;
   font-size: 25px;
   font-family: 'Curprum', sans-serif;
+  text-transform: uppercase;
 }
 
-article:nth-child(1) {
+.emission article:nth-child(1) {
   padding-bottom: 25px;
 }
 
@@ -865,6 +866,7 @@ input[type="tel"] {
 
 /* Lecteur audio -------------------------------------*/
 
+
 .audio-container button {
   background: none;
   border: none;
@@ -892,7 +894,7 @@ input[type="tel"] {
 
 .audio-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   /* width: 100%; */
   --size: 55px;
   color: white;
@@ -900,201 +902,220 @@ input[type="tel"] {
   position: sticky;
   bottom: 0;
   padding: 10px;
-  
-  >.extra {
+
+  .lecteur-container {
     display: flex;
     flex-direction: row;
-    align-items: end;
-    justify-content: center;
-    width: min-content;
-    margin-right: 10px;
 
-    >.biblio {
+    >.extra {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: end;
+      justify-content: center;
+      width: min-content;
+      margin-right: 10px;
+
+      >.biblio {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 100%;
+        height: 100%;
+
+        >img {
+          width: 45px;
+        }
+
+        >span {
+          font-size: 13px;
+          color: white;
+        }
+      }
+    }
+
+    >.controls {
+      display: flex;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
       gap: 5px;
+
+      >button {
+        display: flex;
+        flex-direction: row;
+        border: none;
+        background-color: transparent;
+        width: fit-content;
+        height: fit-content;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      >button:hover {
+        transform: translateY(-2px);
+      }
+
+      >button img {
+        width: var(--size);
+      }
+
+      >.next img {
+        width: 40px;
+        height: 40px;
+      }
+
+      >.like img {
+        width: calc(var(--size) - 20px);
+      }
+    }
+
+    >.audiobar {
       width: 100%;
-      height: 100%;
-
-      >img {
-        width: 45px;
-      }
-
-      >span {
-        font-size: 13px;
-        color: white;
-      }
-    }
-  }
-
-  >.controls {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-
-    >button {
-      display: flex;
-      flex-direction: row;
-      border: none;
-      background-color: transparent;
-      width: fit-content;
-      height: fit-content;
-      transition: transform 0.2s ease-in-out;
-    }
-
-    >button:hover {
-      transform: translateY(-2px);
-    }
-
-    >button img {
-      width: var(--size);
-    }
-
-    >.next img {
-      width: 40px;
-      height: 40px;
-    }
-
-    >.like img {
-      width: calc(var(--size) - 20px);
-    }
-  }
-
-  >.audiobar {
-    width: 100%;
-    display: block;
-    align-items: center;
-    flex-direction: column;
-    padding: 10px;
-
-    >.topbar {
-      display: flex;
-      flex-direction: row;
+      display: block;
       align-items: center;
-      gap: 7px;
+      flex-direction: column;
+      padding: 10px;
 
-      >h3 {
-        font-size: 30px;
-        margin: 5px 10px;
-      }
-
-      >p {
-        margin-left: 10px;
-      }
-
-      >p,
-      i {
-        font-size: 16px;
-      }
-    }
-
-    >.audioplayer {
-      display: flex;
-      width: 100%;
-
-      >.tracker {
-        width: 100%;
+      >.topbar {
         display: flex;
         flex-direction: row;
         align-items: center;
+        gap: 7px;
 
-        >span {
-          font-size: 15px;
-          margin: 0 10px;
+        >h3 {
+          font-size: 30px;
+          margin: 5px 10px;
         }
 
-        >.progress {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          width: 100%;
+        >p {
+          margin-left: 10px;
+        }
 
-          >.progress-track {
-            -webkit-appearance: none;
-            appearance: none;
-            height: 10px;
-            width: 100%;
-            border-radius: 5px;
-            background-color: white;
-          }
-
-          >.progress-track::-webkit-slider-thumb {
-            width: 15px;
-            height: 15px;
-            background-color: #636363;
-            border: 2px solid white;
-            border-radius: 50%;
-            cursor: pointer;
-          }
+        >p,
+        i {
+          font-size: 16px;
         }
       }
 
-      >.volume {
-        display: inline-block;
-        position: relative;
+      >.audioplayer {
+        display: flex;
+        width: 100%;
 
-        >#button-mute {
-          -webkit-filter: invert(1);
-          filter: invert(1);
+        >.tracker {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
 
-          >img {
-            width: var(--size);
+          >span {
+            font-size: 15px;
+            margin: 0 10px;
+          }
+
+          >.progress {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+
+            >.progress-track {
+              -webkit-appearance: none;
+              appearance: none;
+              height: 10px;
+              width: 100%;
+              border-radius: 5px;
+              background-color: white;
+            }
+
+            >.progress-track::-webkit-slider-thumb {
+              width: 15px;
+              height: 15px;
+              background-color: #636363;
+              border: 2px solid white;
+              border-radius: 50%;
+              cursor: pointer;
+            }
           }
         }
 
-        >#button-mute:hover+.volume-track,
-        .volume-track:hover {
-          display: block;
-        }
+        >.volume {
+          display: inline-block;
+          position: relative;
 
-        >.volume-track {
-          left: 50%;
-          position: absolute;
-          transform-origin: left;
-          -webkit-appearance: none;
-          appearance: none;
-          border-radius: 5px;
-          transform: rotate(270deg);
-          top: -5px;
-          width: 100px;
-          height: 10px;
-          display: none;
-          appearance: slider-vetical;
+          >#button-mute {
+            -webkit-filter: invert(1);
+            filter: invert(1);
 
-          &::-webkit-slider-thumb {
-            width: 15px;
-            height: 15px;
-            background-color: #ffb442;
-            border-radius: 50%;
-            cursor: pointer;
+            >img {
+              width: var(--size);
+            }
+          }
+
+          >#button-mute:hover+.volume-track,
+          .volume-track:hover {
+            display: block;
+          }
+
+          >.volume-track {
+            left: 50%;
+            position: absolute;
+            transform-origin: left;
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 5px;
+            transform: rotate(270deg);
+            top: -5px;
+            width: 100px;
+            height: 10px;
+            display: none;
+            appearance: slider-vetical;
+
+            &::-webkit-slider-thumb {
+              width: 15px;
+              height: 15px;
+              background-color: #ffb442;
+              border-radius: 50%;
+              cursor: pointer;
+            }
           }
         }
       }
     }
   }
 }
-.Lbiblio{
-  position: absolute;
+
+.hidden {
+  display: none !important;
+}
+
+.Lbiblio {
   display: flex;
   flex-direction: row;
+  gap: 20px;
   width: 100%;
-  overflow-y:scroll;
-  >ul{
+  transition: transform 0.5s ease-in-out;
+  transform: translateY(100%);
+  overflow-x: auto; /* Ajoutez overflow-x: auto pour activer le défilement horizontal */
+  white-space: nowrap;
+
+  >ul {
     display: flex;
     flex-direction: column;
-    >H2{
+
+    >H4 {
       display: flex;
       justify-content: center;
+      width: 100%;
     }
-    >li{
+
+    >li {
       display: flex;
       text-decoration: none;
-      justify-content: center;
-      >button{
+      justify-content: left;
+      padding: 5px;
+
+      >button {
         border: none;
       }
     }
@@ -1525,8 +1546,7 @@ input[type="tel"] {
   box-sizing: border-box;
 }
 
-.register form
-{
+.register form {
   width: 30vw;
   margin: auto;
   display: flex;
@@ -1542,14 +1562,13 @@ input[type="tel"] {
 }
 
 .register-username label,
-.register-password label
-{
+.register-password label {
   display: block;
   margin-bottom: 5px;
   text-align: left;
 }
 
-.register-terms label{
+.register-terms label {
   text-align: left;
   margin: 5px;
 }

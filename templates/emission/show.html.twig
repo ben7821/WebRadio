@@ -20,9 +20,9 @@
     <hr size="5" width="100%" color="black" />
 
     {% for audio in audios %}
-        <div class="podcast">
-           <div class="border- ">
-                <div class="audio-container" data-date="{{ audio.date|date('d-m-Y') }} / {{ audio.heure|date('H:i') }}" data-title="{{ audio.nom }}" data-info="{{ audio.description }}" data-ctime="0" data-src="{{ asset('data/audio/' ~ audio.audio)}}">
+        <div class="podcast border- ">
+            <div class="audio-container" data-date="{{ audio.date|date('d-m-Y') }} / {{ audio.heure|date('H:i') }}" data-title="{{ audio.nom }}" data-info="{{ audio.description }}" data-ctime="0" data-src="{{ asset('data/audio/' ~ audio.audio)}}">
+                <div class="lecteur-container">
                     <div class="controls">
                         <button class="like"><img src="{{asset('data/general/like.png')}}"></button>
                         <button class="play"><img src="{{asset('data/general/play.png')}}" alt=""></button>

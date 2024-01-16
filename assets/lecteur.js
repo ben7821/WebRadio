@@ -81,6 +81,10 @@ $(document).ready(function () {
   let container = $(".audio-container");
   
   container.each((index, el) => {
+    if ($(el).hasClass("lecteur")) {
+      setAudio($(el), true);
+      return;
+    }
     setAudio(el);
   });
 
@@ -91,6 +95,7 @@ $(document).ready(function () {
       setAudio($(this), true);
     });
   });
+});
   
   // Quand le son est en cours
   $(".audio-src").on("timeupdate", (el) => {
@@ -106,14 +111,18 @@ $(document).ready(function () {
 
   // Quand on change le temps avec le slider
   $(".progress-track").on("input", (e) => {
-    const element = $(e.target);
     const progressRatio = e.target.value / 100;
-    // set le temps sur le son en cours
-    element.closest(".audioplayer").find(".audio-src")[0].currentTime =
-      progressRatio *
-      element.closest(".audioplayer").find(".audio-src")[0].duration;
+
+    const audioplayer = $(e.target).closest(".audioplayer");
+    const audio = audioplayer.find(".audio-src")[0];
+
+    if (!isNaN(audio.duration) && isFinite(audio.duration)) {
+        audio.currentTime = progressRatio * audio.duration;
+    } else {
+        console.error("La durée du fichier audio n'est pas valide.");
+    }
   });
-});
+
 
 //    const audioPlayer = $(".audioplayer")[0];
 
@@ -149,15 +158,15 @@ $(document).ready(function () {
 // Quand on change le volume avec le slider
 $(".volume-track").on("input", (e) => {
   const volumeRatio = e.target.value / 100;
-  const volumeBtn = $(this).parent().find("#button-mute");
+  const volumeBtn = $(e.target).parent().parent().find("#button-mute");
   // set le volume sur le son en cours
   $(this).closest(".audioplayer").find(".audio-src").volume = volumeRatio;
   // volume = e.target.value;
   // changer l'image du bouton si le volume est a 0
   if (volumeRatio === 0) {
-    setButtonSrc(volumeBtn, "unmute");
-  } else {
     setButtonSrc(volumeBtn, "mute");
+  } else {
+    setButtonSrc(volumeBtn, "unmute");
   }
 });
 
@@ -224,14 +233,14 @@ function MuteEvent(element, btn) {
   var audio = $(element).parent().parent().find(".audio-src")[0];
   var volumeInput = $(element).parent().find(".volume-track");
 
-  if (audio.volume === 0) {
+  if (audio.volume !== 0) {
     audio.volume = volumeInput.val() / 100;
     // changer l'image du bouton
-    setButtonSrc(btn, "mute");
+    setButtonSrc(btn, "unmute");
   } else {
     volumeInput.val(0);
     audio.volume = 0;
     // changer l'image du bouton
-    setButtonSrc(btn, "unmute");
+    setButtonSrc(btn, "mute");
   }
 }
