@@ -51,8 +51,11 @@ class AudioController extends AbstractController
             // the file name is the NOM emission / NOM audio.wav
             $file = $request->files->get('audio')['FILE'];
             $fileName = $emission->getNOM() . '/' . $audio->getNOM() . '.wav';
-            
+
             $file->move($this->audioDir, $fileName);
+
+            // ---------------------
+            // finir le traitement des fichiers audio pour les mettre dans le bon dossier
         }
 
         $form->handleRequest($request);
