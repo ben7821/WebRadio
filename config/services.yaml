@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     uploads_ems: '%kernel.project_dir%/public/data/rubrique'
+    audio_dir: '%kernel.project_dir%/public/data/audio'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -31,12 +32,11 @@ services:
             $em: '@doctrine.orm.entity_manager'
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.controller', method: 'onKernelController' }
-
-    App\EventSubscriber\EmissionSubscriber:
+    
+    App\Controller\EmissionController:
         arguments:
-            $audioPath: '%kernel.project_dir%/public/data/audio/'
-        tags:
-            - { name: 'kernel.event_subscriber' }
+            $emissionDir: '%uploads_ems%'
+            $audioDir: '%audio_dir%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

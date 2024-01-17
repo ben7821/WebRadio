@@ -10,12 +10,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 
 #[Route('/emission')]
 class EmissionController extends AbstractController
 {
+    private $emissionDir;
+    private $audioDir;
+
+    public function __construct(string $emissionDir, string $audioDir)
+    {
+        $this->emissionDir = $emissionDir;
+        $this->audioDir = $audioDir;
+    }
+
     #[Route('/', name: 'app_emission_index', methods: ['GET'])]
     public function index(EmissionRepository $emissionRepository): Response
     {
@@ -34,8 +43,31 @@ class EmissionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($emission);
-            $entityManager->flush();
+
+            $img = $form->get('IMG')->getData();
+
+            if ($img) {
+                $newFilename = $emission->getNom() . '.png';
+
+                try {
+                    $img->move(
+                        $this->getParameter($this->emissionDir),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $emission->setIMG($newFilename);
+
+                $entityManager->persist($emission);
+                $entityManager->flush();
+            }
+
+            $folder = $this->audioDir . $emission->getNom();
+            if (!file_exists($folder)) {
+                mkdir($folder, 0777, true);
+            }
 
             return $this->redirectToRoute('app_emission_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -75,17 +107,16 @@ class EmissionController extends AbstractController
         ]);
     }
 
-    #[Route('/{ID}/delete', name: 'app_emission_delete', methods: ['GET','POST'])]
+    #[Route('/{ID}/delete', name: 'app_emission_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($this->isCsrfTokenValid('delete'.$emission->getID(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $emission->getID(), $request->request->get('_token'))) {
             $entityManager->remove($emission);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_emission_index', [], Response::HTTP_SEE_OTHER);
     }
-
 }

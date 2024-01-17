@@ -29,8 +29,8 @@ class Emission
 
     #[ORM\Column(length: 255)]
     private ?string $IMG = null;
-    #[ORM\Column(length: 255)]
 
+    #[ORM\Column(length: 255)]
     private ?bool $INSCRIPTION = null;
 
     #[ORM\OneToMany(mappedBy: 'IDEMISSION', targetEntity: Audio::class, orphanRemoval: true)]
