@@ -121,43 +121,6 @@ $(".progress-track").on("input", (e) => {
   }
 });
 
-// function pour set le lecteur audio avec les infos du localstorage
-window.onload = function () {
-  const WRGCLecteurResponse = JSON.parse(
-    localStorage.getItem("WRGCLecteurInfo")
-  );
-  const lecteur = $(".audio-container.lecteur");
-  // check si le localstorage existe
-  if (WRGCLecteurResponse && WRGCLecteurResponse !== null) {
-    // set le lecteur audio avec les infos du localstorage
-    setLecteurAudio(
-      lecteur,
-      100,
-      WRGCLecteurResponse.data_playing,
-      WRGCLecteurResponse
-    );
-
-    if (WRGCLecteurResponse.data_playing) {
-      lecteur.find(".controls .play").click();
-    }
-
-    //localStorage.removeItem("WRGCLecteurInfo");
-  }
-};
-
-// function pour get les infos du lecteur audio et les set dans le localstorage
-window.onbeforeunload = function () {
-  const lecteur = $(".audio-container.lecteur");
-  var data_audio = {
-    data_title: lecteur.find(".audiotitre").text(),
-    data_info: lecteur.find(".info-topbar").text(),
-    data_date: lecteur.find(".topbar i").text(),
-    data_src: lecteur.find(".audio-src").attr("src"),
-    data_ctime: lecteur.find(".audio-src")[0].currentTime,
-    data_playing: !lecteur.find(".audio-src")[0].paused,
-  };
-  localStorage.setItem("WRGCLecteurInfo", JSON.stringify(data_audio));
-};
 
 // // function en cas de click sur un bouton
 
@@ -183,69 +146,109 @@ function setButtonSrc(el, type) {
     case "play":
       el.children().attr("src", paths.play);
       break;
-    case "pause":
-      el.children().attr("src", paths.pause);
-      break;
-    case "mute":
+      case "pause":
+        el.children().attr("src", paths.pause);
+        break;
+        case "mute":
       el.children().attr("src", paths.mute);
       break;
-    case "unmute":
-      el.children().attr("src", paths.unmute);
+      case "unmute":
+        el.children().attr("src", paths.unmute);
       break;
+    }
   }
-}
 
-$(".controls .play").on("click", function () {
-  var audio = $(this).parent().parent().find(".audio-src")[0];
-
-  $(".audio-container").each(function () {
-    if ($(this).find(".audio-src")[0] == audio) return;
-
-    $(this).find(".audio-src")[0].pause();
-    setButtonSrc($(this).parent().parent().find(".controls .play"), "pause");
+  $(".controls .play").on("click", function () {
+    var audio = $(this).parent().parent().find(".audio-src")[0];
+    
+    $(".audio-container").each(function () {
+      if ($(this).find(".audio-src")[0] == audio) return;
+      
+      $(this).find(".audio-src")[0].pause();
+      setButtonSrc($(this).parent().parent().find(".controls .play"), "pause");
+    });
+    
+    PlayEvent(audio, $(this));
+  });
+  
+  $("#button-mute").on("click", function () {
+    var audio = $(this).parent().parent().find(".audio-src")[0];
+    MuteEvent(audio, $(this));
   });
 
-  PlayEvent(audio, $(this));
-});
-
-$("#button-mute").on("click", function () {
-  var audio = $(this).parent().parent().find(".audio-src")[0];
-  MuteEvent(audio, $(this));
-});
-
-// Quand on appui sur le bouton play
-function PlayEvent(element, btn, play = true) {
-  // check si le son est en pause
-  if (element.paused) {
-    // check si le son est deja chargé
-    if (element.readyState > 0) {
-      // play le son et change l'image du bouton
-      element.play();
-      setButtonSrc(btn, "play");
+  // Quand on appui sur le bouton play
+  function PlayEvent(element, btn, play = true) {
+    // check si le son est en pause
+    if (element.paused) {
+      // check si le son est deja chargé
+      if (element.readyState > 0) {
+        // play le son et change l'image du bouton
+        element.play();
+        setButtonSrc(btn, "play");
+      } else {
+        // sinon erreur et fait rien
+        setButtonSrc(btn, "pause");
+      }
     } else {
-      // sinon erreur et fait rien
+      // pause le son et change l'image du bouton
+      element.pause();
       setButtonSrc(btn, "pause");
     }
-  } else {
-    // pause le son et change l'image du bouton
-    element.pause();
-    setButtonSrc(btn, "pause");
   }
-}
+  
+  // Quand on appui sur le bouton mute
+  function MuteEvent(element, btn) {
+    var audio = $(element).parent().parent().find(".audio-src")[0];
+    var volumeInput = $(element).parent().find(".volume-track");
 
-// Quand on appui sur le bouton mute
-function MuteEvent(element, btn) {
-  var audio = $(element).parent().parent().find(".audio-src")[0];
-  var volumeInput = $(element).parent().find(".volume-track");
-
-  if (audio.volume !== 0) {
-    audio.volume = volumeInput.val() / 100;
-    // changer l'image du bouton
-    setButtonSrc(btn, "unmute");
-  } else {
-    volumeInput.val(0);
-    audio.volume = 0;
-    // changer l'image du bouton
-    setButtonSrc(btn, "mute");
+    if (audio.volume !== 0) {
+      audio.volume = volumeInput.val() / 100;
+      // changer l'image du bouton
+      setButtonSrc(btn, "unmute");
+    } else {
+      volumeInput.val(0);
+      audio.volume = 0;
+      // changer l'image du bouton
+      setButtonSrc(btn, "mute");
+    }
   }
-}
+  
+
+  // function pour set le lecteur audio avec les infos du localstorage
+  window.onload = function () {
+    const WRGCLecteurResponse = JSON.parse(
+      localStorage.getItem("WRGCLecteurInfo")
+    );
+    const lecteur = $(".audio-container.lecteur");
+    // check si le localstorage existe
+    if (WRGCLecteurResponse && WRGCLecteurResponse !== null) {
+      // set le lecteur audio avec les infos du localstorage
+      setLecteurAudio(
+        lecteur,
+        100,
+        WRGCLecteurResponse.data_playing,
+        WRGCLecteurResponse
+      );
+  
+      if (WRGCLecteurResponse.data_playing) {
+        lecteur.find(".controls .play").click();
+        console.log(lecteur.find(".controls .play"));
+      }
+  
+      localStorage.removeItem("WRGCLecteurInfo");
+    }
+  };
+  
+  // function pour get les infos du lecteur audio et les set dans le localstorage
+  window.onbeforeunload = function () {
+    const lecteur = $(".audio-container.lecteur");
+    var data_audio = {
+      data_title: lecteur.find(".audiotitre").text(),
+      data_info: lecteur.find(".info-topbar").text(),
+      data_date: lecteur.find(".topbar i").text(),
+      data_src: lecteur.find(".audio-src").attr("src"),
+      data_ctime: lecteur.find(".audio-src")[0].currentTime,
+      data_playing: !lecteur.find(".audio-src")[0].paused,
+    };
+    localStorage.setItem("WRGCLecteurInfo", JSON.stringify(data_audio));
+  };

@@ -75,7 +75,7 @@ class EmissionController extends AbstractController
         ]);
     }
 
-    #[Route('/{ID}', name: 'app_emission_delete', methods: ['POST'])]
+    #[Route('/{ID}/delete', name: 'app_emission_delete', methods: ['GET','POST'])]
     public function delete(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');

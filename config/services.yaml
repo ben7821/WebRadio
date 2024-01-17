@@ -34,7 +34,7 @@ services:
 
     App\EventSubscriber\EmissionSubscriber:
         arguments:
-            $audioPath: '%kernel.project_dir%/public/data/audio'
+            $audioPath: '%kernel.project_dir%/public/data/audio/'
         tags:
             - { name: 'kernel.event_subscriber' }
 

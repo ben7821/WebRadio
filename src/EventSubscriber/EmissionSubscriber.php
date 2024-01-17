@@ -3,7 +3,6 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Emission;
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\Filesystem\Filesystem;
@@ -30,9 +29,7 @@ class EmissionSubscriber implements EventSubscriberInterface
             $audio = $this->audioPath . '/' . $entity->getNOM();
 
             $fs = new Filesystem();
-            $fs->mkdir($audio);
+            $fs->mkdir($audio, 0775);
         }
     }
 }
-
-?>

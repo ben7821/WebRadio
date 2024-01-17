@@ -20,6 +20,7 @@ class EmissionType extends AbstractType
                 'label' => 'Image (JPEG, PNG, GIF)',
                 'required' => false, // Définissez à true si vous souhaitez rendre le champ obligatoire
                 'mapped' => true, // Cela signifie que ce champ n'est pas mappé sur l'entité directement
+                'attr' => ['accept' => 'image/jpeg, image/png, image/gif'],
             ])
             ->add('INSCRIPTION');
     }
