@@ -31,7 +31,7 @@ class EmissionType extends AbstractType
                 'mapped' => true, // Cela signifie que ce champ n'est pas mappé sur l'entité directement
                 'constraints' => [
                     new ConstraintsFile([
-                        'maxSize' => '1024k',
+                        'maxSize' => '16384k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',

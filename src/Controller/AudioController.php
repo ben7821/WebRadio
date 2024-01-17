@@ -15,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/audio')]
 class AudioController extends AbstractController
 {
+    private $audioDir;
+
+    public function __construct(string $audioDir)
+    {
+        $this->audioDir = $audioDir;
+    }
+
     #[Route('/', name: 'app_audio_index', methods: ['GET'])]
     public function index(AudioRepository $audioRepository): Response
     {
@@ -39,6 +46,13 @@ class AudioController extends AbstractController
             if ($emission) {
                 $form->get('IDEMISSION')->setData($emission);
             }
+
+            // get the file and move it to the right directory
+            // the file name is the NOM emission / NOM audio.wav
+            $file = $request->files->get('audio')['FILE'];
+            $fileName = $emission->getNOM() . '/' . $audio->getNOM() . '.wav';
+            
+            $file->move($this->audioDir, $fileName);
         }
 
         $form->handleRequest($request);

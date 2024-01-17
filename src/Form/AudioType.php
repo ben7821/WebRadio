@@ -6,6 +6,8 @@ use App\Entity\Audio;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class AudioType extends AbstractType
 {
@@ -16,7 +18,20 @@ class AudioType extends AbstractType
             ->add('DESCRIPTION')
             ->add('HEURE')
             ->add('DATE')
-            ->add('AUDIO')
+            ->add('AUDIO', FileType::class, [
+                'label' => 'Audio (WAV)',
+                'mapped' => true,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '100000k',
+                        'mimeTypes' => [
+                            'audio/wav',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid WAV document',
+                    ])
+                ],
+            ])
             ->add('AUTEURS')
             ->add('IDEMISSION')
         ;

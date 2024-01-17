@@ -51,7 +51,7 @@ class EmissionController extends AbstractController
 
                 try {
                     $img->move(
-                        $this->getParameter($this->emissionDir),
+                        $this->emissionDir.'/',
                         $newFilename
                     );
                 } catch (FileException $e) {

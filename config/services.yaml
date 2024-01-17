@@ -37,6 +37,10 @@ services:
         arguments:
             $emissionDir: '%uploads_ems%'
             $audioDir: '%audio_dir%'
+    
+    App\Controller\AudioController:
+        arguments:
+            $audioDir: '%audio_dir%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
