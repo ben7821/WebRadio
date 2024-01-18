@@ -12,10 +12,6 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('NOM')
-            ->add('PRENOM')
-            ->add('TEL')
-            ->add('MAIL')
             ->add('DATE')
             ->add('EMS')
         ;
