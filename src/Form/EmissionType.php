@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\File as ConstraintsFile;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\DataTransformer\StringToFileTransformer;
 
 class EmissionType extends AbstractType
 {
@@ -41,12 +42,16 @@ class EmissionType extends AbstractType
                 ],
             ])
             ->add('INSCRIPTION');
+
+        $builder->get('IMG')
+            ->addModelTransformer(new StringToFileTransformer($options['dir']));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Emission::class,
+            'dir' => null
         ]);
     }
 

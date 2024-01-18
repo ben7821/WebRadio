@@ -37,7 +37,9 @@ class EmissionController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $emission = new Emission();
-        $form = $this->createForm(EmissionType::class, $emission);
+        $form = $this->createForm(EmissionType::class, $emission, [
+            'dir' => $this->emissionDir
+        ]);
         $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -90,7 +92,9 @@ class EmissionController extends AbstractController
     #[Route('/{ID}/edit', name: 'app_emission_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(EmissionType::class, $emission);
+        $form = $this->createForm(EmissionType::class, $emission, [
+            'dir' => $this->emissionDir
+        ]);
         $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');

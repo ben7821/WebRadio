@@ -83,4 +83,6 @@ class InscriptionController extends AbstractController
 
         return $this->redirectToRoute('app_inscription_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
 }
