@@ -12,6 +12,7 @@ use App\Entity\Emission;
 use App\Entity\Audio;
 use App\Entity\Equipe;
 use App\Entity\Inscription;
+use App\Entity\Participant;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CreationController extends AbstractController
@@ -25,13 +26,15 @@ class CreationController extends AbstractController
         $audio = $em->getRepository(Audio::class)->findAll();
         $membres = $em->getRepository(Equipe::class)->findAll();
         $inscription = $em->getRepository(Inscription::class)->findAll();
+        $participant = $em->getRepository(Participant::class)->findAll();
 
         return $this->render('creation/index.html.twig', [
             'controller_name' => 'CreationController',
             'emissions' => $emission,
             'audios' => $audio,
             'membres' => $membres,
-            'inscriptions' => $inscription
+            'inscriptions' => $inscription,
+            'participants' => $participant
         ]);
     }
 }

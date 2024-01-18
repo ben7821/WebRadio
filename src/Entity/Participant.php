@@ -30,12 +30,8 @@ class Participant
     #[ORM\ManyToOne(inversedBy: 'PARTICIPANT_ID')]
     private ?Inscription $inscription = null;
 
-    #[ORM\ManyToMany(targetEntity: Emission::class, inversedBy: 'participants')]
-    private Collection $EMS_ID;
-
     public function __construct()
     {
-        $this->EMS_ID = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,28 +98,5 @@ class Participant
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Emission>
-     */
-    public function getEMSID(): Collection
-    {
-        return $this->EMS_ID;
-    }
-
-    public function addEMSID(Emission $eMSID): static
-    {
-        if (!$this->EMS_ID->contains($eMSID)) {
-            $this->EMS_ID->add($eMSID);
-        }
-
-        return $this;
-    }
-
-    public function removeEMSID(Emission $eMSID): static
-    {
-        $this->EMS_ID->removeElement($eMSID);
-
-        return $this;
-    }
+    
 }

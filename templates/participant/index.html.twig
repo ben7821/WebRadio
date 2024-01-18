@@ -13,7 +13,8 @@
                 <th>NOM</th>
                 <th>TEL</th>
                 <th>MAIL</th>
-                <th>INSCRIPTION</th>
+                <th>Emission</th>
+                <th>Inscription</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +26,6 @@
                 <td>{{ participant.NOM }}</td>
                 <td>{{ participant.TEL }}</td>
                 <td>{{ participant.MAIL }}</td>
-                <td> {{ participant.EMS_ID }} </td>
                 <td>
                     <a href="{{ path('app_participant_show', {'id': participant.id}) }}">show</a>
                     <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>

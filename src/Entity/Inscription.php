@@ -59,6 +59,7 @@ class Inscription
         return $this;
     }
 
+
     /**
      * @return Collection<int, Participant>
      */

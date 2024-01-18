@@ -47,22 +47,25 @@ class AudioController extends AbstractController
                 $form->get('IDEMISSION')->setData($emission);
             }
 
+        }
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $entityManager->persist($audio);
+            // $entityManager->flush();
+            
             // get the file and move it to the right directory
             // the file name is the NOM emission / NOM audio.wav
             $file = $request->files->get('audio')['FILE'];
             $fileName = $emission->getNOM() . '/' . $audio->getNOM() . '.wav';
-
+    
             $file->move($this->audioDir, $fileName);
-
+    
             // ---------------------
             // finir le traitement des fichiers audio pour les mettre dans le bon dossier
-        }
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($audio);
-            $entityManager->flush();
+            // set the file name in the database
+            $audio->setAUDIO($fileName);
 
             return $this->redirectToRoute('app_audio_index', [], Response::HTTP_SEE_OTHER);
         }
