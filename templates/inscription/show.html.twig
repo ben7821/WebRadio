@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription emission{% endblock %}
 
 {% block body %}
     <h1>Emission {{ inscription.EMS }}</h1>
@@ -15,10 +15,25 @@
                 <th>Emission</th>
                 <td>{{ inscription.EMS }}</td>
             </tr>
-
+        <tbody>
+    
+        {% for participant in participants %}
+            <tr>
+                <td>{{ participant.PRENOM }}</td>
+                <td>{{ participant.NOM }}</td>
+                <td>{{ participant.TEL }}</td>
+                <td>{{ participant.MAIL }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
       
         </tbody>
     </table>
+
 
     
 

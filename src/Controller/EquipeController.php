@@ -10,10 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/equipe')]
 class EquipeController extends AbstractController
 {
+    private string $equipeDir;
+
+    public function __construct(string $equipeDir)
+    {
+        $this->equipeDir = $equipeDir;
+    }
+
     #[Route('/', name: 'app_equipe_index', methods: ['GET'])]
     public function index(): Response
     {
@@ -47,6 +55,22 @@ class EquipeController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form['IMG']->getData();
+
+            $fileName = $equipe->getNOM() . '_'. $equipe->getPRENOM() . '.' . $file->guessExtension();
+
+            try {
+                $file->move(
+                    $this->equipeDir,
+                    $fileName
+                );
+            } catch (FileException $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de l\'image'.$e->getMessage());
+                return $this->redirectToRoute('app_equipe_index');
+            }
+            $equipe->setIMG($fileName);
+
             $entityManager->persist($equipe);
             $entityManager->flush();
 

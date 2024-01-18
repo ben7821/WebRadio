@@ -6,6 +6,7 @@
 parameters:
     uploads_ems: '%kernel.project_dir%/public/data/rubrique'
     audio_dir: '%kernel.project_dir%/public/data/audio'
+    equipe_dir: '%kernel.project_dir%/public/data/equipe'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -41,6 +42,10 @@ services:
     App\Controller\AudioController:
         arguments:
             $audioDir: '%audio_dir%'
+
+    App\Controller\EquipeController:
+        arguments:
+            $equipeDir: '%equipe_dir%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

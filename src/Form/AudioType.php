@@ -24,7 +24,7 @@ class AudioType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new ConstraintsFile([
-                        'maxSize' => '256000000',
+                        'maxSize' => '256144k',
                         'mimeTypes' => [
                             'audio/wav',
                             'audio/x-wav'

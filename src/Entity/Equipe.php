@@ -22,6 +22,9 @@ class Equipe
     #[ORM\Column(length: 500)]
     private ?string $DESCRIPTION = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $IMG = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Equipe
     public function setDESCRIPTION(string $DESCRIPTION): static
     {
         $this->DESCRIPTION = $DESCRIPTION;
+
+        return $this;
+    }
+
+    public function getIMG(): ?string
+    {
+        return $this->IMG;
+    }
+
+    public function setIMG(string $IMG): static
+    {
+        $this->IMG = $IMG;
 
         return $this;
     }

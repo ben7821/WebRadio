@@ -21,6 +21,11 @@ class ParticipantRepository extends ServiceEntityRepository
         parent::__construct($registry, Participant::class);
     }
 
+    public function participant(){
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        
+    }
+
 //    /**
 //     * @return Participant[] Returns an array of Participant objects
 //     */

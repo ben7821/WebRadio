@@ -39,17 +39,10 @@ class Emission
     #[ORM\OneToMany(mappedBy: 'EMS', targetEntity: Inscription::class)]
     private Collection $inscriptions;
 
-    #[ORM\ManyToOne(inversedBy: 'EMS_ID')]
-    private ?Participant $participant = null;
-
-    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'EMS_ID')]
-    private Collection $participants;
-
     public function __construct()
     {
         $this->audio = new ArrayCollection();
         $this->inscriptions = new ArrayCollection();
-        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,45 +170,6 @@ class Emission
             if ($inscription->getEMS() === $this) {
                 $inscription->setEMS(null);
             }
-        }
-
-        return $this;
-    }
-
-    public function getParticipant(): ?Participant
-    {
-        return $this->participant;
-    }
-
-    public function setParticipant(?Participant $participant): static
-    {
-        $this->participant = $participant;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Participant>
-     */
-    public function getParticipants(): Collection
-    {
-        return $this->participants;
-    }
-
-    public function addParticipant(Participant $participant): static
-    {
-        if (!$this->participants->contains($participant)) {
-            $this->participants->add($participant);
-            $participant->addEMSID($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Participant $participant): static
-    {
-        if ($this->participants->removeElement($participant)) {
-            $participant->removeEMSID($this);
         }
 
         return $this;

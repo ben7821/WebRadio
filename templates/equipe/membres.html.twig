@@ -17,7 +17,7 @@
 			<tr>
 				{% for meb in membres %}
 					<td class="membre-cell">
-						<img src="{{ asset('data/equipe/' ~ meb.NOM ~ '_' ~ meb.PRENOM ~ '.png') }}" alt="Photo de {{ meb.NOM }} {{ meb.PRENOM }}">
+						<img src="{{ asset('data/equipe/' ~ meb.IMG) }}" alt="Photo de {{ meb.NOM }} {{ meb.PRENOM }}">
 						<div class="membre-info">
 							<h3>{{ meb.PRENOM }}
 								{{ meb.NOM }}</h3>

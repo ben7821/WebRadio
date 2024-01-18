@@ -52,32 +52,30 @@ class AudioController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($audio);
-            $entityManager->flush();
-
+            
             /** 
              * @var UploadedFile $file
              */
             $file = $form['AUDIO']->getData();
-
+            $fileName = '';
+            
             if ($file) {
-                $ofileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $emission = $audio->getIDEMISSION();
-                $fileName = $emission->getNOM() . '/' . $audio->getNOM() . '.wav';
-
+                $fileName = $audio->getNOM() . '.wav';
+                
                 try {
-                    $file->move($this->audioDir, $fileName);
+                    $file->move($this->audioDir . "/" . $emission->getNOM(), $fileName);
                 } catch (FileException $e) {
-                    // unable to upload the file, display error message
-                    $this->addFlash('error', 'Unable to upload the audio file');
+                    $this->addFlash('error', 'Unable to upload the audio file'.$e->getMessage());
+                    return $this->redirectToRoute('app_audio_index', [], Response::HTTP_SEE_OTHER);
                 }
             }
-
-            // ---------------------
-            // finir le traitement des fichiers audio pour les mettre dans le bon dossier
-            // set the file name in the database
-            $audio->setAUDIO($fileName);
-
+            
+            $audio->setAUDIO($emission->getNOM() . '/' . $fileName);
+            
+            $entityManager->persist($audio);
+            $entityManager->flush();
+            
             return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
 
