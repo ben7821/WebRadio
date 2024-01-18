@@ -57,18 +57,22 @@ class EquipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $file = $form['IMG']->getData();
+            $fileName = '';
 
-            $fileName = $equipe->getNOM() . '_'. $equipe->getPRENOM() . '.' . $file->guessExtension();
-
-            try {
-                $file->move(
-                    $this->equipeDir,
-                    $fileName
-                );
-            } catch (FileException $e) {
-                $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de l\'image'.$e->getMessage());
-                return $this->redirectToRoute('app_equipe_index');
+            if ($file) {
+                $fileName = $equipe->getNOM() . '_'. $equipe->getPRENOM() . '.' . $file->guessExtension();
+                
+                try {
+                    $file->move(
+                        $this->equipeDir,
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de l\'image'.$e->getMessage());
+                    return $this->redirectToRoute('app_equipe_index');
+                }
             }
+
             $equipe->setIMG($fileName);
 
             $entityManager->persist($equipe);
