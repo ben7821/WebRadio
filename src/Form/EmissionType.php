@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Emission;
-use Faker\Core\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

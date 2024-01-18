@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\File as ConstraintsFile;
 
 class AudioType extends AbstractType
 {
@@ -23,8 +23,8 @@ class AudioType extends AbstractType
                 'mapped' => true,
                 'required' => false,
                 'constraints' => [
-                    new File([
-                        'maxSize' => '100000k',
+                    new ConstraintsFile([
+                        'maxSize' => '262144k',
                         'mimeTypes' => [
                             'audio/wav',
                         ],
