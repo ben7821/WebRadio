@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/audio')]
 class AudioController extends AbstractController
@@ -37,37 +39,46 @@ class AudioController extends AbstractController
         $form = $this->createForm(AudioType::class, $audio);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        
+
         $emissionId = $request->query->get('emission');
         
         if ($emissionId) {
+
             $emission = $entityManager->getRepository(Emission::class)->find($emissionId);
-            
-            if ($emission) {
-                $form->get('IDEMISSION')->setData($emission);
-            }
+            $form->get('IDEMISSION')->setData($emission);
 
         }
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // $entityManager->persist($audio);
-            // $entityManager->flush();
-            
-            // get the file and move it to the right directory
-            // the file name is the NOM emission / NOM audio.wav
-            $file = $request->files->get('audio')['FILE'];
-            $fileName = $emission->getNOM() . '/' . $audio->getNOM() . '.wav';
-    
-            $file->move($this->audioDir, $fileName);
-    
+            $entityManager->persist($audio);
+            $entityManager->flush();
+
+            /** 
+             * @var UploadedFile $file
+             */
+            $file = $form['AUDIO']->getData();
+
+            if ($file) {
+                $ofileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $emission = $audio->getIDEMISSION();
+                $fileName = $emission->getNOM() . '/' . $audio->getNOM() . '.wav';
+
+                try {
+                    $file->move($this->audioDir, $fileName);
+                } catch (FileException $e) {
+                    // unable to upload the file, display error message
+                    $this->addFlash('error', 'Unable to upload the audio file');
+                }
+            }
+
             // ---------------------
             // finir le traitement des fichiers audio pour les mettre dans le bon dossier
             // set the file name in the database
             $audio->setAUDIO($fileName);
 
-            return $this->redirectToRoute('app_audio_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('audio/new.html.twig', [
@@ -109,7 +120,7 @@ class AudioController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($this->isCsrfTokenValid('delete'.$audio->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $audio->getId(), $request->request->get('_token'))) {
             $entityManager->remove($audio);
             $entityManager->flush();
         }

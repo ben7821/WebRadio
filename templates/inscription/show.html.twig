@@ -7,30 +7,20 @@
 
     <table class="table">
         <tbody>
-        
-            <tr>
-                <th>NOM</th>
-                <td>{{ inscription.NOM }}</td>
-            </tr>
-            <tr>
-                <th>PRENOM</th>
-                <td>{{ inscription.PRENOM }}</td>
-            </tr>
-            <tr>
-                <th>TEL</th>
-                <td>{{ inscription.TEL }}</td>
-            </tr>
-            <tr>
-                <th>MAIL</th>
-                <td>{{ inscription.MAIL }}</td>
-            </tr>
             <tr>
                 <th>DATE</th>
                 <td>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</td>
             </tr>
+            <tr>
+                <th>Emission</th>
+                <td>{{ inscription.EMS }}</td>
+            </tr>
+
       
         </tbody>
     </table>
+
+    
 
     <a href="{{ path('app_creation') }}">back to list</a>
 
