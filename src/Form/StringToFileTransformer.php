@@ -1,5 +1,5 @@
 <?php
-namespace App\Form\DataTransformer;
+namespace App\Form;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -8,7 +8,12 @@ class StringToFileTransformer implements DataTransformerInterface
 {
     private $directory;
 
-    public function __construct($directory)
+    public function __construct()
+    {
+        $this->directory = "";
+    }
+
+    public function setDirectory($directory)
     {
         $this->directory = $directory;
     }

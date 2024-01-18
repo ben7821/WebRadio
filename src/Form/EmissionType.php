@@ -11,10 +11,16 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\File as ConstraintsFile;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use App\Form\DataTransformer\StringToFileTransformer;
+use App\Form\StringToFileTransformer;
 
 class EmissionType extends AbstractType
 {
+    private $transformer;
+
+    public function __construct(StringToFileTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -25,7 +31,8 @@ class EmissionType extends AbstractType
             ])
             ->add('NOMLONG')
             ->add('DESCRIPTION')
-            ->add('IMG', FileType::class, [
+            ->add('IMG',
+             FileType::class, [
                 'label' => 'Image (JPEG, PNG, GIF)',
                 'required' => false, // Définissez à true si vous souhaitez rendre le champ obligatoire
                 'mapped' => true, // Cela signifie que ce champ n'est pas mappé sur l'entité directement
@@ -40,11 +47,14 @@ class EmissionType extends AbstractType
                         'mimeTypesMessage' => 'Merci de télécharger une image valide',
                     ])
                 ],
-            ])
+            ]
+            )
             ->add('INSCRIPTION');
 
-        $builder->get('IMG')
-            ->addModelTransformer(new StringToFileTransformer($options['dir']));
+        $this->transformer->setDirectory($options['dir']);
+        
+        // $builder->get('IMG')
+        //     ->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -47,11 +47,10 @@ class InscriptionController extends AbstractController
     #[Route('/{id}', name: 'app_inscription_show', methods: ['GET'])]
     public function show(Inscription $inscription, EntityManagerInterface $entityManager): Response
     {
-        $participant =  $entityManager->getRepository(Participant::class)->findAll();
+        //$participant =  $entityManager->getRepository(Participant::class)->findAll();
         
         return $this->render('inscription/show.html.twig', [
-            'inscription' => $inscription,
-            'participants' => $participant
+            'inscription' => $inscription->getId(),
         ]);
     }
 
@@ -84,5 +83,5 @@ class InscriptionController extends AbstractController
         return $this->redirectToRoute('app_inscription_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    
+
 }
