@@ -21,13 +21,14 @@ class ParticipantRepository extends ServiceEntityRepository
         parent::__construct($registry, Participant::class);
     }
 
-    public function colParticipant($value): ? Participant
+    public function colParticipant($inscriptionID): array
     {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.id = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult();
+        $qb = $this->createQueryBuilder('u')
+            ->from('App\Entity\Participant', 'p')
+            ->where($inscriptionID = 'id')
+        ;
+        $query = $qb->getQuery();
+        return $query->getResult();
     }
 
 //    /**

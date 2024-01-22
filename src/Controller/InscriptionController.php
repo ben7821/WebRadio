@@ -48,9 +48,9 @@ class InscriptionController extends AbstractController
     #[Route('/{id}', name: 'app_inscription_show', methods: ['GET'])]
     public function show(Inscription $inscription, Participant $participantID, EntityManagerInterface $entityManager): Response
     {
-        /*$participant = $entityManager->getRepository(Participant::class)->findAll();
+        $participant = $entityManager->getRepository(Participant::class)->findAll();
         $inscriptionID = $inscription->getId();
-        $colParticipants = new Collection([
+        /*$colParticipants = new Collection([
             $inscriptionID => 'value',
         ]);
 
@@ -62,9 +62,6 @@ class InscriptionController extends AbstractController
             }
         }*/
 
-        
-
-        
         return $this->render('inscription/show.html.twig', [
             'inscription' => $inscription->getPARTICIPANTID(),
             

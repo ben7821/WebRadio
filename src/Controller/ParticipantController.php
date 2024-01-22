@@ -17,8 +17,9 @@ class ParticipantController extends AbstractController
     #[Route('/', name: 'app_participant_index', methods: ['GET'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
+        $inscriptionID = 1;
         return $this->render('participant/index.html.twig', [
-            'participants' => $participantRepository->findAll(),
+            'participants' => $participantRepository->colParticipant($inscriptionID),
         ]);
     }
 
@@ -49,8 +50,7 @@ class ParticipantController extends AbstractController
         $lesParticipants = $participantRepository->colParticipant($value);
 
         return $this->render('participant/show.html.twig', [
-            'participant' => $participant,
-            'lesParticipants' => $lesParticipants
+            'participant' => $participant
         ]);
     }
 

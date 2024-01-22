@@ -20,14 +20,14 @@ class StringToFileTransformer implements DataTransformerInterface
 
     public function transform($string)
     {
-        return $string;
+        if (null === $string) {
+            return "";
+        }
+        return new File($this->directory ."/". $string);
     }
 
     public function reverseTransform($file)
     {
-        if ($file == null) {
-            throw new TransformationFailedException();
-        }
-        return new File($this->directory . $file);
+        return $file->getFileName();
     }
 }

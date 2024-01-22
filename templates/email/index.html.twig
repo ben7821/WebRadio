@@ -1,0 +1,14 @@
+{# templates/email/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Envoyer un e-mail{% endblock %}
+
+{% block body %}
+    <h1>Envoyer un e-mail</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Envoyer</button>
+    {{ form_end(form) }}
+{% endblock %}

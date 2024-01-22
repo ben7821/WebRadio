@@ -53,11 +53,11 @@ class EmissionController extends AbstractController
 
                 try {
                     $img->move(
-                        $this->emissionDir.'/',
+                        $this->emissionDir . '/',
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                    dump($e);
                 }
 
                 $emission->setIMG($newFilename);
@@ -97,9 +97,30 @@ class EmissionController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+        $oldName = $emission->getNom();
+        dump("OLD ".$oldName);
+
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            try {
+
+                $folder = $this->audioDir . $emission->getNom();
+                if ($folder != $this->audioDir . $oldName) {
+                    rename($this->audioDir . $oldName, $folder);
+                }
+
+                $oldFilename = $this->emissionDir . '/' . $oldName . '.png';
+                $newFilename = $this->emissionDir . '/' . $emission->getNom() . '.png';
+                dump("NEW ".$newFilename);
+                if ($oldFilename != $newFilename) {
+                    rename($oldFilename, $newFilename);
+                }
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_emission_index', [], Response::HTTP_SEE_OTHER);

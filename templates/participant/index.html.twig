@@ -19,8 +19,9 @@
             </tr>
         </thead>
         <tbody>
-        {% for lesParticipants in participants %}
+        {% for participant in participants %}
             <tr>
+                <td>{{ participant.id }} </td>
                 <td>{{ participant.PRENOM }}</td>
                 <td>{{ participant.NOM }}</td>
                 <td>{{ participant.TEL }}</td>
