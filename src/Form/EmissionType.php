@@ -34,15 +34,13 @@ class EmissionType extends AbstractType
             ->add('IMG',
              FileType::class, [
                 'label' => 'Image (JPEG, PNG, GIF)',
-                'required' => false, // Définissez à true si vous souhaitez rendre le champ obligatoire
-                'mapped' => true, // Cela signifie que ce champ n'est pas mappé sur l'entité directement
+                'required' => false,
+                'mapped' => true,
                 'constraints' => [
                     new ConstraintsFile([
                         'maxSize' => '16384k',
                         'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif',
+                            'image/*'
                         ],
                         'mimeTypesMessage' => 'Merci de télécharger une image valide',
                     ])
@@ -53,8 +51,7 @@ class EmissionType extends AbstractType
 
         $this->transformer->setDirectory($options['dir']);
         
-        // $builder->get('IMG')
-        //     ->addModelTransformer($this->transformer);
+        $builder->get('IMG')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -7,15 +7,14 @@
 {% block body %}
 
 	<h2 class="centered-text" style="font-style: italic;color: #555">
-		Bienvenue, cher internaute, dans l'univers fascinant d'Internet, un réseau reliant des milliards d'individus à travers le monde. Avec environ 1,8 milliard de sites disponibles, vous avez choisi de visiter le nôtre, et toute l'équipe de Radio Guy Chauvet est extrêmement honorée de vous accueillir. Si vous vous demandez quel est le but de ce site, ne vous inquiétez pas, nous allons vous l'expliquer immédiatement. Ici, vous avez la possibilité d'écouter les émissions de la Webradio du lycée Guy Chauvet, situé à Loudun, en Nouvelle-Aquitaine. Notre programmation offre une diversité de contenus pour tous les goûts : des émissions portant sur l'Histoire, la musique, le cinéma, l'actualité, des jeux, et bien plus encore. Ce projet est soutenu financièrement par la Maison des lycéens de notre établissement, une association qui organise des animations pour les élèves. Nous espérons que vous passerez d'agréables moments en notre compagnie. Bonne navigation ! L'équipe de Radio Guy Chauvet
+		Bienvenue, cher internaute, dans l'univers fascinant d'Internet, un réseau reliant des milliards d'individus à travers le monde. Avec environ 1,8 milliard de sites disponibles, vous avez choisi de visiter le nôtre, et toute l'équipe de Radio Guy Chauvet est extrêmement honorée de vous accueillir. Si vous vous demandez quel est le but de ce site, ne vous inquiétez pas, nous allons vous l'expliquer immédiatement. Ici, vous avez la possibilité d'écouter les émissions de la Webradio du lycée Guy Chauvet, situé à Loudun, en Nouvelle-Aquitaine. Notre programmation offre une diversité de contenus pour tous les goûts : des émissions portant sur l'Histoire, la musique, le cinéma, l'actualité, des jeux, et bien plus encore. Ce projet est soutenu financièrement par la Maison des lycéens de notre établissement, une association qui organise des animations pour les élèves. Nous espérons que vous passerez d'agréables moments en notre compagnie. Bonne navigation !<br><br> L'équipe de Radio Guy Chauvet
 		</h2>
 
 	<h1 class="display-full">A VENIR</h1>
 	<h2 class="centered-text">
 	- Le Journal  🚧 🚧 🚧
-	{# <hr size="5" width="100%" color="black"/> #}
+	</h2>
 	<h1 class="display-full">LES EMISSIONS</h1>
-	{# <hr size="5" width="100%" color="black"/> #}
 	<div class="Cards">
 
 		{% for e in emissions %}
@@ -32,7 +31,6 @@
 	<h1>
 	🚧
 	</h1>
-	{# <hr size="5" width="100%" color="black"/> #}
 	{# <div class="Cards column">
 		{% for d in article %}
 			<a class="border- Card" href="Article/view/{{ d.ID }}">
@@ -47,7 +45,6 @@
 	</div> #}
 
 	<h1 class="display-full">L'ÉQUIPE</h1>
-	{# <hr size="5" width="100%" color="black"/> #}
 	<div class="Cards">
 		<div class="border- Card">
 			<a href="{{ path('app_lycee_index') }}">

@@ -26,9 +26,9 @@
 					<td><img class="preview" src="{{asset('data/rubrique/' ~ emission.IMG)}}"/></td>
 					<td>{{ emission.INSCRIPTION ? 'Oui' : 'Non' }}</td>
 					<td>
-						<a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">edit</a>
+						<a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}"><i class="fa-solid fa-file-pen"></i></a>
 						<form action="{{ path('app_emission_delete', {'ID': emission.ID}) }}" method="post">
-							<button href="{{ path('app_emission_delete', {'ID': emission.ID}) }}">delete</button>
+							<button href="{{ path('app_emission_delete', {'ID': emission.ID}) }}"><i class="fa-solid fa-trash-can"></i></button>
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ emission.ID) }}">
 						</form>
 					</td>
@@ -70,9 +70,9 @@
 					</td>
 					<td>{{ audio.AUTEURS }}</td>
 					<td>
-						<a href="{{ path('app_audio_edit', {'id': audio.ID}) }}">edit</a>
+						<a href="{{ path('app_audio_edit', {'id': audio.ID}) }}"><i class="fa-solid fa-file-pen"></i></a>
 						<form action="{{ path('app_audio_delete', {'id': audio.ID}) }}" method="post">
-							<button href="{{ path('app_audio_delete', {'id': audio.ID}) }}">delete</button>
+							<button href="{{ path('app_audio_delete', {'id': audio.ID}) }}"><i class="fa-solid fa-trash-can"></i></button>
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ audio.ID) }}">
 						</form>
 					</td>
@@ -106,9 +106,9 @@
 					<td>{{ membre.NOM }}</td>
 					<td>{{ membre.DESCRIPTION }}</td>
 					<td>
-						<a href="{{ path('app_equipe_edit', {'id': membre.ID }) }}">edit</a>
+						<a href="{{ path('app_equipe_edit', {'id': membre.ID }) }}"><i class="fa-solid fa-file-pen"></i></a>
 						<form action="{{ path('app_equipe_delete', {'id': membre.ID}) }}" method="post">
-							<button href="{{ path('app_equipe_delete', {'id': membre.ID}) }}">delete</button>
+							<button href="{{ path('app_equipe_delete', {'id': membre.ID}) }}"><i class="fa-solid fa-trash-can"></i></button>
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ membre.ID) }}">
 						</form>
 					</td>
@@ -128,22 +128,22 @@
 	<table id="tableInscription" class="table">
 		<thead>
 			<tr>
-				<th>Date</th>
 				<th>Emission</th>
+				<th>Date</th>
 				<th>actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for inscription in inscriptions %}
 				<tr>
-					<td>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</td>
 					<td>{{ inscription.EMS }}
+					<td>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</td>
 					</td>
 					<td>
 						<a href="{{ path('app_inscription_show', {'id': inscription.id}) }}">show</a>
 						<a href="{{ path('app_inscription_edit', {'id': inscription.id}) }}">edit</a>
 						<form action="{{ path('app_inscription_delete', {'id': inscription.id}) }}" method="post">
-							<button href="{{ path('app_inscription_delete', {'id': inscription.id}) }}">delete</button>
+							<button href="{{ path('app_inscription_delete', {'id': inscription.id}) }}"><i class="fa-solid fa-trash-can"></i></button>
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inscription.id) }}">
 						</form>
 					</td>

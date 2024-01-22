@@ -20,7 +20,7 @@ class InscriptionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Inscription::class);
     }
-
+    
 //    /**
 //     * @return Inscription[] Returns an array of Inscription objects
 //     */

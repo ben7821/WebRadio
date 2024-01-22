@@ -25,9 +25,13 @@ class Inscription
     #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Participant::class)]
     private Collection $PARTICIPANT_ID;
 
+    #[ORM\ManyToMany(targetEntity: Participant::class, inversedBy: 'inscriptions')]
+    private Collection $participant_id;
+
     public function __construct()
     {
         $this->PARTICIPANT_ID = new ArrayCollection();
+        $this->participant_id = new ArrayCollection();
     }
 
     public function getId(): ?int

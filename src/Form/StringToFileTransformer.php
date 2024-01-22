@@ -3,7 +3,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\HttpFoundation\File\File;
-
+use Symfony\Component\Form\Exception\TransformationFailedException;
 class StringToFileTransformer implements DataTransformerInterface
 {
     private $directory;
@@ -20,11 +20,14 @@ class StringToFileTransformer implements DataTransformerInterface
 
     public function transform($string)
     {
-        return new File($this->directory.'/'.$string);
+        return $string;
     }
 
     public function reverseTransform($file)
     {
-        return $file->getPath();
+        if ($file == null) {
+            throw new TransformationFailedException();
+        }
+        return new File($this->directory . $file);
     }
 }

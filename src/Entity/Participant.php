@@ -30,8 +30,12 @@ class Participant
     #[ORM\ManyToOne(inversedBy: 'PARTICIPANT_ID')]
     private ?Inscription $inscription = null;
 
+    #[ORM\ManyToMany(targetEntity: Inscription::class, mappedBy: 'participant_id')]
+    private Collection $inscriptions;
+
     public function __construct()
     {
+        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,6 +91,10 @@ class Participant
         return $this;
     }
 
+    public function toString(){
+        return $this->NOM.$this->PRENOM;
+    }
+
     public function getInscription(): ?Inscription
     {
         return $this->inscription;
@@ -95,6 +103,33 @@ class Participant
     public function setInscription(?Inscription $inscription): static
     {
         $this->inscription = $inscription;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): static
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->addParticipantId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): static
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            $inscription->removeParticipantId($this);
+        }
 
         return $this;
     }
