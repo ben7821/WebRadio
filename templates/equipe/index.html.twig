@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EquipesController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="eq_p1_index">
+		<h1 class="display-full">L'equipe</h1>
+		<img src="{{ asset('data/equipe/Equipe.png') }}" alt="image" class="emi-marg"/>
+		<p>
+			L'équipe de la Webradio du lycée Guy Chauvet, située à Loudun, Nouvelle-Aquitaine, est composée de passionnés de lycée. Avec un engagement soutenu de la Maison des lycéens, cette équipe dynamique produit des émissions variées sur l'Histoire, la musique, le cinéma et bien d'autres sujets. Restez connecté pour découvrir les prochaines mises à jour, notamment sur l'évolution de la diffusion de leurs contenus.
+		</p>
+	</div>
+
+
+	<div class="eq_p2_index">
+		<div>
+			<h1 class="display-full">Le lycée guy Chauvet</h1>
+			<p>
+				Le lycée Guy Chauvet, fondé en 1610, propose une variété de formations générales et technologiques, y compris un BTS SIO post-bac. Il offre des spécialités variées telles que le cinéma-audiovisuel, ainsi que des options en EPS, Littérature, langues anciennes, droit, management, et sanitaire et social. Les élèves peuvent choisir parmi ces parcours riches et diversifiés.
+				</p>
+		</div>
+		<img class="border- " src="{{ asset('data/general/lycee_Guy-Chauvet.PNG') }}" alt="image"/>
+	</div>
+{% endblock %}

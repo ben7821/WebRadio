@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{emission.nomlong}}{% endblock %}
+
+{% block body %}
+    
+    <div class="emission">
+        <img src="{{ asset('data/rubrique/' ~ emission.NOM ~ '.png')}}" alt="imgEmission"/>
+        <article>
+            <h5> 
+                {{emission.nomlong}}
+            </h5>
+            <P> 
+                {{emission.description}}
+            </p>
+        </article>
+    </div>
+
+    <h1 id="podcasts" class="header-page title">LES PODCASTS</h1>
+    <hr size="5" width="100%" color="black" />
+
+    {% for audio in audios %}
+        <div class="podcast border- ">
+            <div class="audio-container" data-date="{{ audio.date|date('d-m-Y') }} / {{ audio.heure|date('H:i') }}" data-title="{{ audio.nom }}" data-info="{{ audio.description }}" data-ctime="0" data-src="{{ asset('data/audio/' ~ audio.audio)}}">
+                <div class="lecteur-container">
+                    <div class="controls">
+                        <button class="ajouter"><img src="{{asset('data/general/ajouter.png')}}"></button>
+                        <button class="play"><img src="{{asset('data/general/play.png')}}" alt=""></button>
+                    </div>
+                    <div class="audiobar">
+                        <div class="topbar">
+                            <h3 class="audiotitre">{{audio.nom}}</h3>
+                            <p class="info-topbar">{{audio.auteurs}}</p>
+                            <p class="info-topbar">{{audio.description}}</p>
+                            <i style="font-size: 12px">
+                                {{ audio.date|date('d-m-Y') }} / {{audio.heure|date('H:i')}}
+                            </i>
+                        </div>
+                        <div class="audioplayer">
+                            <audio class="audio-src" src="" preload="metadata"></audio>
+                            <div class="tracker">
+                                <span class="current-time">00:00</span>
+                                <div class="progress">
+                                    <input type="range" class="progress-track" name="progress-track" max="100" value="0">
+                                </div>
+                                <span class="duration">00:00</span>
+                            </div>
+                            <div class="volume">
+                                <button type="button" id="button-mute"><img src="{{asset('data/general/unmute.png')}}" alt=""></button>
+                                <input type="range" class="volume-track" name="volume-track" max="100" value="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}
