@@ -21,7 +21,7 @@ class CreationController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
 
-
+        
         $emission = $em->getRepository(Emission::class)->findAll();
         $audio = $em->getRepository(Audio::class)->findAll();
         $membres = $em->getRepository(Equipe::class)->findAll();
