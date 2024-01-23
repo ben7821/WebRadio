@@ -38,8 +38,8 @@ class ParticipationRepository extends ServiceEntityRepository
     public function lesParticipants($inscriptionID): array
     { 
         $inscriptionID = 1;
-        $queryBuilder = $this->createQueryBuilder('p')
-            ->select('p.nom', 'p.prenom', 'p.tel', 'mail')
+        $queryBuilder = $this->createQueryBuilder('q')
+            ->select('p.nom', 'p.prenom', 'p.tel', 'p.mail')
             ->from('App\Entity\Participant', 'p')
             ->where('p.inscription_id = :inscriptionId');
             //->where('p.inscription_id = :inscriptionId')
