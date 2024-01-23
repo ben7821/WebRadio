@@ -60,7 +60,8 @@ class AudioController extends AbstractController
             $audiof = $form->get('AUDIO')->getData();
 
             if ($audiof) {
-                $newFilename = $audio->getNOM()
+                $newFilename = $audio->getNOM() .".wav";
+                
             }
             
             $entityManager->persist($audio);
