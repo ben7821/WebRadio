@@ -111,6 +111,8 @@ class EmissionController extends AbstractController
             $oldFolder = $this->audioDir ."/". $oldName;
             $newFolder = $this->audioDir ."/". $emission->getNom();
 
+            dd($oldFolder, $newFolder);
+
             if ($oldFolder !== $newFolder) {
                 if (file_exists($oldFolder)) {
                     rename($oldFolder, $newFolder);
