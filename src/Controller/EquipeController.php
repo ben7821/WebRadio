@@ -118,12 +118,15 @@ class EquipeController extends AbstractController
 
             if ($file) {
                 $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
-
                 try {
                     $file->move(
                         $this->equipeDir . '/',
                         $fileName
                     );
+
+                    if (file_exists($this->equipeDir . '/' . $oldName)) {
+                        unlink($this->equipeDir . '/' . $oldName);
+                    }
                 } catch (FileException $e) {
                     dump($e);
                 }

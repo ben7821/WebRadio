@@ -16,7 +16,6 @@ class ParticipantType extends AbstractType
             ->add('NOM')
             ->add('TEL')
             ->add('MAIL')
-            ->add('INSCRIPTION')
         ;
     }
 

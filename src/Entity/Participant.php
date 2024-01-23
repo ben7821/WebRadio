@@ -89,7 +89,7 @@ class Participant
     }
 
     public function toString() {
-        return $this->inscription;
+        return (string) $this->inscription;
     }
 
     public function getInscription(): ?Inscription
