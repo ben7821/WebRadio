@@ -59,6 +59,10 @@ class Inscription
         return $this;
     }
 
+    public function toString(){
+        return $this->id;
+    }
+
     /**
      * @return Collection<int, Participant>
      */

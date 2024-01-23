@@ -106,16 +106,38 @@ class AudioController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $newAudio = $audio->getNOM();
 
-            if ($newAudio != $oldAudio) {
-                rename($this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/' . $oldAudio . '.wav', $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/' . $newAudio . '.wav');
+            $dir = $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/';
+
+            $audiof = $form->get('AUDIO')->getData();
+
+            if ($audiof) {
+                $newFilename = $audio->getNOM() . ".wav";
+
+                try {
+                    $audiof->move(
+                        $dir,
+                        $newFilename
+                    );
+
+                    if (file_exists($dir . $oldAudio . '.wav')) {
+                        unlink($dir . $oldAudio . '.wav');
+                    }
+                } catch (FileException $e) {
+                    dump($e);
+                }
+
+
+                $audio->setAUDIO($audio->getIDEMISSION()->getNOM() . '/' . $newAudio . '.wav');
+            } else {
+                $audio->setAUDIO($audio->getIDEMISSION()->getNOM() . '/' . $oldAudio . '.wav');
             }
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_audio_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('audio/edit.html.twig', [
@@ -132,8 +154,13 @@ class AudioController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $audio->getId(), $request->request->get('_token'))) {
             $entityManager->remove($audio);
             $entityManager->flush();
+
+            $dir = $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/';
+            $audioPath = $dir . $audio->getNOM() . '.wav';
+
+            unlink($audioPath);
         }
 
-        return $this->redirectToRoute('app_audio_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
     }
 }

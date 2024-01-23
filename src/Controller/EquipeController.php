@@ -31,7 +31,8 @@ class EquipeController extends AbstractController
     }
 
     #[Route('/membres', name: 'app_membres_index')]
-    public function getAllMembres(EntityManagerInterface $entityManager) : Response{
+    public function getAllMembres(EntityManagerInterface $entityManager): Response
+    {
         $membres = $entityManager->getRepository(Equipe::class)->findAll();
         return $this->render('equipe/membres.html.twig', [
             'membres' => $membres,
@@ -39,7 +40,8 @@ class EquipeController extends AbstractController
     }
 
     #[Route('/lycee', name: 'app_lycee_index')]
-    public function renderLycee(EntityManagerInterface $entityManager){
+    public function renderLycee(EntityManagerInterface $entityManager)
+    {
         return $this->render('equipe/lycee.html.twig', [
             'controller_name' => 'EquipeController',
         ]);
@@ -49,31 +51,33 @@ class EquipeController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $equipe = new Equipe();
-        $form = $this->createForm(EquipeType::class, $equipe);
+        $form = $this->createForm(EquipeType::class, $equipe, [
+            "dir" => $this->equipeDir
+        ]);
+
         $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $file = $form['IMG']->getData();
-            $fileName = '';
+            $file = $form->get('IMG')->getData();
 
             if ($file) {
-                $fileName = $equipe->getNOM() . '_'. $equipe->getPRENOM() . '.' . $file->guessExtension();
-                
+                $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
+
                 try {
                     $file->move(
-                        $this->equipeDir,
+                        $this->equipeDir . '/',
                         $fileName
                     );
                 } catch (FileException $e) {
-                    $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de l\'image'.$e->getMessage());
-                    return $this->redirectToRoute('app_equipe_index');
+                    dump($e);
                 }
+
+                $equipe->setIMG($fileName);
             }
 
-            $equipe->setIMG($fileName);
 
             $entityManager->persist($equipe);
             $entityManager->flush();
@@ -98,7 +102,11 @@ class EquipeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_equipe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(EquipeType::class, $equipe);
+        $oldName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
+
+        $form = $this->createForm(EquipeType::class, $equipe, [
+            "dir" => $this->equipeDir
+        ]);
         $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -106,7 +114,26 @@ class EquipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+            $file = $form->get('IMG')->getData();
+
+            if ($file) {
+                $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
+
+                try {
+                    $file->move(
+                        $this->equipeDir . '/',
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
+
+                $equipe->setIMG($fileName);
+            } else {
+                $equipe->setIMG($oldName);
+            }
+
+            return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('equipe/edit.html.twig', [
@@ -120,13 +147,17 @@ class EquipeController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($this->isCsrfTokenValid('delete'.$equipe->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $equipe->getId(), $request->request->get('_token'))) {
             $entityManager->remove($equipe);
             $entityManager->flush();
+
+            $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
+
+            if (file_exists($this->equipeDir . '/' . $fileName)) {
+                unlink($this->equipeDir . '/' . $fileName);
+            }
         }
 
-        return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
     }
-
-
 }

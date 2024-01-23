@@ -33,7 +33,6 @@ class Participant
 
     public function __construct()
     {
-       
     }
 
     public function getId(): ?int
@@ -89,8 +88,8 @@ class Participant
         return $this;
     }
 
-    public function toString(){
-        return $this->NOM.$this->PRENOM;
+    public function toString() {
+        return $this->inscription;
     }
 
     public function getInscription(): ?Inscription

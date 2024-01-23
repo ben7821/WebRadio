@@ -8,9 +8,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File as ConstraintsFile;
+use App\Form\StringToFileTransformer;
 
 class EquipeType extends AbstractType
 {
+    private $transformer;
+
+    public function __construct(StringToFileTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -28,17 +36,21 @@ class EquipeType extends AbstractType
                             "image/*"
                         ],
                         'mimeTypesMessage' => 'Please upload a valid PNG image',
-                        'maxSizeMessage' => 'The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.',
                     ])
                 ],
             ])
         ;
+
+        $this->transformer->setDirectory($options['dir']);
+
+        $builder->get('IMG')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Equipe::class,
+            'dir' => null,
         ]);
     }
 }

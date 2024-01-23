@@ -134,6 +134,8 @@ class EmissionController extends AbstractController
                 } catch (FileException $e) {
                     $this->addFlash('error', 'Erreur lors du déplacement de l\'image.');
                 }
+            } else {
+                $emission->setIMG($oldName . '.png');
             }
 
             $entityManager->persist($emission);
