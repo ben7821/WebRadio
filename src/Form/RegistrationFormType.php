@@ -44,7 +44,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('roles', ChoiceType::class, [ // Add this block
+            ->add('roles', ChoiceType::class, [ 
                 'label' => 'Role',
                 'choices' => [
                     'User' => 'ROLE_USER',

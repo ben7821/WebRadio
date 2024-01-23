@@ -108,9 +108,6 @@ class EmissionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Ajoutez un dump ici pour voir les données transformées
-
-            // Vérifier si le dossier existe
             $oldFolder = $this->audioDir ."/". $oldName;
             $newFolder = $this->audioDir ."/". $emission->getNom();
 
@@ -119,7 +116,6 @@ class EmissionController extends AbstractController
                 rename($oldFolder, $newFolder);
             }
             
-            // Déplacer la nouvelle image
             $imgFile = $form->get('IMG')->getData();
             
             if ($imgFile) {
@@ -140,7 +136,6 @@ class EmissionController extends AbstractController
                 }
             }
 
-            // Changer le directory du champ IMG dans la base de données
             $entityManager->persist($emission);
             $entityManager->flush();
 

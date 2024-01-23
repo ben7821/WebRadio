@@ -36,7 +36,7 @@ class AudioController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $audio = new Audio();
-        
+
         $form = $this->createForm(AudioType::class, $audio, [
             'dir' => $this->audioDir
         ]);
@@ -46,27 +46,36 @@ class AudioController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $emissionId = $request->query->get('emission');
-        
+
         if ($emissionId) {
 
             $emission = $entityManager->getRepository(Emission::class)->find($emissionId);
             $form->get('IDEMISSION')->setData($emission);
-
         }
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $audiof = $form->get('AUDIO')->getData();
 
             if ($audiof) {
-                $newFilename = $audio->getNOM() .".wav";
-                
+                $newFilename = $audio->getNOM() . ".wav";
+
+                try {
+                    $audiof->move(
+                        $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/',
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    dump($e);
+                }
             }
-            
+
+            $audio->setAUDIO($audio->getIDEMISSION()->getNOM() . '/' . $newFilename);
+
             $entityManager->persist($audio);
             $entityManager->flush();
-            
+
             return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -87,12 +96,23 @@ class AudioController extends AbstractController
     #[Route('/{id}/edit', name: 'app_audio_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Audio $audio, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AudioType::class, $audio);
+        $oldAudio = $audio->getNOM();
+
+        $form = $this->createForm(AudioType::class, $audio, [
+            'dir' => $this->audioDir
+        ]);
         $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $newAudio = $audio->getNOM();
+
+            if ($newAudio != $oldAudio) {
+                rename($this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/' . $oldAudio . '.wav', $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/' . $newAudio . '.wav');
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_audio_index', [], Response::HTTP_SEE_OTHER);
