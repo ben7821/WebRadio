@@ -39,6 +39,9 @@ class StringToFileTransformer implements DataTransformerInterface
 
     public function reverseTransform($file)
     {
+        if (null === $file) {
+            return null;
+        }
         return new File($file->getPathname());
     }
 }

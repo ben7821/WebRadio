@@ -35,12 +35,18 @@ class ParticipationRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function lesParticipants(EntityManagerInterface $entityManager, $inscriptionID): array
+    public function lesParticipants($inscriptionID): array
     { 
-        $qb = new ResultSetMapping();
-        $query = $entityManager->createNativeQuery('select * from participant where inscription_id = 1', $qb);
-        $query->setParameter(1, $inscriptionID);
+        $inscriptionID = 1;
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->select('p.nom', 'p.prenom', 'p.tel', 'mail')
+            ->from('App\Entity\Participant', 'p')
+            ->where('p.inscription_id = :inscriptionId');
+            //->where('p.inscription_id = :inscriptionId')
+            //->setParameter('inscriptionId', $inscriptionId);
+        $query = $queryBuilder->getQuery();
         return $query->getResult();
+        //return $queryBuilder->getQuery()->getResult();
     }
 
 //    /**

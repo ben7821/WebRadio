@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\Query\ResultSetMapping;
-
+use Doctrine\Persistence\ManagerRegistry;
 
 #[Route('/participation')]
 class ParticipationController extends AbstractController
@@ -19,9 +19,9 @@ class ParticipationController extends AbstractController
     #[Route('/', name: 'app_participation_index', methods: ['GET'])]
     public function index(ParticipationRepository $participationRepository, EntityManagerInterface $entityManager): Response
     {
-        $participant = $participationRepository->findAll();
+        $inscriptionID = 1;
         return $this->render('participation/index.html.twig', [
-            'participations' => $participationRepository->colParticipant(),
+            'participations' => $participationRepository->lesParticipants($entityManager, $inscriptionID),
         ]);
     }
 

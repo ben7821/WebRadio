@@ -66,6 +66,11 @@ class EmissionController extends AbstractController
 
                 $entityManager->persist($emission);
                 $entityManager->flush();
+            } else {
+                $emission->setIMG('default.png');
+
+                $entityManager->persist($emission);
+                $entityManager->flush();
             }
 
             $folder = $this->audioDir ."/". $emission->getNom();
@@ -94,42 +99,40 @@ class EmissionController extends AbstractController
     #[Route('/{ID}/edit', name: 'app_emission_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
+        $oldName = $emission->getNom();
+
         $form = $this->createForm(EmissionType::class, $emission, [
             'dir' => $this->emissionDir,
             "action" => "edit"
         ]);
         $form->handleRequest($request);
 
-        $oldName = $emission->getNom();
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Ajoutez un dump ici pour voir les données transformées
-            dump($form->getData());
 
             // Vérifier si le dossier existe
             $oldFolder = $this->audioDir ."/". $oldName;
             $newFolder = $this->audioDir ."/". $emission->getNom();
 
-            dd($oldFolder, $newFolder);
-
+            
             if ($oldFolder !== $newFolder) {
-                if (file_exists($oldFolder)) {
-                    rename($oldFolder, $newFolder);
-                } else {
-                    mkdir($newFolder, 0777, true);
-                }
+                rename($oldFolder, $newFolder);
             }
-
+            
             // Déplacer la nouvelle image
             $imgFile = $form->get('IMG')->getData();
+            
             if ($imgFile) {
+                
                 $newFilename = $emission->getNom() . '.png';
-
+                
                 try {
-                    $imgFile->move($this->emissionDir, $newFilename);
+                    
+                    $imgFile->move($this->emissionDir."/", $newFilename);
                     $emission->setIMG($newFilename);
-
+                    
                     $oldFilename = $this->emissionDir . '/' . $oldName . '.png';
                     if (file_exists($oldFilename)) {
                         unlink($oldFilename);
@@ -162,7 +165,7 @@ class EmissionController extends AbstractController
             $entityManager->remove($emission);
             $entityManager->flush();
 
-            $folder = $this->audioDir . $emission->getNom();
+            $folder = $this->audioDir ."/". $emission->getNom();
             if (file_exists($folder)) {
                 rmdir($folder);
             }
