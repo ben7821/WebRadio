@@ -23,15 +23,11 @@ class Inscription
     private ?Emission $EMS = null;
 
     #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Participant::class)]
-    private Collection $PARTICIPANT_ID;
-
-    #[ORM\ManyToMany(targetEntity: Participant::class, inversedBy: 'inscriptions')]
-    private Collection $participant_id;
+    private $PARTICIPANT;
 
     public function __construct()
     {
-        $this->PARTICIPANT_ID = new ArrayCollection();
-        $this->participant_id = new ArrayCollection();
+        $this->PARTICIPANT = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,31 +59,30 @@ class Inscription
         return $this;
     }
 
-
     /**
      * @return Collection<int, Participant>
      */
-    public function getPARTICIPANTID(): Collection
+    public function getPARTICIPANT(): Collection
     {
-        return $this->PARTICIPANT_ID;
+        return $this->PARTICIPANT;
     }
 
-    public function addPARTICIPANTID(Participant $pARTICIPANTID): static
+    public function addPARTICIPANT(Participant $pARTICIPANT): static
     {
-        if (!$this->PARTICIPANT_ID->contains($pARTICIPANTID)) {
-            $this->PARTICIPANT_ID->add($pARTICIPANTID);
-            $pARTICIPANTID->setInscription($this);
+        if (!$this->PARTICIPANT->contains($pARTICIPANT)) {
+            $this->PARTICIPANT->add($pARTICIPANT);
+            $pARTICIPANT->setInscription($this);
         }
 
         return $this;
     }
 
-    public function removePARTICIPANTID(Participant $pARTICIPANTID): static
+    public function removePARTICIPANT(Participant $pARTICIPANT): static
     {
-        if ($this->PARTICIPANT_ID->removeElement($pARTICIPANTID)) {
+        if ($this->PARTICIPANT->removeElement($pARTICIPANT)) {
             // set the owning side to null (unless already changed)
-            if ($pARTICIPANTID->getInscription() === $this) {
-                $pARTICIPANTID->setInscription(null);
+            if ($pARTICIPANT->getInscription() === $this) {
+                $pARTICIPANT->setInscription(null);
             }
         }
 

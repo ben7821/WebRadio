@@ -20,7 +20,12 @@
                 }) }}
             </div>
 
-            
+            <div class="register-role">
+                {{form_row(registrationForm.role,{
+                    'label': 'Role',
+                    'attr' : {'class': ''}
+                    }) }}
+            </div>
 
             <div class="register-terms">
                 {{ form_row(registrationForm.agreeTerms, { 'label': "Accepter les conditions d'utilisation :", 'attr': {'class': 'form-check-input'} }) }}

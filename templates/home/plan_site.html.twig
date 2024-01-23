@@ -13,9 +13,9 @@
 			<li>
 				<a href="{{ path('app_emission_index') }}">Les Émissions</a>
 				<ul>
-					{% for ems in app.request.attributes.get('hemissions', []) %}
+					{% for ems in app.request.attributes.get('header_emissions', []) %}
                     <p>
-                        <a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}">{{ ems.NOMLONG }}</a>
+                        <a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}"> - {{ ems.NOMLONG }}</a>
                     </p>
 					{% endfor %}
 				</ul>

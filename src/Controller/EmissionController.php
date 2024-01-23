@@ -39,8 +39,7 @@ class EmissionController extends AbstractController
     {
         $emission = new Emission();
         $form = $this->createForm(EmissionType::class, $emission, [
-            'dir' => $this->emissionDir,
-            "action" => "new"
+            'dir' => $this->emissionDir
         ]);
         $form->handleRequest($request);
 
@@ -102,8 +101,7 @@ class EmissionController extends AbstractController
         $oldName = $emission->getNom();
 
         $form = $this->createForm(EmissionType::class, $emission, [
-            'dir' => $this->emissionDir,
-            "action" => "edit"
+            'dir' => $this->emissionDir
         ]);
         $form->handleRequest($request);
 

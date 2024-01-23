@@ -23,8 +23,6 @@ class EmissionType extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $action = $options['action'];
-
         $builder
             ->add('NOM', TextType::class, [
                 'constraints' => [
@@ -33,25 +31,27 @@ class EmissionType extends AbstractType
             ])
             ->add('NOMLONG')
             ->add('DESCRIPTION')
-            ->add('IMG',
-             FileType::class, [
-                'label' => 'Image (JPEG, PNG, GIF)',
-                'required' => false,
-                'mapped' => true,
-                'constraints' => [
-                    new ConstraintsFile([
-                        'maxSize' => '16384k',
-                        'mimeTypes' => [
-                            'image/*'
-                        ],
-                        'mimeTypesMessage' => 'Merci de télécharger une image valide',
-                    ])
-                ],
-            ]
+            ->add(
+                'IMG',
+                FileType::class,
+                [
+                    'label' => 'Image (JPEG, PNG, GIF)',
+                    'required' => false,
+                    'mapped' => true,
+                    'constraints' => [
+                        new ConstraintsFile([
+                            'maxSize' => '16384k',
+                            'mimeTypes' => [
+                                'image/*'
+                            ],
+                            'mimeTypesMessage' => 'Merci de télécharger une image valide',
+                        ])
+                    ],
+                ]
             )
             ->add('INSCRIPTION');
 
-            $this->transformer->setDirectory($options["dir"]);
+        $this->transformer->setDirectory($options["dir"]);
 
         $builder->get('IMG')->addModelTransformer($this->transformer);
     }

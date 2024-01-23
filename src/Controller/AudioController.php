@@ -36,7 +36,12 @@ class AudioController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $audio = new Audio();
-        $form = $this->createForm(AudioType::class, $audio);
+        
+        $form = $this->createForm(AudioType::class, $audio, [
+            'dir' => $this->audioDir
+        ]);
+
+        $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -49,29 +54,14 @@ class AudioController extends AbstractController
 
         }
 
-        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            /** 
-             * @var UploadedFile $file
-             */
-            $file = $form['AUDIO']->getData();
-            $fileName = '';
-            
-            if ($file) {
-                $emission = $audio->getIDEMISSION();
-                $fileName = $audio->getNOM() . '.wav';
-                
-                try {
-                    $file->move($this->audioDir . "/" . $emission->getNOM(), $fileName);
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Unable to upload the audio file'.$e->getMessage());
-                    return $this->redirectToRoute('app_audio_index', [], Response::HTTP_SEE_OTHER);
-                }
+            $audiof = $form->get('AUDIO')->getData();
+
+            if ($audiof) {
+                $newFilename = $audio->getNOM()
             }
-            
-            $audio->setAUDIO($emission->getNOM() . '/' . $fileName);
             
             $entityManager->persist($audio);
             $entityManager->flush();

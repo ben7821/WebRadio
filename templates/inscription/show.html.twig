@@ -14,23 +14,7 @@
             <tr>
                 <th>Emission</th>
                 <td>{{ inscription.id }}</td>
-            </tr>
-        <tbody>
-    
-        {% for participant in participants %}
-            <tr>
-                <td>{{ participant.PRENOM }}</td>
-                <td>{{ participant.NOM }}</td>
-                <td>{{ participant.TEL }}</td>
-                <td>{{ participant.MAIL }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-      
+            </tr>      
         </tbody>
     </table>
 

@@ -27,16 +27,13 @@ class Participant
     #[ORM\Column(length: 255)]
     private ?string $MAIL = null;
 
-    #[ORM\ManyToOne(inversedBy: 'PARTICIPANT_ID')]
+    #[ORM\ManyToOne(inversedBy: 'PARTICIPANT')]
     private ?Inscription $inscription = null;
 
-    #[ORM\ManyToMany(targetEntity: Inscription::class, mappedBy: 'participant_id')]
-    #[ORM\JoinTable(name: 'inscription_participant')]
-    private $inscriptions;
 
     public function __construct()
     {
-        $this->inscriptions = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -104,33 +101,6 @@ class Participant
     public function setInscription(?Inscription $inscription): static
     {
         $this->inscription = $inscription;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Inscription>
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
-
-    public function addInscription(Inscription $inscription): static
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->addParticipantId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(Inscription $inscription): static
-    {
-        if ($this->inscriptions->removeElement($inscription)) {
-            $inscription->removeParticipantId($this);
-        }
 
         return $this;
     }

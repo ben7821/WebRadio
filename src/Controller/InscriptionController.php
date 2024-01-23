@@ -11,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Participant;
 use App\Controller\Collection;
 
 #[Route('/inscription')]
@@ -46,24 +45,10 @@ class InscriptionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_inscription_show', methods: ['GET'])]
-    public function show(Inscription $inscription, Participant $participantID, EntityManagerInterface $entityManager): Response
+    public function show(Inscription $inscription, EntityManagerInterface $entityManager): Response
     {
-        $participant = $entityManager->getRepository(Participant::class)->findAll();
-        $inscriptionID = $inscription->getId();
-        /*$colParticipants = new Collection([
-            $inscriptionID => 'value',
-        ]);
-
-        $participantID = $participantID->getPARTICIPANTID();
-        
-        foreach($participant as $participants){
-            if($inscriptionID == $participantID){
-                return $participant->toString();
-            }
-        }*/
-
         return $this->render('inscription/show.html.twig', [
-            'inscription' => $inscription->getPARTICIPANTID(),
+            'inscription' => $inscription,
             
         ]);
     }
