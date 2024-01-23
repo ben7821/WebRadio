@@ -112,10 +112,9 @@ class EquipeController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
+            
             $file = $form->get('IMG')->getData();
-
+            
             if ($file) {
                 $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
                 try {
@@ -123,19 +122,21 @@ class EquipeController extends AbstractController
                         $this->equipeDir . '/',
                         $fileName
                     );
-
+                    
                     if (file_exists($this->equipeDir . '/' . $oldName)) {
                         unlink($this->equipeDir . '/' . $oldName);
                     }
                 } catch (FileException $e) {
                     dump($e);
                 }
-
+                
                 $equipe->setIMG($fileName);
             } else {
                 $equipe->setIMG($oldName);
             }
-
+            
+            $entityManager->flush();
+            
             return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
 
