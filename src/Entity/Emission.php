@@ -6,10 +6,6 @@ use App\Repository\EmissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 #[ORM\Entity(repositoryClass: EmissionRepository::class)]
 class Emission
@@ -30,9 +26,6 @@ class Emission
 
     #[ORM\Column(length: 255)]
     private ?string $IMG = null;
-
-    #[ORM\Column(length: 255)]
-    private ?bool $INSCRIPTION = null;
    
 
     #[ORM\OneToMany(mappedBy: 'IDEMISSION', targetEntity: Audio::class, orphanRemoval: true)]
@@ -100,18 +93,6 @@ class Emission
     public function setIMG(string $IMG): static
     {
         $this->IMG = $IMG;
-
-        return $this;
-    }
-
-    public function isINSCRIPTION(): ?bool
-    {
-        return $this->INSCRIPTION;
-    }
-
-    public function setINSCRIPTION(bool $INSCRIPTION): static
-    {
-        $this->INSCRIPTION = $INSCRIPTION;
 
         return $this;
     }

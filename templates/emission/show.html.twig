@@ -5,7 +5,7 @@
 {% block body %}
     
     <div class="emission">
-        <img src="{{ asset('data/rubrique/' ~ emission.NOM ~ '.png')}}" alt="imgEmission"/>
+        <img src="{{ asset('data/rubrique/' ~ emission.IMG)}}" alt="img {{ emission.NOMLONG }}"/>
         <article>
             <h5> 
                 {{emission.nomlong}}
@@ -55,5 +55,9 @@
             </div>
         </div>
 
+    {% endfor %}
+
+    {% for inscr in inscriptions %}
+        {{ inscr.date|date('d-m-Y') }}
     {% endfor %}
 {% endblock %}

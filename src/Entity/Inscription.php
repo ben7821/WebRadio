@@ -25,6 +25,9 @@ class Inscription
     #[ORM\OneToMany(mappedBy: 'inscription', targetEntity: Participant::class)]
     private $PARTICIPANT;
 
+    #[ORM\Column]
+    private ?bool $valid = null;
+
     public function __construct()
     {
         $this->PARTICIPANT = new ArrayCollection();
@@ -89,6 +92,18 @@ class Inscription
                 $pARTICIPANT->setInscription(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isValid(): ?bool
+    {
+        return $this->valid;
+    }
+
+    public function setValid(bool $valid): static
+    {
+        $this->valid = $valid;
 
         return $this;
     }

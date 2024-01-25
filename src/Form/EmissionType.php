@@ -48,8 +48,7 @@ class EmissionType extends AbstractType
                         ])
                     ],
                 ]
-            )
-            ->add('INSCRIPTION');
+            );
 
         $this->transformer->setDirectory($options["dir"]);
 

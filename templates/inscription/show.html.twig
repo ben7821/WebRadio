@@ -1,29 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription emission{% endblock %}
-
+{% block title %}Inscription emission
+{% endblock %}
 {% block body %}
-    <h1>Emission {{ inscription.id }}</h1>
+	<h1>{{ emission.NOMLONG}} / n° : {{ inscription.ID}}</h1>
+	<p>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</p>
+	<p>Liste des participant : <p/>
+		<tbody>
+			<table class="table">
+				{% for participant in participants %}
+					<tr>
+						<td>{{ participant.PRENOM }}</td>
+						<td>{{ participant.NOM }}</td>
+						<td>{{ participant.TEL }}</td>
+						<td>{{ participant.MAIL }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</tbody>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>DATE</th>
-                <td>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Emission</th>
-                <td>{{ inscription.id }}</td>
-            </tr>      
-        </tbody>
-    </table>
-
-
-    
-
-    <a href="{{ path('app_creation') }}">back to list</a>
-
-    <a href="{{ path('app_inscription_edit', {'id': inscription.id}) }}">edit</a>
-
-    {{ include('inscription/_delete_form.html.twig') }}
+		<a href="{{ path('app_creation') }}">back to list</a>
 {% endblock %}

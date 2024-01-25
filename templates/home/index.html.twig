@@ -21,7 +21,7 @@
 			<div class="border- Card">
 				<a href="emission/{{ e.NOM }}">
 					<h3>{{ e.NOMLONG }}</h3>
-					<img src="{{ asset('data/rubrique/' ~ e.NOM ~ '.png')}}" alt="image"/>
+					<img src="{{ asset('data/rubrique/' ~ e.IMG)}}" alt="image"/>
 				</a>
 			</div>
 		{% endfor %}
@@ -59,4 +59,6 @@
 			</a>
 		</div>
 	</div>
+
+
 {% endblock %}

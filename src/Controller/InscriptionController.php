@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Syfony\Controller\Participant;
 use App\Controller\Collection;
 
 #[Route('/inscription')]
@@ -47,11 +48,16 @@ class InscriptionController extends AbstractController
     #[Route('/{id}', name: 'app_inscription_show', methods: ['GET'])]
     public function show(Inscription $inscription, EntityManagerInterface $entityManager): Response
     {
+        $participants = $inscription->getPARTICIPANT();
+        $emission = $inscription->getEMS();
+
         return $this->render('inscription/show.html.twig', [
             'inscription' => $inscription,
-            
+            'emission' => $emission,
+            'participants' => $participants
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_inscription_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Inscription $inscription, EntityManagerInterface $entityManager): Response

@@ -92,6 +92,7 @@ class EmissionController extends AbstractController
         return $this->render('emission/show.html.twig', [
             'emission' => $emission,
             'audios' => $emission->getAudio(),
+            'inscriptions' => $emission->getInscriptions(),
         ]);
     }
 
