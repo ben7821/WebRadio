@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Emission;
 use App\Form\EmissionType;
+use App\Form\ParticipantType;
 use App\Repository\EmissionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,8 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use App\Controller\InscriptionController;
-
 
 #[Route('/emission')]
 class EmissionController extends AbstractController
@@ -79,7 +78,8 @@ class EmissionController extends AbstractController
 
             return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
-
+       
+        
         return $this->renderForm('emission/new.html.twig', [
             'emission' => $emission,
             'form' => $form,
@@ -87,12 +87,23 @@ class EmissionController extends AbstractController
     }
 
     #[Route('/{NOM}', name: 'app_emission_show', methods: ['GET'])]
-    public function show(Emission $emission): Response
+    public function show(Request $request, Emission $emission): Response
     {
+        $form = $this->createForm(ParticipantType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $entityManager->persist($inscription);
+            // $entityManager->flush();
+
+            return $this->redirectToRoute('app_emission_show', ['NOM' => $emission->getNom()]);
+        }
         return $this->render('emission/show.html.twig', [
             'emission' => $emission,
             'audios' => $emission->getAudio(),
             'inscriptions' => $emission->getInscriptions(),
+            'form' => $form->createView()
         ]);
     }
 

@@ -618,7 +618,7 @@ header a:hover {
   border-radius: 9px;
 }
 
-img[alt="imgEmission"] {
+.emission img {
   margin: 0px 25px 0px 50px;
   width: 20%;
   height: auto;

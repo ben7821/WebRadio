@@ -35,7 +35,7 @@ class ParticipantController extends AbstractController
             $entityManager->persist($participant);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_emission_show', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('participant/new.html.twig', [

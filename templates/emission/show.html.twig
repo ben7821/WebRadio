@@ -1,63 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{emission.nomlong}}{% endblock %}
+{% block title %}
+	{{emission.nomlong}}
+{% endblock %}
 
 {% block body %}
-    
-    <div class="emission">
-        <img src="{{ asset('data/rubrique/' ~ emission.IMG)}}" alt="img {{ emission.NOMLONG }}"/>
-        <article>
-            <h5> 
-                {{emission.nomlong}}
-            </h5>
-            <P> 
-                {{emission.description}}
-            </p>
-        </article>
-    </div>
 
-    <h1 id="podcasts" class="header-page title">LES PODCASTS</h1>
-    <hr size="5" width="100%" color="black" />
+	<div class="emission">
+		<img src="{{ asset('data/rubrique/' ~ emission.IMG)}}" alt="img {{ emission.NOMLONG }}"/>
+		<article>
+			<h5>
+				{{emission.nomlong}}
+			</h5>
+			<p>
+				{{emission.description}}
+			</p>
+		</article>
+	</div>
 
-    {% for audio in audios %}
-        <div class="podcast border- ">
-            <div class="audio-container" data-date="{{ audio.date|date('d-m-Y') }} / {{ audio.heure|date('H:i') }}" data-title="{{ audio.nom }}" data-info="{{ audio.description }}" data-ctime="0" data-src="{{ asset('data/audio/' ~ audio.audio)}}">
-                <div class="lecteur-container">
-                    <div class="controls">
-                        <button class="ajouter"><img src="{{asset('data/general/ajouter.png')}}"></button>
-                        <button class="play"><img src="{{asset('data/general/play.png')}}" alt=""></button>
-                    </div>
-                    <div class="audiobar">
-                        <div class="topbar">
-                            <h3 class="audiotitre">{{audio.nom}}</h3>
-                            <p class="info-topbar">{{audio.auteurs}}</p>
-                            <p class="info-topbar">{{audio.description}}</p>
-                            <i style="font-size: 12px">
-                                {{ audio.date|date('d-m-Y') }} / {{audio.heure|date('H:i')}}
-                            </i>
-                        </div>
-                        <div class="audioplayer">
-                            <audio class="audio-src" src="" preload="metadata"></audio>
-                            <div class="tracker">
-                                <span class="current-time">00:00</span>
-                                <div class="progress">
-                                    <input type="range" class="progress-track" name="progress-track" max="100" value="0">
-                                </div>
-                                <span class="duration">00:00</span>
-                            </div>
-                            <div class="volume">
-                                <button type="button" id="button-mute"><img src="{{asset('data/general/unmute.png')}}" alt=""></button>
-                                <input type="range" class="volume-track" name="volume-track" max="100" value="100">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    {% endfor %}
+	<h1 class="display-full">INSCRIPTIONS EMISSIONS</h1>
+	<div class="inscription">
+        {% set inscrCount = 1 %}
+		{% for inscr in inscriptions %}
+			<h3>
+				<i class="fas fa-chevron-down"></i>
+				Formulaire n° {{ inscrCount }} Inscription jusqu'au {{ inscr.date|date('d M Y') }}</h3>
 
-    {% for inscr in inscriptions %}
-        {{ inscr.date|date('d-m-Y') }}
-    {% endfor %}
+			{{ form_start(form) }}
+			{{ form_row(form.inscription, {'value': inscr.id}) }}
+			{{ form_widget(form) }}
+			<button type="submit">S'inscrire</button>
+			{{ form_end(form) }}
+
+            {% set inscrCount = inscrCount + 1 %}
+		{% endfor %}
+
+
+	</div>
+
+
+	<h1 id="podcasts" class="header-page title">LES PODCASTS</h1>
+	<hr size="5" width="50%" color="black"/>
+
+	<div style="margin: 0 auto; width: 90%;">
+		{% for audio in audios %}
+			<div class="podcast border- ">
+				<div class="audio-container" data-date="{{ audio.date|date('d-m-Y') }} / {{ audio.heure|date('H:i') }}" data-title="{{ audio.nom }}" data-info="{{ audio.description }}" data-ctime="0" data-src="{{ asset('data/audio/' ~ audio.audio)}}">
+					<div class="lecteur-container">
+						<div class="controls">
+							<button class="ajouter"><img src="{{asset('data/general/ajouter.png')}}"></button>
+							<button class="play"><img src="{{asset('data/general/play.png')}}" alt=""></button>
+						</div>
+						<div class="audiobar">
+							<div class="topbar">
+								<h3 class="audiotitre">{{audio.nom}}</h3>
+								<p class="info-topbar">{{audio.auteurs}}</p>
+								<p class="info-topbar">{{audio.description}}</p>
+								<i style="font-size: 12px">
+									{{ audio.date|date('d-m-Y') }}
+									/
+									{{audio.heure|date('H:i')}}
+								</i>
+							</div>
+							<div class="audioplayer">
+								<audio class="audio-src" src="" preload="metadata"></audio>
+								<div class="tracker">
+									<span class="current-time">00:00</span>
+									<div class="progress">
+										<input type="range" class="progress-track" name="progress-track" max="100" value="0">
+									</div>
+									<span class="duration">00:00</span>
+								</div>
+								<div class="volume">
+									<button type="button" id="button-mute"><img src="{{asset('data/general/unmute.png')}}" alt=""></button>
+									<input type="range" class="volume-track" name="volume-track" max="100" value="100">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+
+    <script>
+
+    $('.inscription h3').click(function() {
+        $(this).parent().find('form').toggle();
+        $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+    });
+
+    </script>
+
 {% endblock %}

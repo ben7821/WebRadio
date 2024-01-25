@@ -6,6 +6,7 @@ use App\Entity\Participant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class ParticipantType extends AbstractType
 {
@@ -16,7 +17,8 @@ class ParticipantType extends AbstractType
             ->add('NOM')
             ->add('TEL')
             ->add('MAIL')
-        ;
+            ->add('inscription', HiddenType::class);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
