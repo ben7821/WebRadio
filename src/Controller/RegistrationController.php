@@ -23,16 +23,25 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $userData = $form->getData();
+
+            // Traitement du champ 'roles' pour s'assurer qu'il est sous forme de tableau
+            $roles = $userData['roles'];
+
+
+            $user->setRoles($roles);
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $userData['plainPassword']
                 )
             );
 
             $entityManager->persist($user);
             $entityManager->flush();
+
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Emission;
+use App\Entity\Inscription;
+use App\Entity\Participant;
 use App\Form\EmissionType;
 use App\Form\ParticipantType;
 use App\Repository\EmissionRepository;
@@ -82,24 +84,30 @@ class EmissionController extends AbstractController
         
         return $this->renderForm('emission/new.html.twig', [
             'emission' => $emission,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{NOM}', name: 'app_emission_show', methods: ['GET'])]
-    public function show(Request $request, Emission $emission): Response
+    #[Route('/{NOM}', name: 'app_emission_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
+        $participant = new Participant();
         $form = $this->createForm(ParticipantType::class);
 
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            // $entityManager->persist($inscription);
-            // $entityManager->flush();
+            if($this->isCsrfTokenValid('delete' . $emission->getID(), $request->request->get('_token'))) {
+                $entityManager->remove($emission);
+                $entityManager->flush();
+            }
+            dd($form->getData());
+            $entityManager->persist($participant);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_emission_show', ['NOM' => $emission->getNom()]);
         }
-        return $this->render('emission/show.html.twig', [
+        return $this->renderForm('emission/show.html.twig', [
             'emission' => $emission,
             'audios' => $emission->getAudio(),
             'inscriptions' => $emission->getInscriptions(),
