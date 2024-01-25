@@ -6,7 +6,7 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -44,19 +44,14 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('roles', EntityType::class, [
-                'class' => Utilisateur::class,
+            ->add('roles', ChoiceType::class, [
                 'choice_label' => 'roles',
                 'multiple' => false,
                 'mapped' => true,
                 'expanded' => true,
                 'required' => true,
                 'label' => 'Rôle',
-                'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
-                    'Administrateur' => 'ROLE_ADMIN',
-                ],
-                // 'data' => isset($options['data']) && $options['data']->getRoles()[0] === 'ROLE_ADMIN' ? ['ROLE_ADMIN'] : ['ROLE_USER'],
+                'data' => isset($options['data']) && $options['data']->getRoles()[0] === 'ROLE_ADMIN' ? ['ROLE_ADMIN'] : ['ROLE_USER'],
             ]);
     }
 

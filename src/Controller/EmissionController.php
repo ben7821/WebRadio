@@ -84,7 +84,7 @@ class EmissionController extends AbstractController
         
         return $this->renderForm('emission/new.html.twig', [
             'emission' => $emission,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
