@@ -69,6 +69,15 @@ class RegistrationFormType extends AbstractType
             //     ],
             //     'label' => 'Rôles'
             // ])
+<<<<<<< HEAD
+=======
+                        // ->// add('roles', ChoiceType::class, [
+            //     'choice_label' => 'ro// les',
+            //     'multiple' => false,
+            //     '// mapped' => true,
+  //           //     'expanded' => true// ,
+
+>>>>>>> 6e04ab51a294de0b731db491e659d2152eb70e30
             ->add('roles', ChoiceType::class, [
                 'label' => 'Rôle',
                 'choices' => [
