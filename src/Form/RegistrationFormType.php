@@ -44,21 +44,55 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+                        // ->add('roles', ChoiceType::class, [
+            //     'choice_label' => 'roles',
+            //     'multiple' => false,
+            //     'mapped' => true,
+            //     'expanded' => true,
+            //     'required' => true,
+            //     'label' => 'Rôle',
+            //     // 'data' => !empty($options['data']) && $options['data']->getRoles()[0] === 'ROLE_ADMIN' ? 'ROLE_ADMIN' : 'ROLE_USER',
+            //     // set selected value to 'ROLE_USER' if no data is passed
+            //     // 'choices' => [
+            //     //     'Utilisateur' => 'ROLE_USER',
+            //     //     'Administrateur' => 'ROLE_ADMIN',
+            //     // ],
+            //     'choices' => [
+            //         'Utilisateur' => 'ROLE_USER',
+            //         'Administrateur' => 'ROLE_ADMIN',
+            //     ],
+            // ]);
+            // ->add('roles', ChoiceType::class, [
+            //     'choices' => [
+            //         'Utilisateur' => 'ROLE_USER',
+            //         'Administrateur' => 'ROLE_ADMIN',
+            //     ],
+            //     'label' => 'Rôles'
+            // ])
+                        // ->// add('roles', ChoiceType::class, [
+            //     'choice_label' => 'ro// les',
+            //     'multiple' => false,
+            //     '// mapped' => true,
+  //           //     'expanded' => true// ,
+
             ->add('roles', ChoiceType::class, [
-                'choice_label' => 'roles',
+                'label' => 'Rôle',
+                'choices' => [
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN',
+                ],
+                'expanded' => true,
                 'multiple' => false,
                 'mapped' => true,
-                'expanded' => true,
-                'required' => true,
-                'label' => 'Rôle',
-                'data' => isset($options['data']) && $options['data']->getRoles()[0] === 'ROLE_ADMIN' ? ['ROLE_ADMIN'] : ['ROLE_USER'],
-            ]);
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
+            'data' => null,
         ]);
     }
 }

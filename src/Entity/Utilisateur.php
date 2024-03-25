@@ -58,7 +58,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRole(): string
     {
-        return (string) $this->roles;
+        return join(',',$this->roles);
     }
 
     /**
@@ -66,7 +66,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        return [$this->roles, 'ROLE_USER'];
+        return [$this->getRole(), 'ROLE_USER'];
     }
 
     public function setRoles(array $roles): static

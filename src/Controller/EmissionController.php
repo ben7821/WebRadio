@@ -93,7 +93,6 @@ class EmissionController extends AbstractController
     {
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class);
-
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -101,7 +100,7 @@ class EmissionController extends AbstractController
                 $entityManager->remove($emission);
                 $entityManager->flush();
             }
-            dd($form->getData());
+            dd($participant->getInscription());
             $entityManager->persist($participant);
             $entityManager->flush();
 
@@ -111,7 +110,7 @@ class EmissionController extends AbstractController
             'emission' => $emission,
             'audios' => $emission->getAudio(),
             'inscriptions' => $emission->getInscriptions(),
-            'form' => $form->createView()
+            'form' => $form
         ]);
     }
 
