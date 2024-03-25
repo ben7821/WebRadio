@@ -24,9 +24,11 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userData = $form->getData();
-
+            
             // Traitement du champ 'roles' pour s'assurer qu'il est sous forme de tableau
-            $roles = $userData['roles'];
+            // $roles = $userData['roles'];
+            dd($userData->getRoles());
+            $roles = $userData->getRoles();
 
 
             $user->setRoles($roles);

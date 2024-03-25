@@ -32,10 +32,9 @@
 			</h3>
 
 			{{ form_start(form) }}
-			{{ form_widget(form.inscription, {'value': inscr.id}) }}
+			{{ form_widget(form.inscription, {'value': dump(inscr.id)}) }}
 			{{ form_row(form.NOM) }}
 			{{ form_row(form.PRENOM) }}
-			{{ form_row(form.EMAIL) }}
 			{{ form_row(form.TEL) }}
 			<button type="submit" name="submit_{{ inscr.id }}">S'inscrire</button>
 			{{ form_end(form) }}
