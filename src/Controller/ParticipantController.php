@@ -8,6 +8,7 @@ use App\Repository\ParticipantRepository;
 use App\Repository\ParticipationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,5 +80,12 @@ class ParticipantController extends AbstractController
         }
 
         return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/add', name: 'ajax_participant_add', methods: ['POST'])]
+    public function addParticipant(string $data): JsonResponse
+    {
+        
+        return new JsonResponse(['status' => 'ok']);
     }
 }

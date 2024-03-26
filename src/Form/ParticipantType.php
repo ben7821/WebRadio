@@ -16,9 +16,7 @@ class ParticipantType extends AbstractType
             ->add('PRENOM')
             ->add('NOM')
             ->add('TEL')
-            ->add('MAIL')
-            ->add('inscription', HiddenType::class);
-
+            ->add('MAIL');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

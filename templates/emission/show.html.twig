@@ -30,17 +30,17 @@
 				Inscription jusqu'au
 				{{ inscr.date|date('d M Y') }}
 			</h3>
-
 			{{ form_start(form) }}
-			{{ form_row(form.inscription, {'value': inscr.id }) }}
 			{{ form_row(form.NOM) }}
 			{{ form_row(form.PRENOM) }}
+			{{ form_row(form.MAIL) }}
 			{{ form_row(form.TEL) }}
-			<button type="submit" name="submit_{{ inscr.id }}">S'inscrire</button>
+			<input type="hidden" name="participant[INSCRIPTION]" value="{{ inscr.id }}">
+			{# CAPTCHA? #}
+			<button type="submit">S'inscrire</button>
 			{{ form_end(form) }}
 			</div>
 		{% endfor %}
-
 	</div>
 
 
@@ -106,6 +106,7 @@
                 collapse($(this).parent());
             });
         });
+
 	</script>
 
 {% endblock %}

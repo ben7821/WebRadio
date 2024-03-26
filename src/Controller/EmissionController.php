@@ -93,16 +93,15 @@ class EmissionController extends AbstractController
     {
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class);
-       // dd($form);
         
         $form->handleRequest($request);
        
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($form->getData());
             if($this->isCsrfTokenValid('delete' . $emission->getID(), $request->request->get('_token'))) {
                 $entityManager->remove($emission);
                 $entityManager->flush();
             }
-            
             $entityManager->persist($participant);
             
             $entityManager->flush();
@@ -126,18 +125,7 @@ class EmissionController extends AbstractController
             'dir' => $this->emissionDir
         ]);
 
-        $file = $request->files->get('emission')['IMG'];
-        if ($file) {
-            $form->handleRequest($request);
-        } else {
-            $requestData = $request->request->getIterator();
-            dd($requestData->current());
-            unset($requestData['IMG']);
-            $request->request->set('emission', $requestData);
-
-            $form->handleRequest($request);
-        }
-
+        $form->handleRequest($request);
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -175,7 +163,7 @@ class EmissionController extends AbstractController
             $entityManager->persist($emission);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
 
 
