@@ -32,7 +32,7 @@
 			</h3>
 
 			{{ form_start(form) }}
-			{{ form_widget(form.inscription, {'value': dump(inscr.id)}) }}
+			{{ form_row(form.inscription, {'value': inscr.id }) }}
 			{{ form_row(form.NOM) }}
 			{{ form_row(form.PRENOM) }}
 			{{ form_row(form.TEL) }}

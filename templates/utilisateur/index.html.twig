@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Username</th>
                 <th>Roles</th>
                 <th>Password</th>
@@ -18,13 +17,11 @@
         <tbody>
         {% for utilisateur in utilisateurs %}
             <tr>
-                <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.username }}</td>
                 <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
                 <td>{{ utilisateur.password }}</td>
                 <td>
-                    <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+                    {# <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
@@ -35,5 +32,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+    <a href="{{ path('/admin/register') }}">Create new</a>
 {% endblock %}

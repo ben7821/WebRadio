@@ -66,7 +66,14 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        return [$this->getRole(), 'ROLE_USER'];
+        return [$this->getRole()];
+    }
+
+    public function addRole(string $role): static
+    {
+        $this->roles[] = $role;
+
+        return $this;
     }
 
     public function setRoles(array $roles): static

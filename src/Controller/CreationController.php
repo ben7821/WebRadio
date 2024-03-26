@@ -13,6 +13,7 @@ use App\Entity\Audio;
 use App\Entity\Equipe;
 use App\Entity\Inscription;
 use App\Entity\Participant;
+use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CreationController extends AbstractController
@@ -21,7 +22,7 @@ class CreationController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
 
-        
+        $utilisateur = $em->getRepository(Utilisateur::class)->findAll();
         $emission = $em->getRepository(Emission::class)->findAll();
         $audio = $em->getRepository(Audio::class)->findAll();
         $membres = $em->getRepository(Equipe::class)->findAll();
@@ -34,7 +35,8 @@ class CreationController extends AbstractController
             'audios' => $audio,
             'membres' => $membres,
             'inscriptions' => $inscription,
-            'participants' => $participant
+            'participants' => $participant,
+            'utilisateurs' => $utilisateur
         ]);
     }
 }

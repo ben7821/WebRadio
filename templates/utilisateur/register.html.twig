@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="register-password">
-			{{ form_row(registrationForm.plainPassword, {
+			{{ form_row(registrationForm.password, {
                     'label': 'Mot de passe',
                     'attr': {'class': 'form-control'}
                 }) }}
@@ -33,4 +33,5 @@
 		<button type="submit" class="register-btn">S'enregistrer</button>
 		{{ form_end(registrationForm) }}
 	</div>
+		<a href="{{ path('app_creation') }}" class="backlink">back to list</a>
 {% endblock %}

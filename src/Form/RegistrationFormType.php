@@ -27,10 +27,10 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
-                'mapped' => false,
+                'mapped' => true,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
@@ -44,49 +44,15 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-                        // ->add('roles', ChoiceType::class, [
-            //     'choice_label' => 'roles',
-            //     'multiple' => false,
-            //     'mapped' => true,
-            //     'expanded' => true,
-            //     'required' => true,
-            //     'label' => 'Rôle',
-            //     // 'data' => !empty($options['data']) && $options['data']->getRoles()[0] === 'ROLE_ADMIN' ? 'ROLE_ADMIN' : 'ROLE_USER',
-            //     // set selected value to 'ROLE_USER' if no data is passed
-            //     // 'choices' => [
-            //     //     'Utilisateur' => 'ROLE_USER',
-            //     //     'Administrateur' => 'ROLE_ADMIN',
-            //     // ],
-            //     'choices' => [
-            //         'Utilisateur' => 'ROLE_USER',
-            //         'Administrateur' => 'ROLE_ADMIN',
-            //     ],
-            // ]);
-            // ->add('roles', ChoiceType::class, [
-            //     'choices' => [
-            //         'Utilisateur' => 'ROLE_USER',
-            //         'Administrateur' => 'ROLE_ADMIN',
-            //     ],
-            //     'label' => 'Rôles'
-            // ])
-<<<<<<< HEAD
-=======
-                        // ->// add('roles', ChoiceType::class, [
-            //     'choice_label' => 'ro// les',
-            //     'multiple' => false,
-            //     '// mapped' => true,
-  //           //     'expanded' => true// ,
-
->>>>>>> 6e04ab51a294de0b731db491e659d2152eb70e30
             ->add('roles', ChoiceType::class, [
                 'label' => 'Rôle',
                 'choices' => [
                     'Utilisateur' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => false,
-                'mapped' => true,
+                'mapped' => false,
             ])
             ;
     }

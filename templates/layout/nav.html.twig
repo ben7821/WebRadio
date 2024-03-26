@@ -37,6 +37,10 @@
 		</div>
 		{% if app.user %}
 			<div class="adminarea">
+		{# get the role of the user, if admin, change the icon #}
+		{# create a variable with ternary if #}
+				{% set role = app.user.roles[0] == "ROLE_ADMIN" ? "fa-user-shield" : "fa-user" %}		
+				<p class="text"><i class="fas {{ role }}" style="margin-right:10px"></i>{{ app.user.username }}</p>
 				<a href="{{ path('app_logout') }}" class="loginbtn logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
 				<a href="{{ path('app_creation') }}" class="loginbtn"><i class="fa-solid fa-user-pen"></i></a>
 			</div>

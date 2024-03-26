@@ -144,7 +144,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{% for inscr in inscriptions %}
+			{% for inscr in inscriptions %}
 				<tr onclick="show('inscription')" data-id="{{ inscr.ID }}">
 					<td>{{ inscr.EMS }}</td>
 					<td>{{ inscr.DATE ? inscr.DATE|date('Y-m-d') : '' }}</td>
@@ -160,19 +160,56 @@
 						</form>
 					</td>
 				</tr>
-		{% else %}
+			{% else %}
 				<tr>
 					<td colspan="7">Pas de membres...</td>
 				</tr>
-		{% endfor %}
-	</tbody>
-</table>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_inscription_new') }}" class="new_inscription">NOUVELLE INSCRIPTION</a>
+
+	<div style="height: 5vh;"></div>
+
+	<h1 class="display-full">Compte Webradio</h1>
+	<table id="tableUtilisateur" class="table">
+		<thead>
+			<tr>
+				<th>USERNAME</th>
+				<th>ROLE</th>
+				<th>MDP</th>
+				<th>ACTION</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for utilisateur in utilisateurs %}
+				<tr onclick="show('equipe')">
+					<td>{{ utilisateur.username }}</td>
+					<td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+					<td>{{ utilisateur.password }}</td>
+					<td>
+						<form action="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" method="post">
+							<button href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}">
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas d'utilisateur...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_register') }}" class="new_membre">NOUVEAU UTILISATEUR</a>
 </div>
 
-<a href="{{ path('app_inscription_new') }}" class="new_inscription">NOUVELLE INSCRIPTION</a>
 <div style="height: 5vh;"></div>
+
 <script>
-function show(type) {
+	function show(type) {
 var id = event.target.parentElement.dataset.id;
 switch (type) {
 case 'emission':
@@ -188,4 +225,5 @@ case 'inscription':
 window.location.href = "{{ path('app_inscription_show', {'id': 'ID'}) }}".replace('ID', id);
 break;
 }
-}</script>{% endblock %}
+}
+</script>{% endblock %}
