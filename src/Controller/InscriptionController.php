@@ -29,6 +29,7 @@ class InscriptionController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $inscription = new Inscription();
+
         $form = $this->createForm(InscriptionType::class, $inscription);
         $form->handleRequest($request);
 

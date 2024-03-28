@@ -28,11 +28,12 @@ class UtilisateurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userData = $form->getData();
 
+            // recup les roles
             $roles = $request->request->all("registration_form")['roles'];
 
             $user->addRole($roles);
 
-            // encode the plain password
+            // hash le password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -43,8 +44,7 @@ class UtilisateurController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
+            // lancer l'auth
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,

@@ -37,7 +37,7 @@ class EmissionType extends AbstractType
                 [
                     'label' => 'Image (JPEG, PNG, GIF)',
                     'required' => false,
-                    'mapped' => true,
+                    'mapped' => false,
                     'constraints' => [
                         new ConstraintsFile([
                             'maxSize' => '16384k',

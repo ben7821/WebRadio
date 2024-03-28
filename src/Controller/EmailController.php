@@ -13,9 +13,7 @@ use App\Form\EmailFormType;
 
 class EmailController extends AbstractController
 {
-    /**
-     * @Route("/send-email", name="send_email")
-     */
+    #[Route('/admin/mail', name: 'app_mail')]
     public function sendEmail(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(EmailFormType::class);
@@ -35,7 +33,7 @@ class EmailController extends AbstractController
             $email = (new Email())
                 ->from($data['email'])
                 ->to('report.webradio@gmail.com')
-                ->subject('Raport : '.  date('Y-m-d H:i:s'))
+                ->subject('Rapport du '.  date('Y-m-d H:i:s'))
                 ->text($emailBody);
 
             $mailer->send($email);

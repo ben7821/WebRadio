@@ -17,6 +17,7 @@ class EquipeController extends AbstractController
 {
     private string $equipeDir;
 
+    // Recuperer le chemin depuis services.yaml
     public function __construct(string $equipeDir)
     {
         $this->equipeDir = $equipeDir;
@@ -51,6 +52,8 @@ class EquipeController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $equipe = new Equipe();
+
+        // Creer le form avec un param
         $form = $this->createForm(EquipeType::class, $equipe, [
             "dir" => $this->equipeDir
         ]);
@@ -61,12 +64,16 @@ class EquipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // recup l'img
             $file = $form->get('IMG')->getData();
 
+            // si img
             if ($file) {
                 $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
 
                 try {
+
+                    // dl l'img
                     $file->move(
                         $this->equipeDir . '/',
                         $fileName
@@ -104,6 +111,7 @@ class EquipeController extends AbstractController
     {
         $oldName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
 
+        // Creer le form avec un param
         $form = $this->createForm(EquipeType::class, $equipe, [
             "dir" => $this->equipeDir
         ]);
@@ -113,16 +121,22 @@ class EquipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // get l'img
             $file = $form->get('IMG')->getData();
             
+            // si img
             if ($file) {
                 $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
+
                 try {
+
+                    // dl l'img
                     $file->move(
                         $this->equipeDir . '/',
                         $fileName
                     );
                     
+                    // delete l'ancienne
                     if (file_exists($this->equipeDir . '/' . $oldName)) {
                         unlink($this->equipeDir . '/' . $oldName);
                     }
@@ -131,6 +145,8 @@ class EquipeController extends AbstractController
                 }
                 
                 $equipe->setIMG($fileName);
+
+            // si pas img
             } else {
                 $equipe->setIMG($oldName);
             }
@@ -152,11 +168,14 @@ class EquipeController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($this->isCsrfTokenValid('delete' . $equipe->getId(), $request->request->get('_token'))) {
+            // delete
             $entityManager->remove($equipe);
             $entityManager->flush();
 
+            // recup le nom du fichier
             $fileName = $equipe->getNOM() . '_' . $equipe->getPRENOM() . '.png';
 
+            // delete l'img
             if (file_exists($this->equipeDir . '/' . $fileName)) {
                 unlink($this->equipeDir . '/' . $fileName);
             }

@@ -19,7 +19,6 @@ class ParticipantController extends AbstractController
     #[Route('/', name: 'app_participant_index', methods: ['GET'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
-        $inscriptionID = 1;
         return $this->render('participant/index.html.twig', [
             'participants' => $participantRepository->findAll(),
         ]);
@@ -29,6 +28,8 @@ class ParticipantController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $participant = new Participant();
+
+        // Creer le form
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
@@ -80,12 +81,5 @@ class ParticipantController extends AbstractController
         }
 
         return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/add', name: 'ajax_participant_add', methods: ['POST'])]
-    public function addParticipant(string $data): JsonResponse
-    {
-        
-        return new JsonResponse(['status' => 'ok']);
     }
 }

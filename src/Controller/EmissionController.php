@@ -21,6 +21,7 @@ class EmissionController extends AbstractController
     private $emissionDir;
     private $audioDir;
 
+    // Set les chemin depuis services.yaml
     public function __construct(string $emissionDir, string $audioDir)
     {
         $this->emissionDir = $emissionDir;
@@ -39,6 +40,8 @@ class EmissionController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $emission = new Emission();
+
+        // Creer le form avec un param
         $form = $this->createForm(EmissionType::class, $emission, [
             'dir' => $this->emissionDir
         ]);
@@ -48,12 +51,16 @@ class EmissionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // recup l'img
             $img = $form->get('IMG')->getData();
 
+            // si l'img
             if ($img) {
                 $newFilename = $emission->getNom() . '.png';
 
                 try {
+
+                    // dl l'img
                     $img->move(
                         $this->emissionDir . '/',
                         $newFilename
@@ -66,13 +73,18 @@ class EmissionController extends AbstractController
 
                 $entityManager->persist($emission);
                 $entityManager->flush();
+
+            // sinon, pas d'img
             } else {
+
+                // set le default
                 $emission->setIMG('default.png');
 
                 $entityManager->persist($emission);
                 $entityManager->flush();
             }
 
+            // creer le dossier dans les datas
             $folder = $this->audioDir ."/". $emission->getNom();
             if (!file_exists($folder)) {
                 mkdir($folder, 0777, true);
@@ -92,17 +104,25 @@ class EmissionController extends AbstractController
     public function show(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
         $participant = new Participant();
+
+        // Creer le form avec un type participant
         $form = $this->createForm(ParticipantType::class);
         $form->handleRequest($request);
        
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // si on delete dans la page edit
             if($this->isCsrfTokenValid('delete' . $emission->getID(), $request->request->get('_token'))) {
                 $entityManager->remove($emission);
                 $entityManager->flush();
             }
             
+            // get le result du formulaire
             $data = $request->request->all('participant');
+            // recup l'objet avec l'id pour le set
             $inscription = $entityManager->getRepository(Inscription::class)->find($data['Inscription']);
+
+            // set les datas
             $participant->setInscription($inscription);
             $participant->setPRENOM($data['PRENOM']);
             $participant->setNOM($data['NOM']);
@@ -128,6 +148,7 @@ class EmissionController extends AbstractController
     {
         $oldName = $emission->getNom();
 
+        // Creer le form avec un param
         $form = $this->createForm(EmissionType::class, $emission, [
             'dir' => $this->emissionDir
         ]);
@@ -137,25 +158,31 @@ class EmissionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // set les noms des folders
             $oldFolder = $this->audioDir ."/". $oldName;
             $newFolder = $this->audioDir ."/". $emission->getNom();
 
-            
+            // si different, rename le dossier
             if ($oldFolder !== $newFolder) {
                 rename($oldFolder, $newFolder);
             }
             
+            // get l'img
             $imgFile = $form->get('IMG')->getData();
             
+            // si img
             if ($imgFile) {
                 
                 $newFilename = $emission->getNom() . '.png';
                 
                 try {
                     
+                    // dl l'img
                     $imgFile->move($this->emissionDir."/", $newFilename);
                     $emission->setIMG($newFilename);
                     
+                    // delete l'ancienne
                     $oldFilename = $this->emissionDir . '/' . $oldName . '.png';
                     if (file_exists($oldFilename)) {
                         unlink($oldFilename);
@@ -163,6 +190,8 @@ class EmissionController extends AbstractController
                 } catch (FileException $e) {
                     $this->addFlash('error', 'Erreur lors du déplacement de l\'image.');
                 }
+
+            // si pas img
             } else {
                 $emission->setIMG($oldName . '.png');
             }
@@ -189,11 +218,13 @@ class EmissionController extends AbstractController
             $entityManager->remove($emission);
             $entityManager->flush();
 
+            // si le dossier existe, le delete
             $folder = $this->audioDir ."/". $emission->getNom();
             if (file_exists($folder)) {
                 rmdir($folder);
             }
 
+            // remove l'img
             $filename = $this->emissionDir . '/' . $emission->getNom() . '.png';
             if (file_exists($filename)) {
                 unlink($filename);

@@ -38,6 +38,7 @@ class AudioController extends AbstractController
     {
         $audio = new Audio();
 
+        // Creer le form avec un param
         $form = $this->createForm(AudioType::class, $audio, [
             'dir' => $this->audioDir
         ]);
@@ -48,6 +49,7 @@ class AudioController extends AbstractController
 
         $emissionId = $request->query->get('emission');
 
+        // si il y a une emission
         if ($emissionId) {
 
             $emission = $entityManager->getRepository(Emission::class)->find($emissionId);
@@ -57,12 +59,16 @@ class AudioController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // recup l'audio
             $audiof = $form->get('AUDIO')->getData();
 
+            // si le fichier est bon
             if ($audiof) {
                 $newFilename = $audio->getNOM() . ".wav";
 
                 try {
+
+                    // dl l'audio
                     $audiof->move(
                         $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/',
                         $newFilename
@@ -131,7 +137,7 @@ class AudioController extends AbstractController
                         $newFilename
                     );
 
-                    // 
+                    // et supprimer l'ancien audio
                     if (file_exists($dir . $oldAudio . '.wav')) {
                         unlink($dir . $oldAudio . '.wav');
                     }

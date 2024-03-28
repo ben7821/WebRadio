@@ -17,6 +17,7 @@ class LayoutController extends AbstractController
         $emission = $em->getRepository(Emission::class)->findAll();
         $data = array();
 
+        // recupere tous les audios de toutes les emissions
         foreach ($emission as $emi) {
             $data[] = $emi->getAudio()->toArray();
         }
