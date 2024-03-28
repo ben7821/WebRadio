@@ -19,29 +19,33 @@
 	</div>
 
 
-	<h1 class="display-full">INSCRIPTIONS EMISSIONS</h1>
-	<div class="inscription">
-		{% for inscr in inscriptions %}
-			<div class="inscr">
-			<h3>
-				<i class="fas fa-chevron-right"></i>
-				Formulaire n°
-				{{ inscr.id }}
-				Inscription jusqu'au
-				{{ inscr.date|date('d M Y') }}
-			</h3>
-			{{ form_start(form) }}
-			{{ form_row(form.NOM) }}
-			{{ form_row(form.PRENOM) }}
-			{{ form_row(form.MAIL) }}
-			{{ form_row(form.TEL) }}
-			<input type="hidden" name="participant[INSCRIPTION]" value="{{ inscr.id }}">
-			{# CAPTCHA? #}
-			<button type="submit">S'inscrire</button>
-			{{ form_end(form) }}
-			</div>
-		{% endfor %}
-	</div>
+	{% if inscriptions|length > 0 %}
+
+		<h1 class="display-full">INSCRIPTIONS EMISSIONS</h1>
+		<div class="inscription">
+			{% for inscr in inscriptions %}
+				<div class="inscr">
+					<h3>
+						<i class="fas fa-chevron-right"></i>
+						Formulaire n°
+						{{ inscr.id }}
+						Inscription jusqu'au
+						{{ inscr.date|date('d M Y') }}
+					</h3>
+					{{ form_start(form) }}
+					{{ form_row(form.NOM) }}
+					{{ form_row(form.PRENOM) }}
+					{{ form_row(form.MAIL) }}
+					{{ form_row(form.TEL) }}
+					{{ form_row(form.INSCRIPTION, {'value': inscr.id}) }}
+					{# <input type="hidden" name="participant[emission]" value="{{ inscr.emission.id }}"> #}
+					{# <input type="hidden" name="participant[inscription]" value="{{ inscr.id }}"> #}
+					<button type="submit">S'inscrire</button>
+					{{ form_end(form) }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
 
 
 	<h1 id="podcasts" class="header-page title">LES PODCASTS</h1>
@@ -92,21 +96,20 @@
 	<script>
 
 		function collapse(parent) {
-            $(parent).find('form').toggle();
-            $(parent).find('h3').find('svg').toggleClass('fa-chevron-down fa-chevron-right');
-			$(parent).toggleClass('collapsed');
-        }
+$(parent).find('form').toggle();
+$(parent).find('h3').find('svg').toggleClass('fa-chevron-down fa-chevron-right');
+$(parent).toggleClass('collapsed');
+}
 
-        $(document).ready(function () {
-            $('.inscription .inscr').each(function () {
-                $(this).find('form').hide();
-				$(this).addClass('collapsed');
-            });
-            $('.inscription .inscr h3').click(function () {
-                collapse($(this).parent());
-            });
-        });
-
+$(document).ready(function () {
+$('.inscription .inscr').each(function () {
+$(this).find('form').hide();
+$(this).addClass('collapsed');
+});
+$('.inscription .inscr h3').click(function () {
+collapse($(this).parent());
+});
+});
 	</script>
 
 {% endblock %}

@@ -138,6 +138,7 @@
 	<table id="tableInscription" class="table">
 		<thead>
 			<tr>
+				<th>ID</th>
 				<th>EMISSION</th>
 				<th>DATE</th>
 				<th>ACTIONS</th>
@@ -146,6 +147,7 @@
 		<tbody>
 			{% for inscr in inscriptions %}
 				<tr onclick="show('inscription')" data-id="{{ inscr.ID }}">
+					<td>{{ inscr.ID }}</td>
 					<td>{{ inscr.EMS }}</td>
 					<td>{{ inscr.DATE ? inscr.DATE|date('Y-m-d') : '' }}</td>
 					<td>
@@ -177,16 +179,14 @@
 			<tr>
 				<th>USERNAME</th>
 				<th>ROLE</th>
-				<th>MDP</th>
 				<th>ACTION</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for utilisateur in utilisateurs %}
-				<tr onclick="show('equipe')">
+				<tr onclick="">
 					<td>{{ utilisateur.username }}</td>
 					<td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-					<td>{{ utilisateur.password }}</td>
 					<td>
 						<form action="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" method="post">
 							<button href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}">

@@ -93,15 +93,22 @@ class EmissionController extends AbstractController
     {
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class);
-        
         $form->handleRequest($request);
        
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
             if($this->isCsrfTokenValid('delete' . $emission->getID(), $request->request->get('_token'))) {
                 $entityManager->remove($emission);
                 $entityManager->flush();
             }
+            
+            $data = $request->request->all('participant');
+            $inscription = $entityManager->getRepository(Inscription::class)->find($data['INSCRIPTION']);
+            $participant->setINSCRIPTION($inscription);
+            $participant->setPRENOM($data['PRENOM']);
+            $participant->setNOM($data['NOM']);
+            $participant->setMAIL($data['MAIL']);
+            $participant->setTEL($data['TEL']);
+            
             $entityManager->persist($participant);
             
             $entityManager->flush();

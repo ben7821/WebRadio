@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
@@ -27,8 +25,8 @@ class Participant
     #[ORM\Column(length: 255)]
     private ?string $MAIL = null;
 
-    #[ORM\ManyToOne(inversedBy: 'PARTICIPANT')]
-    private ?Inscription $inscription = null;
+    #[ORM\ManyToOne(inversedBy: 'PARTICIPANT', targetEntity: Inscription::class, cascade: ['persist', 'remove'])]
+    private ?Inscription $INSCRIPTION = null;
 
 
     public function __construct()
@@ -89,17 +87,17 @@ class Participant
     }
 
     public function toString() {
-        return (string) $this->inscription;
+        return (string) $this->INSCRIPTION;
     }
 
-    public function getInscription(): ?Inscription
+    public function getINSCRIPTION(): ?Inscription
     {
-        return $this->inscription;
+        return $this->INSCRIPTION;
     }
 
-    public function setInscription(?Inscription $inscription): static
+    public function setINSCRIPTION(?Inscription $inscription): static
     {
-        $this->inscription = $inscription;
+        $this->INSCRIPTION = $inscription;
 
         return $this;
     }

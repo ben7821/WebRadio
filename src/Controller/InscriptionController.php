@@ -85,7 +85,7 @@ class InscriptionController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_inscription_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
     }
 
 
