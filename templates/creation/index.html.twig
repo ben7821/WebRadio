@@ -1,0 +1,229 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création
+{% endblock %}
+
+{% block body %}
+	<h1 class="display-full">Emissions</h1>
+
+	<table id="tableEmission" class="table">
+		<thead>
+			<tr>
+				<th>NOM</th>
+				<th>NOMLONG</th>
+				<th>DESCRIPTION</th>
+				<th>IMG</th>
+				<th>ACTIONS</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for emission in emissions %}
+				<tr class="emission-row" data-id="{{ emission.NOM }}" onclick="show('emission')">
+					<td>{{ emission.NOM }}</td>
+					<td>{{ emission.NOMLONG }}</td>
+					<td>{{ emission.DESCRIPTION }}</td>
+					<td><img class="preview" src="{{asset('data/rubrique/' ~ emission.IMG)}}"/></td>
+					<td>
+						<a href="{{ path('app_emission_edit', {'ID': emission.ID}) }}">
+							<i class="fa-solid fa-file-pen"></i>
+						</a>
+						<form action="{{ path('app_emission_delete', {'ID': emission.ID}) }}" method="post">
+							<button href="{{ path('app_emission_delete', {'ID': emission.ID}) }}">
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ emission.ID) }}">
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas d'émission</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_emission_new') }}" class="new_emission">NOUVELLE EMISSION</a>
+
+	<div style="height: 5vh;"></div>
+
+	<h1 class="display-full">Audios</h1>
+	<table id="tableAudio" class="table">
+		<thead>
+			<tr>
+				<th>NOM</th>
+				<th>DESCRIPTION</th>
+				<th>HEURE</th>
+				<th>DATE</th>
+				<th>AUDIO</th>
+				<th>AUTEURS</th>
+				<th>ACTIONS</th>
+			</tr>
+		</thead>
+		<tbody class="audios">
+			{% for audio in audios %}
+				<tr class="audios-row" data-id="{{ audio.ID }}">
+					<td>{{ audio.NOM }}</td>
+					<td>{{ audio.DESCRIPTION }}</td>
+					<td>{{ audio.HEURE.format('H:i') }}</td>
+					<td>{{ audio.DATE.format('Y-m-d') }}</td>
+					<td>
+						<audio controls><source src="{{asset('data/audio/' ~ audio.AUDIO)}}"/></audio>
+					</td>
+					<td>{{ audio.AUTEURS }}</td>
+					<td>
+						<a href="{{ path('app_audio_edit', {'id': audio.ID}) }}">
+							<i class="fa-solid fa-file-pen"></i>
+						</a>
+						<form action="{{ path('app_audio_delete', {'id': audio.ID}) }}" method="post">
+							<button href="{{ path('app_audio_delete', {'id': audio.ID}) }}">
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ audio.ID) }}">
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas d'audios</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_audio_new') }}" class="new_audio">NOUVEL AUDIO</a>
+
+	<div style="height: 5vh;"></div>
+
+	<h1 class="display-full">Equipe</h1>
+	<table id="tableMembre" class="table">
+		<thead>
+			<tr>
+				<th>PRENOM</th>
+				<th>NOM</th>
+				<th>DESCRIPTION</th>
+				<th>ACTIONS</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for membre in membres %}
+				<tr onclick="show('equipe')">
+					<td>{{ membre.PRENOM }}</td>
+					<td>{{ membre.NOM }}</td>
+					<td>{{ membre.DESCRIPTION }}</td>
+					<td>
+						<a href="{{ path('app_equipe_edit', {'id': membre.ID }) }}">
+							<i class="fa-solid fa-file-pen"></i>
+						</a>
+						<form action="{{ path('app_equipe_delete', {'id': membre.ID}) }}" method="post">
+							<button href="{{ path('app_equipe_delete', {'id': membre.ID}) }}">
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ membre.ID) }}">
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas de membres...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_equipe_new') }}" class="new_membre">NOUVEAU MEMBRE</a>
+
+	<div style="height: 5vh;"></div>
+
+	<h1 class="display-full">Inscriptions</h1>
+	<table id="tableInscription" class="table">
+		<thead>
+			<tr>
+				<th>EMISSION</th>
+				<th>DATE</th>
+				<th>ACTIONS</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for inscr in inscriptions %}
+				<tr onclick="show('inscription')" data-id="{{ inscr.ID }}">
+					<td>{{ inscr.EMS }}</td>
+					<td>{{ inscr.DATE ? inscr.DATE|date('Y-m-d') : '' }}</td>
+					<td>
+						<a href="{{ path('app_inscription_edit', {'id': inscr.ID }) }}">
+							<i class="fa-solid fa-file-pen"></i>
+						</a>
+						<form action="{{ path('app_inscription_delete', {'id': inscr.ID}) }}" method="post">
+							<button href="{{ path('app_inscription_delete', {'id': inscr.ID}) }}">
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ inscr.ID) }}">
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas de membres...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_inscription_new') }}" class="new_inscription">NOUVELLE INSCRIPTION</a>
+
+	<div style="height: 5vh;"></div>
+
+	<h1 class="display-full">Compte Webradio</h1>
+	<table id="tableUtilisateur" class="table">
+		<thead>
+			<tr>
+				<th>USERNAME</th>
+				<th>ROLE</th>
+				<th>MDP</th>
+				<th>ACTION</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for utilisateur in utilisateurs %}
+				<tr onclick="show('equipe')">
+					<td>{{ utilisateur.username }}</td>
+					<td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+					<td>{{ utilisateur.password }}</td>
+					<td>
+						<form action="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" method="post">
+							<button href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}">
+								<i class="fa-solid fa-trash-can"></i>
+							</button>
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Pas d'utilisateur...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_register') }}" class="new_membre">NOUVEAU UTILISATEUR</a>
+</div>
+
+<div style="height: 5vh;"></div>
+
+<script>
+	function show(type) {
+var id = event.target.parentElement.dataset.id;
+switch (type) {
+case 'emission':
+window.location.href = "{{ path('app_emission_show', {'NOM': 'ID'}) }}".replace('ID', id);
+break;
+case 'audio':
+window.location.href = "{{ path('app_audio_show', {'id': 'ID'}) }}".replace('ID', id);
+break;
+case 'equipe':
+window.location.href = "{{ path('app_membres_index') }}";
+break;
+case 'inscription':
+window.location.href = "{{ path('app_inscription_show', {'id': 'ID'}) }}".replace('ID', id);
+break;
+}
+}
+</script>{% endblock %}

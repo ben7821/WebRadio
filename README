@@ -1,0 +1,67 @@
+# WebRadio-Guy-Chauvet
+
+## **Description du projet**
+
+Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du lycée
+
+***
+
+## **Environnement technique**
+**Serveur utilisé** :
+- Apache 2.4
+
+**SGBD** :
+- Postgres 13.11
+- Adminer 4.8.1
+
+**OTHER**
+- yarn 1.22.21 :
+- Pour lancer le serveur web(css/js...)
+  & yarn encore dev-server
+- nodejs 
+
+**COMPOSER PACKGE**
+- apache-pack
+- annotations
+- fakerphp/faker
+- security-bundle
+- symfony/flex
+- flysystem-bundle
+- webpack-encore-bundle
+- filesystem
+- vich/uploader-bundle
+- mailer
+***
+
+## **Important:**
+MCD dans /doc ou autre documents
+***
+
+## **Repositories**
+URL : https://github.com/ben7821/WebRadio.git
+***
+
+## **Trelo GitHub**
+URL : https://github.com/users/ben7821/projects/1
+***
+
+## **Contact :**
+Adresse mail : gr-sts1-slam@lycee-guychauvet.fr
+***
+
+
+## **Equipe Dev :**
+- Mathieu
+- Florent
+- Benjamin
+- Kassim
+ -Yoan
+ ***
+
+....
+
+## **Equipe Etape :**
+Etape pour finit la webradio :
+- finir le modul d'inscription et c'est fonctionnalité(CRUD).
+- Finir le modul CRUD (emisison, audio ..) pour pouvoir Update les image + autre petit bug.
+....

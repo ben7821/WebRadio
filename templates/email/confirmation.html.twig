@@ -1,0 +1,25 @@
+{# templates/email/confirmation.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation{% endblock %}
+
+{% block body %}
+    <h1>Merci!</h1>
+    <p>Votre message a été envoyé avec succès. Nous vous contacterons bientôt.</p>
+    
+    {% if requestData %}
+        <h2>Données de la requête:</h2>
+        <ul>
+            <li>Nom: {{ requestData.name }}</li>
+            <li>Email: {{ requestData.email }}</li>
+            <li>Message: {{ requestData.message }}</li>
+        </ul>
+    {% endif %}
+
+     {% if test is defined %}
+        <h2>Informations sur l'email (pour le débogage):</h2>
+        <pre>{{ dump(test) }}</pre>
+    {% endif %}
+    
+{% endblock %}

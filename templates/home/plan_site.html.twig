@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<h1>Plan du site</h1>
+
+	<div class="espace">
+		<ul>
+			<li><a href="{{ path('app_home') }}">Accueil</a></li>
+		</ul>
+	</div>
+
+	<div class="espace">
+		<ul>
+			<li>
+				<a href="{{ path('app_emission_index') }}">Les Émissions</a>
+				<ul>
+					{% for ems in app.request.attributes.get('header_emissions', []) %}
+                    <p>
+                        <a href="{{ path('app_emission_show', { 'NOM': ems.NOM } ) }}"> - {{ ems.NOMLONG }}</a>
+                    </p>
+					{% endfor %}
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<div class="espace">
+		<ul>
+			<li><a href="">Journal</a></li>
+		</ul>
+	</div>
+
+	<div class="espace">
+		<ul>
+			<li>
+				<a href="{{ path('app_equipe_index') }}">L'équipe</a>
+				<p>
+					<a href="{{ path('app_membres_index') }}">- La Web Radio</a>
+					<a href="{{ path('app_lycee_index') }}">- Le Lycée</a>
+				</p>
+			</li>
+		</ul>
+	</div>
+
+	<div class="espace">
+		<ul>
+			<li>
+				<a href="">A propos</a>
+				<p>
+					<a href="{{ path('app_contact') }}">- Contact</a>
+					<a href="{{ path('app_plan_site') }}" >- Plan du site</a>
+					<a href="{{ path('app_legal') }}">- Mentions Legales</a>
+				</p>
+			</li>
+		</ul>
+	</div>
+{% endblock %}
