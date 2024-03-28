@@ -19,6 +19,7 @@ class AudioController extends AbstractController
 {
     private $audioDir;
 
+    // set le chemin du dossier audio recup depuis services.yaml
     public function __construct(string $audioDir)
     {
         $this->audioDir = $audioDir;
@@ -96,8 +97,10 @@ class AudioController extends AbstractController
     #[Route('/{id}/edit', name: 'app_audio_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Audio $audio, EntityManagerInterface $entityManager): Response
     {
+        // Recuperer le nom du fichier 
         $oldAudio = $audio->getNOM();
 
+        // Creer le form avec un param
         $form = $this->createForm(AudioType::class, $audio, [
             'dir' => $this->audioDir
         ]);
@@ -107,21 +110,28 @@ class AudioController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Recuperer le nouveau nom du fichier
             $newAudio = $audio->getNOM();
 
+            // creer la dir avec le nom de l'emission
             $dir = $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/';
 
+            // recup le fichier audio
             $audiof = $form->get('AUDIO')->getData();
 
+            // si fichier
             if ($audiof) {
                 $newFilename = $audio->getNOM() . ".wav";
 
                 try {
+
+                    // dl l'audio
                     $audiof->move(
                         $dir,
                         $newFilename
                     );
 
+                    // 
                     if (file_exists($dir . $oldAudio . '.wav')) {
                         unlink($dir . $oldAudio . '.wav');
                     }
@@ -131,6 +141,8 @@ class AudioController extends AbstractController
 
 
                 $audio->setAUDIO($audio->getIDEMISSION()->getNOM() . '/' . $newAudio . '.wav');
+            
+                // sinon garder l'ancien audio
             } else {
                 $audio->setAUDIO($audio->getIDEMISSION()->getNOM() . '/' . $oldAudio . '.wav');
             }
@@ -154,6 +166,8 @@ class AudioController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $audio->getId(), $request->request->get('_token'))) {
             $entityManager->remove($audio);
             $entityManager->flush();
+
+            // Suppression du fichier audio
 
             $dir = $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/';
             $audioPath = $dir . $audio->getNOM() . '.wav';

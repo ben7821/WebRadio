@@ -4,23 +4,51 @@
 
 Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du lycée
 
-***
+---
+
+## **Etape à suivre pour afficher le site**
+
+- Configurer la Vlan
+- Configurer le SGBD
+- Importer la Basse de donnée
+- Importer avec Git ( git clone https://github.com/ben7821/WebRadio.git)
+- Dans le dossier du projet taper la commande :
+  "yarn encore dev-server"
+
+---
+
+## **Compte Admin Test :**
+
+- ID : Admin
+- MDP : admin
+  ....
+
+## **Vlan active (si impot VM) :**
+
+192.000.000.000:70001 = SGD (adminer)
+192.000.000.000:70004 = Webradio
+....
 
 ## **Environnement technique**
+
 **Serveur utilisé** :
+
 - Apache 2.4
 
 **SGBD** :
+
 - Postgres 13.11
 - Adminer 4.8.1
 
 **OTHER**
+
 - yarn 1.22.21 :
 - Pour lancer le serveur web(css/js...)
   & yarn encore dev-server
-- nodejs 
+- nodejs
 
 **COMPOSER PACKGE**
+
 - apache-pack
 - annotations
 - fakerphp/faker
@@ -31,38 +59,46 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 - filesystem
 - vich/uploader-bundle
 - mailer
-***
+
+---
 
 ## **Important:**
-MCD dans /doc ou autre documents
-***
+
+MCD dans Webradio/doc
+
+---
 
 ## **Repositories**
-URL : https://github.com/ben7821/WebRadio.git
-***
 
-## **Trelo GitHub**
+URL : https://github.com/ben7821/WebRadio.git
+
+---
+
+## **Trello GitHub**
+
 URL : https://github.com/users/ben7821/projects/1
-***
+
+---
 
 ## **Contact :**
-Adresse mail : gr-sts1-slam@lycee-guychauvet.fr
-***
 
+Adresse mail : gr-sts1-slam@lycee-guychauvet.fr
+
+---
 
 ## **Equipe Dev :**
-- Mathieu
-- Florent
-- Benjamin
-- Kassim
- -Yoan
- ***
 
-....
+- Benjamin Toulat
+- Mathieu Raveleau
+- Kassim Attoumani
+- Yoan Briaudeau
+- Florent Leterme
+  ***
 
 ## **Equipe Etape :**
+
 Etape pour finit la webradio :
-- finir le modul d'inscription et c'est fonctionnalité(CRUD).
+
 - Finir le modul CRUD (emisison, audio ..) pour pouvoir Update les image + autre petit bug.
 
 ....
