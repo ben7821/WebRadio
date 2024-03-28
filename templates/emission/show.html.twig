@@ -37,9 +37,7 @@
 					{{ form_row(form.PRENOM) }}
 					{{ form_row(form.MAIL) }}
 					{{ form_row(form.TEL) }}
-					{{ form_row(form.INSCRIPTION, {'value': inscr.id}) }}
-					{# <input type="hidden" name="participant[emission]" value="{{ inscr.emission.id }}"> #}
-					{# <input type="hidden" name="participant[inscription]" value="{{ inscr.id }}"> #}
+					{{ form_row(form.Inscription, {'value': inscr.id}) }}
 					<button type="submit">S'inscrire</button>
 					{{ form_end(form) }}
 				</div>

@@ -30,7 +30,7 @@ class ParticipantType extends AbstractType
                 'label' => 'Email',
                 'mapped' => true,
             ])
-            ->add('INSCRIPTION', HiddenType::class, [
+            ->add('Inscription', HiddenType::class, [
                 'mapped' => false,
                 'data' => '1',
             ]);

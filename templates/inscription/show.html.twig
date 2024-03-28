@@ -3,9 +3,9 @@
 {% block title %}Inscription emission
 {% endblock %}
 {% block body %}
-	<h1>{{ emission.NOMLONG}} / n° : {{ inscription.ID}}</h1>
-	<p>{{ inscription.DATE ? inscription.DATE|date('Y-m-d') : '' }}</p>
-	<p>Liste des participant : <p/>
+	<h1 class="display-full">{{ emission.NOMLONG}} / n° : {{ inscription.ID}}</h1>
+	<p>Fin des inscriptions jusqu'au: {{ inscription.DATE ? inscription.DATE|date('d M Y') : '' }}</p>
+	<p style="margin: 2vh 0">Liste des participant : </p>
 		<tbody>
 			<table class="table">
 				{% for participant in participants %}
@@ -19,5 +19,5 @@
 			</table>
 		</tbody>
 
-		<a href="{{ path('app_creation') }}">back to list</a>
+		<a href="{{ path('app_creation') }}" class="backlink">back to list</a>
 {% endblock %}

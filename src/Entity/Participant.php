@@ -26,7 +26,7 @@ class Participant
     private ?string $MAIL = null;
 
     #[ORM\ManyToOne(inversedBy: 'PARTICIPANT', targetEntity: Inscription::class, cascade: ['persist', 'remove'])]
-    private ?Inscription $INSCRIPTION = null;
+    private ?Inscription $inscription = null;
 
 
     public function __construct()
@@ -87,17 +87,17 @@ class Participant
     }
 
     public function toString() {
-        return (string) $this->INSCRIPTION;
+        return (string) $this->inscription;
     }
 
-    public function getINSCRIPTION(): ?Inscription
+    public function getInscription(): ?Inscription
     {
-        return $this->INSCRIPTION;
+        return $this->inscription;
     }
 
-    public function setINSCRIPTION(?Inscription $inscription): static
+    public function setInscription(?Inscription $inscription): static
     {
-        $this->INSCRIPTION = $inscription;
+        $this->inscription = $inscription;
 
         return $this;
     }

@@ -74,22 +74,22 @@ class Inscription
         return $this->PARTICIPANT;
     }
 
-    public function addPARTICIPANT(Participant $pARTICIPANT): static
+    public function addPARTICIPANT(Participant $PARTICIPANT): static
     {
-        if (!$this->PARTICIPANT->contains($pARTICIPANT)) {
-            $this->PARTICIPANT->add($pARTICIPANT);
-            $pARTICIPANT->setInscription($this);
+        if (!$this->PARTICIPANT->contains($PARTICIPANT)) {
+            $this->PARTICIPANT->add($PARTICIPANT);
+            $PARTICIPANT->setInscription($this);
         }
 
         return $this;
     }
 
-    public function removePARTICIPANT(Participant $pARTICIPANT): static
+    public function removePARTICIPANT(Participant $PARTICIPANT): static
     {
-        if ($this->PARTICIPANT->removeElement($pARTICIPANT)) {
+        if ($this->PARTICIPANT->removeElement($PARTICIPANT)) {
             // set the owning side to null (unless already changed)
-            if ($pARTICIPANT->getInscription() === $this) {
-                $pARTICIPANT->setInscription(null);
+            if ($PARTICIPANT->getInscription() === $this) {
+                $PARTICIPANT->setInscription(null);
             }
         }
 

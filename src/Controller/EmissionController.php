@@ -102,8 +102,8 @@ class EmissionController extends AbstractController
             }
             
             $data = $request->request->all('participant');
-            $inscription = $entityManager->getRepository(Inscription::class)->find($data['INSCRIPTION']);
-            $participant->setINSCRIPTION($inscription);
+            $inscription = $entityManager->getRepository(Inscription::class)->find($data['Inscription']);
+            $participant->setInscription($inscription);
             $participant->setPRENOM($data['PRENOM']);
             $participant->setNOM($data['NOM']);
             $participant->setMAIL($data['MAIL']);

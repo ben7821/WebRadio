@@ -1996,9 +1996,7 @@ h1 {
   padding: 0.5rem;
 }
 
-form #emission,
-form #audio,
-form #equipe {
+#formentity {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2011,9 +2009,7 @@ form #equipe {
   padding: 2rem 1rem;
 }
 
-form #emission>div,
-form #audio>div,
-form #equipe>div {
+#formentity>div {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -2023,9 +2019,7 @@ form #equipe>div {
   margin: 0.8vh 0;
 }
 
-form #emission div div,
-form #audio div div,
-form #equipe div div {
+#formentity div div {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -2035,34 +2029,26 @@ form #equipe div div {
   margin: 0.8vh 0;
 }
 
-form #emission div label,
-form #audio div label,
-form #equipe div label {
+#formentity div label {
   font-size: 1.2em;
   font-weight: bold;
 }
 
-form #emission div input,
-form #audio div input,
-form #equipe div input {
+#formentity div input {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #000;
   border-radius: 0;
 }
 
-form #emission div textarea,
-form #audio div textarea,
-form #equipe div textarea {
+#formentity div textarea {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #000;
   border-radius: 0;
 }
 
-form #emission div button,
-form #audio div button,
-form #equipe div button {
+#formentity div button {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #000;
@@ -2072,25 +2058,19 @@ form #equipe div button {
   cursor: pointer;
 }
 
-form #emission div button:hover,
-form #audio div button:hover,
-form #equipe div button:hover {
+#formentity div button:hover {
   background-color: #fff;
   color: #000;
 }
 
-form #emission div select,
-form #audio div select,
-form #equipe div select {
+#formentity div select {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #000;
   border-radius: 0;
 }
 
-form[name="emission"] .btn,
-form[name="audio"] .btn,
-form[name="equipe"] .btn {
+#formentity .btn {
   width: 60%;
   padding: 0.5rem;
   border: 1px solid #000;
@@ -2103,9 +2083,7 @@ form[name="equipe"] .btn {
   transform: translateX(-50%);
 }
 
-form[name="emission"] .btn:hover,
-form[name="audio"] .btn:hover,
-form[name="equipe"] .btn:hover {
+#formentity .btn:hover {
   background-color: #fff;
   color: #000;
 }
