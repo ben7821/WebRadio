@@ -21,24 +21,43 @@ class CreationController extends AbstractController
     #[Route('/admin/creation', name: 'app_creation')]
     public function index(EntityManagerInterface $em): Response
     {
+        //dd($this->getUser()->getRoles());
 
         // recup toute les datas a gerer
 
-        $utilisateur = $em->getRepository(Utilisateur::class)->findAll();
         $emission = $em->getRepository(Emission::class)->findAll();
         $audio = $em->getRepository(Audio::class)->findAll();
-        $membres = $em->getRepository(Equipe::class)->findAll();
         $inscription = $em->getRepository(Inscription::class)->findAll();
-        $participant = $em->getRepository(Participant::class)->findAll();
+
+        if ($this->getUser()->getRoles()[0] == "ROLE_ADMIN") {
+
+
+            $utilisateur = $em->getRepository(Utilisateur::class)->findAll();
+            $participant = $em->getRepository(Participant::class)->findAll();
+            $membres = $em->getRepository(Equipe::class)->findAll();
+
+
+            return $this->render('creation/index.html.twig', [
+                'controller_name' => 'CreationController',
+                'emissions' => $emission,
+                'audios' => $audio,
+                'membres' => $membres,
+                'inscriptions' => $inscription,
+                'participants' => $participant,
+                'utilisateurs' => $utilisateur,
+                'admin' => true
+            ]);
+        }
 
         return $this->render('creation/index.html.twig', [
             'controller_name' => 'CreationController',
             'emissions' => $emission,
             'audios' => $audio,
-            'membres' => $membres,
             'inscriptions' => $inscription,
-            'participants' => $participant,
-            'utilisateurs' => $utilisateur
+            'membres' => null,
+            'participants' => null,
+            'utilisateurs' => null,
+            'admin' => false
         ]);
     }
 }

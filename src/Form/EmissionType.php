@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints\File as ConstraintsFile;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\StringToFileTransformer;
+use Symfony\Component\Validator\Constraints\File;
+
 
 class EmissionType extends AbstractType
 {
@@ -39,10 +41,11 @@ class EmissionType extends AbstractType
                     'required' => false,
                     'mapped' => false,
                     'constraints' => [
-                        new ConstraintsFile([
+                        new File([
                             'maxSize' => '16384k',
                             'mimeTypes' => [
-                                'image/*'
+                                'image/jpeg',
+                                'image/png'
                             ],
                             'mimeTypesMessage' => 'Merci de télécharger une image valide',
                         ])
@@ -50,9 +53,9 @@ class EmissionType extends AbstractType
                 ]
             );
 
-        $this->transformer->setDirectory($options["dir"]);
+        //$this->transformer->setDirectory($options["dir"]);
 
-        $builder->get('IMG')->addModelTransformer($this->transformer);
+        //$builder->get('IMG')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

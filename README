@@ -45,6 +45,9 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 - yarn 1.22.21 :
 - Pour lancer le serveur web(css/js...)
   & yarn encore dev-server
+  Pour la mise en production : https://symfonycasts.com/screencast/webpack-encore-legacy/production-build
+    - yarn run encore production
+
 - nodejs
 
 **COMPOSER PACKGE**

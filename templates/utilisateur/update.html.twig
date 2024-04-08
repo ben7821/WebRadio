@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
+{% block title %}Modifier le mot de passe
 {% endblock %}
 
 {% block body %}
-	<div class="register">
-		<h1 class="display-full">Enregistrer un utilisateur</h1>
+	<div class="mdp">
+		<h1 class="display-full">Modifier le mot de passe</h1>
 
 		{{ form_errors(registrationForm) }}
 
@@ -22,7 +22,7 @@
 		</div>
 
 		<div class="register-role">
-			{{ form_row(registrationForm.roles, { 'label': "Rôle de l'utilisateur", 'attr': {'class': 'form-control'} }) }}
+			{{ form_row(registrationForm.roles|join(','), { 'label': "Rôle de l'utilisateur", 'attr': {'class': 'form-control'} }) }}
 		</div>
 
 

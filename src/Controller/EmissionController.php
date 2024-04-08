@@ -8,12 +8,15 @@ use App\Entity\Participant;
 use App\Form\EmissionType;
 use App\Form\ParticipantType;
 use App\Repository\EmissionRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 #[Route('/emission')]
 class EmissionController extends AbstractController
@@ -50,32 +53,33 @@ class EmissionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            dd($form->get('IMG')->getData());            
             // recup l'img
             $img = $form->get('IMG')->getData();
 
             // si l'img
             if ($img) {
-                $newFilename = $emission->getNom() . '.png';
-
+                $imageFileName = $emission->getNom() . '.png';
+                //$imageFileName = "";
+                                
                 try {
 
                     // dl l'img
                     $img->move(
                         $this->emissionDir . '/',
-                        $newFilename
+                        $imageFileName
                     );
                 } catch (FileException $e) {
                     dump($e);
                 }
 
-                $emission->setIMG($newFilename);
+                $emission->setIMG($imageFileName);
 
                 $entityManager->persist($emission);
                 $entityManager->flush();
-
+                }
             // sinon, pas d'img
-            } else {
+             else {
 
                 // set le default
                 $emission->setIMG('default.png');
@@ -92,6 +96,7 @@ class EmissionController extends AbstractController
 
             return $this->redirectToRoute('app_creation', [], Response::HTTP_SEE_OTHER);
         }
+    
        
         
         return $this->renderForm('emission/new.html.twig', [
@@ -144,10 +149,10 @@ class EmissionController extends AbstractController
     }
 
     #[Route('/{ID}/edit', name: 'app_emission_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Emission $emission, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $oldName = $emission->getNom();
-
+        dd($emission->getIMG());
         // Creer le form avec un param
         $form = $this->createForm(EmissionType::class, $emission, [
             'dir' => $this->emissionDir
@@ -158,7 +163,7 @@ class EmissionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             // set les noms des folders
             $oldFolder = $this->audioDir ."/". $oldName;
             $newFolder = $this->audioDir ."/". $emission->getNom();
@@ -173,23 +178,33 @@ class EmissionController extends AbstractController
             
             // si img
             if ($imgFile) {
+                $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
                 
-                $newFilename = $emission->getNom() . '.png';
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
+
+                //$newFilename = $emission->getNom() . '.png';
                 
                 try {
                     
                     // dl l'img
-                    $imgFile->move($this->emissionDir."/", $newFilename);
-                    $emission->setIMG($newFilename);
+                    $imgFile->move(
+                        $this->getParameter('image_dir'),
+                        $newFilename
+                    );
+                    //$imgFile->move($this->emissionDir."/", $newFilename);
+                    //$emission->setIMG($newFilename);
                     
                     // delete l'ancienne
-                    $oldFilename = $this->emissionDir . '/' . $oldName . '.png';
-                    if (file_exists($oldFilename)) {
-                        unlink($oldFilename);
-                    }
+                    // $oldFilename = $this->emissionDir . '/' . $oldName . '.png';
+                    // if (file_exists($oldFilename)) {
+                    //     unlink($oldFilename);
+                    // }
                 } catch (FileException $e) {
                     $this->addFlash('error', 'Erreur lors du déplacement de l\'image.');
                 }
+                $emission->setIMG($newFilename);
 
             // si pas img
             } else {

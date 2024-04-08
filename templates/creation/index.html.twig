@@ -95,42 +95,44 @@
 
 	<div style="height: 5vh;"></div>
 
-	<h1 class="display-full">Equipe</h1>
-	<table id="tableMembre" class="table">
-		<thead>
-			<tr>
-				<th>PRENOM</th>
-				<th>NOM</th>
-				<th>DESCRIPTION</th>
-				<th>ACTIONS</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for membre in membres %}
-				<tr onclick="show('equipe')">
-					<td>{{ membre.PRENOM }}</td>
-					<td>{{ membre.NOM }}</td>
-					<td>{{ membre.DESCRIPTION }}</td>
-					<td>
-						<a href="{{ path('app_equipe_edit', {'id': membre.ID }) }}">
-							<i class="fa-solid fa-file-pen"></i>
-						</a>
-						<form action="{{ path('app_equipe_delete', {'id': membre.ID}) }}" method="post">
-							<button href="{{ path('app_equipe_delete', {'id': membre.ID}) }}">
-								<i class="fa-solid fa-trash-can"></i>
-							</button>
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ membre.ID) }}">
-						</form>
-					</td>
-				</tr>
-			{% else %}
+	{% if admin %}
+		<h1 class="display-full">Equipe</h1>
+		<table id="tableMembre" class="table">
+			<thead>
 				<tr>
-					<td colspan="7">Pas de membres...</td>
+					<th>PRENOM</th>
+					<th>NOM</th>
+					<th>DESCRIPTION</th>
+					<th>ACTIONS</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<a href="{{ path('app_equipe_new') }}" class="new_membre">NOUVEAU MEMBRE</a>
+			</thead>
+			<tbody>
+				{% for membre in membres %}
+					<tr onclick="show('equipe')">
+						<td>{{ membre.PRENOM }}</td>
+						<td>{{ membre.NOM }}</td>
+						<td>{{ membre.DESCRIPTION }}</td>
+						<td>
+							<a href="{{ path('app_equipe_edit', {'id': membre.ID }) }}">
+								<i class="fa-solid fa-file-pen"></i>
+							</a>
+							<form action="{{ path('app_equipe_delete', {'id': membre.ID}) }}" method="post">
+								<button href="{{ path('app_equipe_delete', {'id': membre.ID}) }}">
+									<i class="fa-solid fa-trash-can"></i>
+								</button>
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ membre.ID) }}">
+							</form>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">Pas de membres...</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="{{ path('app_equipe_new') }}" class="new_membre">NOUVEAU MEMBRE</a>
+	{% endif %}
 
 	<div style="height: 5vh;"></div>
 
@@ -173,37 +175,39 @@
 
 	<div style="height: 5vh;"></div>
 
-	<h1 class="display-full">Compte Webradio</h1>
-	<table id="tableUtilisateur" class="table">
-		<thead>
-			<tr>
-				<th>USERNAME</th>
-				<th>ROLE</th>
-				<th>ACTION</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for utilisateur in utilisateurs %}
-				<tr onclick="">
-					<td>{{ utilisateur.username }}</td>
-					<td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-					<td>
-						<form action="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" method="post">
-							<button href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}">
-								<i class="fa-solid fa-trash-can"></i>
-							</button>
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
-						</form>
-					</td>
-				</tr>
-			{% else %}
+	{% if admin %}
+		<h1 class="display-full">Compte Webradio</h1>
+		<table id="tableUtilisateur" class="table">
+			<thead>
 				<tr>
-					<td colspan="7">Pas d'utilisateur...</td>
+					<th>USERNAME</th>
+					<th>ROLE</th>
+					<th>ACTION</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<a href="{{ path('app_register') }}" class="new_membre">NOUVEAU UTILISATEUR</a>
+			</thead>
+			<tbody>
+				{% for utilisateur in utilisateurs %}
+					<tr onclick="">
+						<td>{{ utilisateur.username }}</td>
+						<td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+						<td>
+							<form action="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" method="post">
+								<button href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}">
+									<i class="fa-solid fa-trash-can"></i>
+								</button>
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+							</form>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">Pas d'utilisateur...</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="{{ path('app_register') }}" class="new_membre">NOUVEL UTILISATEUR</a>
+	{% endif %}
 </div>
 
 <div style="height: 5vh;"></div>
