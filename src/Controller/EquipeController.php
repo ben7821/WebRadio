@@ -12,9 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+///////////////////////////////////////////////
+// EquipeController
+// Gestion de l'equipe
+///////////////////////////////////////////////
 #[Route('/equipe')]
 class EquipeController extends AbstractController
 {
+
+    /// Chemin du dossier des equipes
     private string $equipeDir;
 
     // Recuperer le chemin depuis services.yaml
@@ -23,6 +29,10 @@ class EquipeController extends AbstractController
         $this->equipeDir = $equipeDir;
     }
 
+    /// ------------------------------------------
+    /// index
+    /// Affiche la page d'accueil de l'equipe
+    /// ------------------------------------------
     #[Route('/', name: 'app_equipe_index', methods: ['GET'])]
     public function index(): Response
     {
@@ -31,6 +41,10 @@ class EquipeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// getAllMembres
+    /// Recupere tous les membres de l'equipe
+    /// ------------------------------------------
     #[Route('/membres', name: 'app_membres_index')]
     public function getAllMembres(EntityManagerInterface $entityManager): Response
     {
@@ -40,6 +54,10 @@ class EquipeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// renderLycee
+    /// Affiche la page du lycee
+    /// ------------------------------------------
     #[Route('/lycee', name: 'app_lycee_index')]
     public function renderLycee(EntityManagerInterface $entityManager)
     {
@@ -48,6 +66,10 @@ class EquipeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// new
+    /// Affiche la page de l'equipe
+    /// ------------------------------------------
     #[Route('/new', name: 'app_equipe_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -98,6 +120,10 @@ class EquipeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// show
+    /// Affiche la page d'un membre de l'equipe
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_equipe_show', methods: ['GET'])]
     public function show(Equipe $equipe): Response
     {
@@ -106,6 +132,10 @@ class EquipeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// edit
+    /// Affiche la page d'edition d'un membre de l'equipe
+    /// ------------------------------------------
     #[Route('/{id}/edit', name: 'app_equipe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {
@@ -162,6 +192,10 @@ class EquipeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// delete
+    /// Supprime un membre de l'equipe
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_equipe_delete', methods: ['POST'])]
     public function delete(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {

@@ -8,7 +8,6 @@ use App\Entity\Participant;
 use App\Form\EmissionType;
 use App\Form\ParticipantType;
 use App\Repository\EmissionRepository;
-use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-
+///////////////////////////////////////////////
+// EmissionController
+// Gere les emissions
+///////////////////////////////////////////////
 #[Route('/emission')]
 class EmissionController extends AbstractController
 {
+
+    /// Chemin des dossiers des emissions
     private $emissionDir;
+
+    /// Chemin des dossiers des audios
     private $audioDir;
 
     // Set les chemin depuis services.yaml
@@ -31,6 +37,10 @@ class EmissionController extends AbstractController
         $this->audioDir = $audioDir;
     }
 
+    /// ------------------------------------------
+    /// index
+    /// Affiche toutes les emissions
+    /// ------------------------------------------
     #[Route('/', name: 'app_emission_index', methods: ['GET'])]
     public function index(EmissionRepository $emissionRepository): Response
     {
@@ -39,6 +49,10 @@ class EmissionController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// new
+    /// Creer une nouvelle emission
+    /// ------------------------------------------
     #[Route('/new', name: 'app_emission_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -53,14 +67,13 @@ class EmissionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->get('IMG')->getData());            
+
             // recup l'img
             $img = $form->get('IMG')->getData();
 
             // si l'img
             if ($img) {
                 $imageFileName = $emission->getNom() . '.png';
-                //$imageFileName = "";
                                 
                 try {
 
@@ -105,6 +118,10 @@ class EmissionController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// show
+    /// Affiche une emission
+    /// ------------------------------------------
     #[Route('/{NOM}', name: 'app_emission_show', methods: ['GET', 'POST'])]
     public function show(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {
@@ -148,11 +165,15 @@ class EmissionController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// edit
+    /// Edite une emission
+    /// ------------------------------------------
     #[Route('/{ID}/edit', name: 'app_emission_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Emission $emission, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $oldName = $emission->getNom();
-        dd($emission->getIMG());
+
         // Creer le form avec un param
         $form = $this->createForm(EmissionType::class, $emission, [
             'dir' => $this->emissionDir
@@ -160,6 +181,7 @@ class EmissionController extends AbstractController
 
         $form->handleRequest($request);
 
+        // check si admin
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -178,23 +200,23 @@ class EmissionController extends AbstractController
             
             // si img
             if ($imgFile) {
-                $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // $originalFilename = pathinfo($imgFile->getIMG(), PATHINFO_FILENAME);
                 
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
+                // // this is needed to safely include the file name as part of the URL
+                // $safeFilename = $slugger->slug($originalFilename);
+                // $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
 
-                //$newFilename = $emission->getNom() . '.png';
+                $newFilename = $emission->getNom() . '.png';
                 
                 try {
                     
                     // dl l'img
-                    $imgFile->move(
-                        $this->getParameter('image_dir'),
-                        $newFilename
-                    );
-                    //$imgFile->move($this->emissionDir."/", $newFilename);
-                    //$emission->setIMG($newFilename);
+                    // $imgFile->move(
+                    //     $this->getParameter('image_dir'),
+                    //     $newFilename
+                    // );
+                    $imgFile->move($this->emissionDir."/", $newFilename);
+                    $emission->setIMG($newFilename);
                     
                     // delete l'ancienne
                     // $oldFilename = $this->emissionDir . '/' . $oldName . '.png';
@@ -204,7 +226,7 @@ class EmissionController extends AbstractController
                 } catch (FileException $e) {
                     $this->addFlash('error', 'Erreur lors du déplacement de l\'image.');
                 }
-                $emission->setIMG($newFilename);
+                //$emission->setIMG($newFilename);
 
             // si pas img
             } else {
@@ -224,6 +246,10 @@ class EmissionController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// delete
+    /// Supprime une emission
+    /// ------------------------------------------
     #[Route('/{ID}/delete', name: 'app_emission_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Emission $emission, EntityManagerInterface $entityManager): Response
     {

@@ -53,9 +53,9 @@ class EmissionType extends AbstractType
                 ]
             );
 
-        //$this->transformer->setDirectory($options["dir"]);
+        $this->transformer->setDirectory($options["dir"]);
 
-        //$builder->get('IMG')->addModelTransformer($this->transformer);
+        $builder->get('IMG')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

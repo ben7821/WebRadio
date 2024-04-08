@@ -16,19 +16,27 @@ use App\Entity\Participant;
 use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+///////////////////////////////////////////////
+// CreationController
+// Affiche la page de creation
+///////////////////////////////////////////////
 class CreationController extends AbstractController
 {
+    /// ------------------------------------------
+    /// index
+    /// Affiche la page de creation
+    /// ------------------------------------------
     #[Route('/admin/creation', name: 'app_creation')]
     public function index(EntityManagerInterface $em): Response
     {
-        //dd($this->getUser()->getRoles());
-
         // recup toute les datas a gerer
 
         $emission = $em->getRepository(Emission::class)->findAll();
         $audio = $em->getRepository(Audio::class)->findAll();
         $inscription = $em->getRepository(Inscription::class)->findAll();
 
+
+        // si l'utilisateur est admin on recup les autres datas
         if ($this->getUser()->getRoles()[0] == "ROLE_ADMIN") {
 
 
@@ -49,6 +57,7 @@ class CreationController extends AbstractController
             ]);
         }
 
+        // sinon on affiche juste les emissions, audios et inscriptions
         return $this->render('creation/index.html.twig', [
             'controller_name' => 'CreationController',
             'emissions' => $emission,

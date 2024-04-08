@@ -11,12 +11,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+///////////////////////////////////////////////
+// AudioController
+// Gestion des fichiers audio
+///////////////////////////////////////////////
 #[Route('/audio')]
 class AudioController extends AbstractController
 {
+
+    /// Chemin du dossier audio
     private $audioDir;
 
     // set le chemin du dossier audio recup depuis services.yaml
@@ -25,34 +30,48 @@ class AudioController extends AbstractController
         $this->audioDir = $audioDir;
     }
 
+    /// ------------------------------------------
+    /// index
+    /// Affiche tous les fichiers audio
+    /// ------------------------------------------
     #[Route('/', name: 'app_audio_index', methods: ['GET'])]
     public function index(AudioRepository $audioRepository): Response
     {
+        // Affiche tous les fichiers audio dans la vue audio/index.html.twig
         return $this->render('audio/index.html.twig', [
             'audio' => $audioRepository->findAll(),
         ]);
     }
 
+    /// ------------------------------------------
+    /// new
+    /// Ajoute un nouveau fichier audio
+    /// ------------------------------------------
     #[Route('/new', name: 'app_audio_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $audio = new Audio();
 
-        // Creer le form avec un param
+        // Création du formulaire pour ajouter un nouvel audio avec le paramètre dir
         $form = $this->createForm(AudioType::class, $audio, [
             'dir' => $this->audioDir
         ]);
 
         $form->handleRequest($request);
 
+        // Vérifie si l'utilisateur a le rôle ROLE_ADMIN, sinon lui interdit l'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        // Récupère l'identifiant de l'émission depuis la requête
         $emissionId = $request->query->get('emission');
 
-        // si il y a une emission
+        // Si un identifiant d'émission est spécifié
         if ($emissionId) {
 
+            // Récupère l'objet Emission correspondant à l'identifiant
             $emission = $entityManager->getRepository(Emission::class)->find($emissionId);
+
+            // Définit l'émission dans le formulaire
             $form->get('IDEMISSION')->setData($emission);
         }
 
@@ -78,6 +97,7 @@ class AudioController extends AbstractController
                 }
             }
 
+            // Définit le chemin du fichier audio dans l'entité Audio
             $audio->setAUDIO($audio->getIDEMISSION()->getNOM() . '/' . $newFilename);
 
             $entityManager->persist($audio);
@@ -92,6 +112,10 @@ class AudioController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// show
+    /// Affiche un fichier audio
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_audio_show', methods: ['GET'])]
     public function show(Audio $audio): Response
     {
@@ -100,6 +124,10 @@ class AudioController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// edit
+    /// Modifie un fichier audio
+    /// ------------------------------------------
     #[Route('/{id}/edit', name: 'app_audio_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Audio $audio, EntityManagerInterface $entityManager): Response
     {
@@ -118,12 +146,14 @@ class AudioController extends AbstractController
 
             // Recuperer le nouveau nom du fichier
             $newAudio = $audio->getNOM();
+            
 
             // creer la dir avec le nom de l'emission
             $dir = $this->audioDir . '/' . $audio->getIDEMISSION()->getNOM() . '/';
 
             // recup le fichier audio
             $audiof = $form->get('AUDIO')->getData();
+            
 
             // si fichier
             if ($audiof) {
@@ -138,9 +168,9 @@ class AudioController extends AbstractController
                     );
 
                     // et supprimer l'ancien audio
-                    if (file_exists($dir . $oldAudio . '.wav')) {
-                        unlink($dir . $oldAudio . '.wav');
-                    }
+                    // if (file_exists($dir . $oldAudio . '.wav')) {
+                    //     unlink($dir . $oldAudio . '.wav');
+                    // }
                 } catch (FileException $e) {
                     dump($e);
                 }
@@ -164,6 +194,10 @@ class AudioController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// delete
+    /// Supprime un fichier audio
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_audio_delete', methods: ['POST'])]
     public function delete(Request $request, Audio $audio, EntityManagerInterface $entityManager): Response
     {

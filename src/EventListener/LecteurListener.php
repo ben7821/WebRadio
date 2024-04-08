@@ -7,8 +7,14 @@ use App\Entity\Emission;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
+///////////////////////////////////////////////
+/// LecteurListener
+/// Récupère les données des émissions et des audios
+///////////////////////////////////////////////
 class LecteurListener 
 {
+
+    /// l'entity manager
     private $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -16,6 +22,11 @@ class LecteurListener
         $this->em = $em;
     }
 
+
+    /// ------------------------------------------
+    /// onKernelController
+    /// Récupère les données des émissions et des audios et les envoie à la vue
+    /// ------------------------------------------
     public function onKernelController(ControllerEvent $event)
     {
         $controller = $event->getController();

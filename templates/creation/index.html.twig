@@ -191,6 +191,9 @@
 						<td>{{ utilisateur.username }}</td>
 						<td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
 						<td>
+							<a href="{{ path('app_utilisateur_update', {'id': utilisateur.id }) }}">
+								<i class="fa-solid fa-key"></i>
+							</a>
 							<form action="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" method="post">
 								<button href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}">
 									<i class="fa-solid fa-trash-can"></i>

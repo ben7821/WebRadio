@@ -2,36 +2,33 @@
 
 {% block title %}Modifier le mot de passe
 {% endblock %}
-
 {% block body %}
-	<div class="mdp">
-		<h1 class="display-full">Modifier le mot de passe</h1>
 
-		{{ form_errors(registrationForm) }}
+<h1 class="display-full">Modifier le mot de passe</h1>
+{{ form_start(form, {'attr': {'id': 'formentity'}}) }}
+    {{ form_errors(form) }}
+    {# {% if not admin %}
+        <div>
+            {{ form_label(form.password, 'Mot de passe actuel') }}
+            {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.password) }}
+        </div>
+    {% endif %} #}
 
-		{{ form_start(registrationForm) }}
-		<div class="register-username">
-			{{ form_row(registrationForm.username, { 'label': "Nom de l'utilisateur", 'attr': {'class': 'form-control'} }) }}
-		</div>
+    {# <div>
+        {{ form_label(form.newPassword.first, 'Nouveau mot de passe') }}
+        {{ form_widget(form.newPassword.first, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.newPassword.first) }}
+    </div> #}
 
-		<div class="register-password">
-			{{ form_row(registrationForm.password, {
-                    'label': 'Mot de passe',
-                    'attr': {'class': 'form-control'}
-                }) }}
-		</div>
+    {# <div>
+        {{ form_label(form.newPassword.second, 'Confirmer le mot de passe') }}
+        {{ form_widget(form.newPassword.second, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.newPassword.second) }}
+    </div> #}
 
-		<div class="register-role">
-			{{ form_row(registrationForm.roles|join(','), { 'label': "Rôle de l'utilisateur", 'attr': {'class': 'form-control'} }) }}
-		</div>
-
-
-		<div class="register-terms">
-			{{ form_row(registrationForm.agreeTerms, { 'label': "Accepter les conditions d'utilisation :", 'attr': {'class': 'form-check-input'} }) }}
-		</div>
-
-		<button type="submit" class="register-btn">S'enregistrer</button>
-		{{ form_end(registrationForm) }}
-	</div>
-		<a href="{{ path('app_creation') }}" class="backlink">Revenir au menu</a>
+    {{ form_widget(form) }}
+    <button class="btn">Valider</button>
+    {# <button type="submit" class="btn">Valider</button> #}
+{{ form_end(form) }}
 {% endblock %}

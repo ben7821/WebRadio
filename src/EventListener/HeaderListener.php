@@ -6,9 +6,14 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Emission;
 
+///////////////////////////////////////////////
+/// HeaderListener
+/// Récupère les émissions pour les afficher dans le header
+///////////////////////////////////////////////
 class HeaderListener
 {
 
+    /// l'entity manager
     private $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -16,6 +21,10 @@ class HeaderListener
         $this->em = $em;
     }
 
+    /// ------------------------------------------
+    /// onKernelController
+    /// Récupère les émissions pour les afficher dans le header
+    /// ------------------------------------------
     public function onKernelController(ControllerEvent $e) {
         $cont = $e->getController();
 

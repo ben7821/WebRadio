@@ -43,6 +43,7 @@
 				<p class="text"><i class="fas {{ role }}" style="margin-right:10px"></i>{{ app.user.username }}</p>
 				<a href="{{ path('app_logout') }}" class="loginbtn logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
 				<a href="{{ path('app_creation') }}" class="loginbtn"><i class="fa-solid fa-user-pen"></i></a>
+				<a href="{{ path('app_utilisateur_update', { 'id': app.user.id }) }}" class="loginbtn"><i class="fa-solid fa-key"></i></a>
 			</div>
 		{% else %}
 			<div class="adminarea">

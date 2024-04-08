@@ -15,9 +15,18 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use App\Form\ChangePasswordType;
 
+///////////////////////////////////////////////
+/// UtilisateurController
+/// Gestion des utilisateurs
+///////////////////////////////////////////////
 #[Route('/admin/utilisateur')]
 class UtilisateurController extends AbstractController
 {
+
+    /// ------------------------------------------
+    /// register
+    /// Création d'un utilisateur
+    /// ------------------------------------------
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
@@ -57,19 +66,37 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// update
+    /// Mise à jour d'un utilisateur (mot de passe)
+    /// ------------------------------------------
     #[Route('/update/{id}', name: 'app_utilisateur_update', methods: ['GET', 'POST'])]
-    public function update(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
+    public function update(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(ChangePasswordType::class, $utilisateur);
+        $form = $this->createForm(ChangePasswordType::class, $utilisateur, ['admin' => $this->isGranted('ROLE_ADMIN')]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userData = $form->getData();
 
-            // recup les roles
-            $roles = $request->request->all("utilisateur")['roles'];
+            // recup les password
+            $news = $request->request->all("change_password");
 
-            $utilisateur->setRoles([$roles]);
+            // si le password actuel est bon
+            if ($passwordEncoder->isPasswordValid($utilisateur, $news['password'])) {
+
+                // si les 2 nouveaux password sont identiques
+                if ($news['newPassword']['first'] === $news['newPassword']['second']) {
+
+                    // hash le nouveau password
+                    $utilisateur->setPassword(
+                        $passwordEncoder->hashPassword(
+                            $utilisateur,
+                            $news['newPassword']['first']
+                        )
+                    );
+                }
+            }
 
             $entityManager->persist($utilisateur);
             $entityManager->flush();
@@ -78,15 +105,19 @@ class UtilisateurController extends AbstractController
         }
 
         return $this->render('utilisateur/update.html.twig', [
-            'utilisateur' => $utilisateur,
-            'registrationForm' => $form->createView(),
+            'form' => $form->createView(),
+            'admin' => true,
         ]);
     }
 
+    /// ------------------------------------------
+    /// delete
+    /// Suppression d'un utilisateur
+    /// ------------------------------------------
     #[Route('/delete/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
     public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $utilisateur->getId(), $request->request->get('_token'))) {
             $entityManager->remove($utilisateur);
             $entityManager->flush();
         }
