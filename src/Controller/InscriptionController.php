@@ -14,9 +14,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use Syfony\Controller\Participant;
 use App\Controller\Collection;
 
+
+///////////////////////////////////////////////
+/// InscriptionController
+/// Gestion des inscriptions aux émissions
+///////////////////////////////////////////////
 #[Route('/inscription')]
 class InscriptionController extends AbstractController
 {
+
+    /// ------------------------------------------
+    /// index
+    /// Affiche la liste des inscriptions
+    /// ------------------------------------------
     #[Route('/', name: 'app_inscription_index', methods: ['GET'])]
     public function index(InscriptionRepository $inscriptionRepository): Response
     {
@@ -25,6 +35,10 @@ class InscriptionController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// new
+    /// Création d'une nouvelle inscription
+    /// ------------------------------------------
     #[Route('/new', name: 'app_inscription_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -46,9 +60,15 @@ class InscriptionController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// show
+    /// Affiche une inscription
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_inscription_show', methods: ['GET'])]
     public function show(Inscription $inscription, EntityManagerInterface $entityManager): Response
     {
+
+        // Récupération des participants de l'inscription et de l'émission
         $participants = $inscription->getPARTICIPANT();
         $emission = $inscription->getEMS();
 
@@ -59,7 +79,10 @@ class InscriptionController extends AbstractController
         ]);
     }
 
-
+    /// ------------------------------------------
+    /// edit
+    /// Edition d'une inscription
+    /// ------------------------------------------
     #[Route('/{id}/edit', name: 'app_inscription_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Inscription $inscription, EntityManagerInterface $entityManager): Response
     {
@@ -78,6 +101,10 @@ class InscriptionController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// delete
+    /// Suppression d'une inscription
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_inscription_delete', methods: ['POST'])]
     public function delete(Request $request, Inscription $inscription, EntityManagerInterface $entityManager): Response
     {

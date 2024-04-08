@@ -8,9 +8,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Emission;
 
+///////////////////////////////////////////////
+/// LayoutController
+/// Affiche le layout de l'application
+///////////////////////////////////////////////
 class LayoutController extends AbstractController
 {
 
+    /// ------------------------------------------
+    /// index
+    /// Affiche le layout de l'application avec les emissions et les audios
+    /// ------------------------------------------
     #[Route('/layout', name: 'app_layout')]
     public function index(EntityManagerInterface $em): Response
     {

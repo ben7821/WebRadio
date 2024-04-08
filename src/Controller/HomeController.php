@@ -10,8 +10,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Article;
 use App\Entity\Emission;
 
+///////////////////////////////////////////////
+/// Home Controller
+/// Gestion de la page d'accueil du site
+///////////////////////////////////////////////
 class HomeController extends AbstractController
 {
+
+    /// ------------------------------------------
+    /// index
+    /// Affichage de la page d'accueil
+    /// ------------------------------------------
     #[Route('/home', name: 'app_home')]
     public function index(EntityManagerInterface $em): Response
     {
@@ -25,6 +34,10 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// renderplan
+    /// Affichage de la page plan du site
+    /// ------------------------------------------
     #[Route('/plan_site', name: 'app_plan_site')]
     public function renderplan(): Response
     {
@@ -33,6 +46,10 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// rendercontact
+    /// Affichage de la page contact du site
+    /// ------------------------------------------
     #[Route('/contact', name: 'app_contact')]
     public function rendercontact(): Response
     {
@@ -41,6 +58,10 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// renderlegal
+    /// Affichage de la page legal du site
+    /// ------------------------------------------
     #[Route('/legal', name: 'app_legal')]
     public function renderlegal(): Response
     {

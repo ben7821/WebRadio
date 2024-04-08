@@ -11,8 +11,17 @@ use Symfony\Component\Mime\Email;
 use App\Form\EmailFormType;
 
 
+///////////////////////////////////////////////
+/// EmailController
+/// Contrôleur pour la page de contact
+///////////////////////////////////////////////
 class EmailController extends AbstractController
 {
+
+    /// ------------------------------------------
+    /// sendEmail
+    /// Envoie un e-mail à l'administrateur
+    /// ------------------------------------------
     #[Route('/admin/mail', name: 'app_mail')]
     public function sendEmail(Request $request, MailerInterface $mailer): Response
     {
@@ -29,6 +38,7 @@ class EmailController extends AbstractController
                 $data['email'],
                 $data['message']
             );
+            
             // Envoyer l'e-mail
             $email = (new Email())
                 ->from($data['email'])

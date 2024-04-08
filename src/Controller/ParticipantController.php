@@ -13,9 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+///////////////////////////////////////////////
+/// ParticipantController
+/// Gestion des participants d'une inscription
+///////////////////////////////////////////////
 #[Route('/participant')]
 class ParticipantController extends AbstractController
 {
+
+    /// ------------------------------------------
+    /// index
+    /// Affiche la liste des participants
+    /// ------------------------------------------
     #[Route('/', name: 'app_participant_index', methods: ['GET'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
@@ -24,6 +33,10 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// new
+    /// Ajoute un participant
+    /// ------------------------------------------
     #[Route('/new', name: 'app_participant_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -46,6 +59,10 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// show
+    /// Affiche un participant
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_participant_show', methods: ['GET'])]
     public function show(Participant $participant): Response
     {
@@ -54,6 +71,10 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// edit
+    /// Modifie un participant
+    /// ------------------------------------------
     #[Route('/{id}/edit', name: 'app_participant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
     {
@@ -72,6 +93,10 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    /// ------------------------------------------
+    /// delete
+    /// Supprime un participant
+    /// ------------------------------------------
     #[Route('/{id}', name: 'app_participant_delete', methods: ['POST'])]
     public function delete(Request $request, Participant $participant, EntityManagerInterface $entityManager): Response
     {
