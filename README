@@ -10,7 +10,7 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 
 - Configurer la Vlan
 - Configurer le SGBD
-- Importer la Basse de donnée
+- Importer la Base de donnée
 - Importer avec Git ( git clone https://github.com/ben7821/WebRadio.git)
 - Dans le dossier du projet taper la commande :
   "yarn encore dev-server"
@@ -25,8 +25,8 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 
 ## **Vlan active (si impot VM) :**
 
-192.000.000.000:70001 = SGD (adminer)
-192.000.000.000:70004 = Webradio
+192.000.000.000:7001 = SGD (adminer)
+192.000.000.000:7004 = Webradio
 ....
 
 ## **Environnement technique**
@@ -50,7 +50,7 @@ Ceci est le github du projet WebRadio du lycée Guy Chauvet pour la web radio du
 
 - nodejs
 
-**COMPOSER PACKGE**
+**COMPOSER PACKAGE**
 
 - apache-pack
 - annotations
@@ -102,6 +102,6 @@ Adresse mail : gr-sts1-slam@lycee-guychauvet.fr
 
 Etape pour finit la webradio :
 
-- le modul CRUD (emisison, audio ..) pour pouvoir Update les image + autre petit bug.
+- le module CRUD (emisison, audio ..) pour pouvoir Update les images + autre petits bugs.
 
 ....
